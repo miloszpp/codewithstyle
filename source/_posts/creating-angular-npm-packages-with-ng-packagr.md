@@ -9,7 +9,7 @@ date: 2018-01-25 22:03:28
 tags:
 ---
 
-In this short post, I would like to share some of the experiences I've had when creating an NPM Angular package using `ng-packagr`. ![](https://codewithstyle.info/wp-content/uploads/2018/01/Change-detection-in-AngularJS-vs-Angular-—-kopia-—-kopia.png)
+In this short post, I would like to share some of the experiences I've had when creating an NPM Angular package using `ng-packagr`. ![](/images/2018/01/Change-detection-in-AngularJS-vs-Angular-—-kopia-—-kopia.png)
 
 Angular Package Format and `ng-packagr`
 ---------------------------------------

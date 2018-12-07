@@ -9,7 +9,7 @@ date: 2017-09-24 15:47:53
 tags:
 ---
 
-Let's talk about RxJS - another concept that has recently established itself as an important part of modern JavaScript. In JavaScript applications you sometimes have to deal with streams of asynchronous events. For example, events could be produced by the user (button clicks, key presses) or pushed by a backend server (via web sockets or some other mechanism). ![](https://codewithstyle.info/wp-content/uploads/2017/09/rxjs-300x300.png) Given that applications are becoming more and more complex, it might become tricky to manage these streams in a traditional way (with callbacks). **Reactive programming** is a programming paradigm in which streams of data are central and therefore it's much easier to work with them. [**RxJS**](https://github.com/Reactive-Extensions/RxJS) is a **functional reactive programming** library. It means that it leverages functional techniques to facilitate dealing with event streams. In simple words, it lets you use the same [operations that you learned to perform on arrays](https://codewithstyle.info/functional-javascript-part-2-array-operations/) on event streams. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
+Let's talk about RxJS - another concept that has recently established itself as an important part of modern JavaScript. In JavaScript applications you sometimes have to deal with streams of asynchronous events. For example, events could be produced by the user (button clicks, key presses) or pushed by a backend server (via web sockets or some other mechanism). ![](/images/2017/09/rxjs-300x300.png) Given that applications are becoming more and more complex, it might become tricky to manage these streams in a traditional way (with callbacks). **Reactive programming** is a programming paradigm in which streams of data are central and therefore it's much easier to work with them. [**RxJS**](https://github.com/Reactive-Extensions/RxJS) is a **functional reactive programming** library. It means that it leverages functional techniques to facilitate dealing with event streams. In simple words, it lets you use the same [operations that you learned to perform on arrays](https://codewithstyle.info/functional-javascript-part-2-array-operations/) on event streams. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
 
 ### Creating observables from events
 
@@ -33,7 +33,7 @@ keyStream
   .filter(e => e.key === e.key.toUpperCase())
   .subscribe(e => console.log("Capital key pressed: ", e.key));
 
-Calling filter  on an observable creates a new observable which will only emit events that satisfy the predicate. In the above example we're only passing on key presses if they are capital letters. ![](https://codewithstyle.info/wp-content/uploads/2017/09/filter.png "filter") Other array operations that you've learned such as map  or reduce  can also be applied to observables.
+Calling filter  on an observable creates a new observable which will only emit events that satisfy the predicate. In the above example we're only passing on key presses if they are capital letters. ![](/images/2017/09/filter.png "filter") Other array operations that you've learned such as map  or reduce  can also be applied to observables.
 
 ### Combining observables
 
@@ -56,7 +56,7 @@ keyStream
   .flatMap(e => Rx.Observable.fromPromise(fetch("https://jsonplaceholder.typicode.com/posts?search=" + e.key)))
   .subscribe(data => console.log(data));
 
-flatMap  takes a stream and a function mapping each event to another observable. Then it combines all of the resulting observables into a single one. ![](https://codewithstyle.info/wp-content/uploads/2017/09/flatMap.png "flatMap") flatMap  is an extremely important operation in the world of functional programming. It is a very high-level abstraction which allows you to combine structures. For example, there is a variant of flatMap  for array operations in the [lodash](https://lodash.com/docs/4.17.4#flatMap) library. Its purpose is to take an array of arrays and combine the nested arrays into a single array. Can you see the pattern emerging?
+flatMap  takes a stream and a function mapping each event to another observable. Then it combines all of the resulting observables into a single one. ![](/images/2017/09/flatMap.png "flatMap") flatMap  is an extremely important operation in the world of functional programming. It is a very high-level abstraction which allows you to combine structures. For example, there is a variant of flatMap  for array operations in the [lodash](https://lodash.com/docs/4.17.4#flatMap) library. Its purpose is to take an array of arrays and combine the nested arrays into a single array. Can you see the pattern emerging?
 
 ### Other non-functional operators
 

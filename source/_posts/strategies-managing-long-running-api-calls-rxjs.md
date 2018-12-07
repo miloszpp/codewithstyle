@@ -148,15 +148,15 @@ Finally, we’ll combine all of the streams in queries with the `timeoutElapsed$
 
 Below you can find marble diagrams demonstrating this approach based on two concurrent queries. 
 
-![](https://codewithstyle.info/wp-content/uploads/2018/11/Example-1_-1.png)
+![](/images/2018/11/Example-1_-1.png)
 
 Example 1: one query finishes before timeout elapses
 
-![](https://codewithstyle.info/wp-content/uploads/2018/11/Example_2.png)
+![](/images/2018/11/Example_2.png)
 
 Example 2: both queries finish before timer elapses
 
-![](https://codewithstyle.info/wp-content/uploads/2018/11/Example_3.png)
+![](/images/2018/11/Example_3.png)
 
 Example 3: neither query finishes before timeout elapses
 

@@ -79,7 +79,7 @@ I bet you're expecting the functional version to be much simpler - and it is. Ye
 
 var productsByCategory = _.groupBy(products, product => product.category);
 
-The function takes an array and a function which determines how to group the elements of that array. The grouping functions is evaluated for each element. Those elements for which the same value is returned are packed into separate groups. Finally, an object is returned with keys equal to unique values returned by the grouping function applied on all of the elements. ![](https://codewithstyle.info/wp-content/uploads/2017/08/drawit-diagram.png "drawit diagram") The grouping function does not have to be a simple property selector - we can put any sort of expression in it. For example, it's trivial to split products into groups based on the length of their names:
+The function takes an array and a function which determines how to group the elements of that array. The grouping functions is evaluated for each element. Those elements for which the same value is returned are packed into separate groups. Finally, an object is returned with keys equal to unique values returned by the grouping function applied on all of the elements. ![](/images/2017/08/drawit-diagram.png "drawit diagram") The grouping function does not have to be a simple property selector - we can put any sort of expression in it. For example, it's trivial to split products into groups based on the length of their names:
 
 var productsByNameLength = _.groupBy(products, product => {
   if (product.name.length < 10) return "short";
@@ -120,7 +120,7 @@ var bigQuantites = _.chain(products)
   .filter(q => q > 10)
   .value();
 
-Here we use the chain  method to wrap our array in a special object that knows about all the lodash methods. Next, we can simply call lodash methods directly on this object. At the end we need to unwrap our array by calling value.![](https://codewithstyle.info/wp-content/uploads/2017/08/lodash-chaining.png "lodash chaining")
+Here we use the chain  method to wrap our array in a special object that knows about all the lodash methods. Next, we can simply call lodash methods directly on this object. At the end we need to unwrap our array by calling value.![](/images/2017/08/lodash-chaining.png "lodash chaining")
 
 ### Summary
 

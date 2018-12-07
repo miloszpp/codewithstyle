@@ -8,7 +8,7 @@ date: 2018-01-17 08:00:13
 tags:
 ---
 
-In the [previous post](https://codewithstyle.info/typescript-discriminated-union-types) I've explained what **discriminated unions** are in the TypeScript language. We'll now look into a classic example of how this concept can be applied to a real-world scenario - building an interpreter. ![](https://codewithstyle.info/wp-content/uploads/2018/01/Precise-domain-modelling-with-discriminated-unions-—-kopia.png)
+In the [previous post](https://codewithstyle.info/typescript-discriminated-union-types) I've explained what **discriminated unions** are in the TypeScript language. We'll now look into a classic example of how this concept can be applied to a real-world scenario - building an interpreter. ![](/images/2018/01/Precise-domain-modelling-with-discriminated-unions-—-kopia.png)
 
 Abstract Syntax Tree
 --------------------
@@ -18,7 +18,7 @@ By _interpreter_ I mean a program that can execute source code of another progra
     -5 * (1 + (3 / 6))
     
 
-When building an interpreter (or a compiler) you need to build some data structures that represent the source code. These data structures form something called **Abstract Syntax Tree** (AST). It's a tree-like structure because the source code usually involves lots of nesting. The AST of our example algebraic expression would look like this: ![](https://codewithstyle.info/wp-content/uploads/2018/01/AST.png) You can see that the tree structure corresponds to the order in which mathematical operations are applied. For example, `3 / 6` should be calculated first and that's why it's low in the tree. The multiplication will be evaluated at the very end and hence it's the tree's root. Discriminated unions are perfect for representing such a tree. Our AST has different kinds of nodes:
+When building an interpreter (or a compiler) you need to build some data structures that represent the source code. These data structures form something called **Abstract Syntax Tree** (AST). It's a tree-like structure because the source code usually involves lots of nesting. The AST of our example algebraic expression would look like this: ![](/images/2018/01/AST.png) You can see that the tree structure corresponds to the order in which mathematical operations are applied. For example, `3 / 6` should be calculated first and that's why it's low in the tree. The multiplication will be evaluated at the very end and hence it's the tree's root. Discriminated unions are perfect for representing such a tree. Our AST has different kinds of nodes:
 
 *   binary operators - addition, subtraction, multiplication and division
 *   unary operators - negation

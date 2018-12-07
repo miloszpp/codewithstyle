@@ -11,7 +11,7 @@ tags:
 icon: fas fa-pen
 ---
 
-Yesterday I realised it's been some time since I've started blogging. Actually, it's been over 30 months! I've decided it's a good opportunity to share some numbers and my thoughts on blogging in general. I hope fellow IT bloggers will find my story useful. If you're not interested in the details but just want to **get inspired**, feel free to jump to the last part of the article! ![](https://codewithstyle.info/wp-content/uploads/2018/07/30-months-of-blogging.png)
+Yesterday I realised it's been some time since I've started blogging. Actually, it's been over 30 months! I've decided it's a good opportunity to share some numbers and my thoughts on blogging in general. I hope fellow IT bloggers will find my story useful. If you're not interested in the details but just want to **get inspired**, feel free to jump to the last part of the article! ![](/images/2018/07/30-months-of-blogging.png)
 
 Numbers
 -------
@@ -33,7 +33,7 @@ The number divided by 30 gives a not-so-bad average of almost 2 posts a month. I
 
 ### All time views
 
-The number of monthly views is increasing steadily which I think is good as it indicates some progress. ![](https://codewithstyle.info/wp-content/uploads/2018/07/blog-monthly-views-1024x192.png) However, I'm not so much interested in quantity as in quality of visits. Google Analytics says over 87% bounce rate and only 52-second average session duration which is not satisfactory to me. I need to think about ways to increase engagement and make readers want to read stay on the blog. **Do you have any ideas?** ![](https://codewithstyle.info/wp-content/uploads/2018/07/top-posts-by-views.png) What's more, most of the traffic comes from Google search and does not hit posts related to functional programming. I decided to make it the main theme of the blog some time ago. Readers hitting posts about Firebase will not likely be interested in exploring the blog any further as the main theme doesn't correspond with what they were looking for. I'm not sure how to address it. The most viewed posts happen to be rather old so they had time to build a good rank in Google search. Maybe the functional programming stuff will also be reached this way in the future.
+The number of monthly views is increasing steadily which I think is good as it indicates some progress. ![](/images/2018/07/blog-monthly-views-1024x192.png) However, I'm not so much interested in quantity as in quality of visits. Google Analytics says over 87% bounce rate and only 52-second average session duration which is not satisfactory to me. I need to think about ways to increase engagement and make readers want to read stay on the blog. **Do you have any ideas?** ![](/images/2018/07/top-posts-by-views.png) What's more, most of the traffic comes from Google search and does not hit posts related to functional programming. I decided to make it the main theme of the blog some time ago. Readers hitting posts about Firebase will not likely be interested in exploring the blog any further as the main theme doesn't correspond with what they were looking for. I'm not sure how to address it. The most viewed posts happen to be rather old so they had time to build a good rank in Google search. Maybe the functional programming stuff will also be reached this way in the future.
 
 ### Newsletter subscribers
 

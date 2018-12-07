@@ -29,7 +29,7 @@ What happened was the following:
 4.  After some time we've had 100 job instances waiting for the first one to finish. Each one has borrowed a database connection from the connection pool.
 5.  In consequence, at some point we were running out of the connections in the pool and the job started to crash.
 
-![](https://codewithstyle.info/wp-content/uploads/2017/10/Hangfire_–_Background_jobs_and_workers_for__NET_and__NET_Core.png)
+![](/images/2017/10/Hangfire_–_Background_jobs_and_workers_for__NET_and__NET_Core.png)
 
 ### Solution(s)
 

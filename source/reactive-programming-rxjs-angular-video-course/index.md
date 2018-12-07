@@ -5,7 +5,7 @@ id: 738
 date: 2018-06-26 19:43:19
 ---
 
-I present to you my free video course about functional-reactive programming in Angular with RxJS! ![](https://codewithstyle.info/wp-content/uploads/2018/03/Reactive-Angular.png) Below you can find the list of available episodes.
+I present to you my free video course about functional-reactive programming in Angular with RxJS! ![](/images/2018/03/Reactive-Angular.png) Below you can find the list of available episodes.
 
 1.  [Introduction](https://www.youtube.com/watch?v=G_GTbcRvxnM&t=304s)
 2.  [AsyncPipe](https://www.youtube.com/watch?v=EIEOvuybdsc&t=12s)

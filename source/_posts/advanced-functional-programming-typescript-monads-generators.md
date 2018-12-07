@@ -9,7 +9,7 @@ date: 2018-03-19 08:00:27
 tags:
 ---
 
-Welcome to the second post in the series. [In the first one](https://codewithstyle.info/advanced-functional-programming-in-typescript-maybe-monad), you had a chance to build your first monad in TypeScript. In this post, you'll see how to take advantage of **generators** to make the monadic code more readable. ![](https://codewithstyle.info/wp-content/uploads/2018/03/Monads-part2.png) **You can find all the code from the series in [this repository](https://github.com/miloszpp/typescript-monads). Check out different branches for code relevant to the specific part of the series.**
+Welcome to the second post in the series. [In the first one](https://codewithstyle.info/advanced-functional-programming-in-typescript-maybe-monad), you had a chance to build your first monad in TypeScript. In this post, you'll see how to take advantage of **generators** to make the monadic code more readable. ![](/images/2018/03/Monads-part2.png) **You can find all the code from the series in [this repository](https://github.com/miloszpp/typescript-monads). Check out different branches for code relevant to the specific part of the series.**
 
 Generator functions
 -------------------
@@ -50,7 +50,7 @@ When we run these lines, we will get the following output:
     Outside of numbers; after the second next
     
 
-As you can see, the execution jumps back and forth between `numbers` and its caller. Each `next` call returns an instance of `IteratorResult` which contains the yielded value and a flag `done` which is set to `false` as long as there is more code to execute inside `numbers`. ![](https://codewithstyle.info/wp-content/uploads/2018/02/Generators.png) Generators are a very powerful mechanism. One of their uses is building lazy, infinite sequences. Another one is co-routines - a concurrency model where two pieces of code can _communicate_ with each other. \[yikes-mailchimp form="1" description="1"\]
+As you can see, the execution jumps back and forth between `numbers` and its caller. Each `next` call returns an instance of `IteratorResult` which contains the yielded value and a flag `done` which is set to `false` as long as there is more code to execute inside `numbers`. ![](/images/2018/02/Generators.png) Generators are a very powerful mechanism. One of their uses is building lazy, infinite sequences. Another one is co-routines - a concurrency model where two pieces of code can _communicate_ with each other. \[yikes-mailchimp form="1" description="1"\]
 
 Maybe implemented with generators
 ---------------------------------

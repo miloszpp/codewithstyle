@@ -9,7 +9,7 @@ date: 2018-01-08 08:00:44
 tags:
 ---
 
-In this post, we're going to look into an interesting feature of the TypeScript language. It's called **discriminated unions** and is also known as **algebraic data types**. The latter name comes from Functional Programming paradigm where such types are used very heavily. ![Precise domain modeling with discriminated unions in TypeScript](https://codewithstyle.info/wp-content/uploads/2018/01/Precise-domain-modelling-with-discriminated-unions.png)
+In this post, we're going to look into an interesting feature of the TypeScript language. It's called **discriminated unions** and is also known as **algebraic data types**. The latter name comes from Functional Programming paradigm where such types are used very heavily. ![Precise domain modeling with discriminated unions in TypeScript](/images/2018/01/Precise-domain-modelling-with-discriminated-unions.png)
 
 Issues with enum types
 ----------------------

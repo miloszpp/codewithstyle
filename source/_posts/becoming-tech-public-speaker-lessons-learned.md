@@ -10,7 +10,7 @@ tags:
   - conferences
   - soft skills
 icon: fas fa-microphone
-image: https://codewithstyle.info/wp-content/uploads/2018/11/one-against-all-1744093_1920.jpg
+image: /images/2018/11/one-against-all-1744093_1920.jpg
 ---
 
 The year is nearing its end, so I'd like to share some things I've learned on my speaker's journey. I've already written [one article](https://codewithstyle.info/introverts-guide-public-speaking/) on this topic. Read it if you would like to know how (and why) to get into tech public speaking. This post will focus on advice for speakers who already have a little bit of experience. I made the decision to start speaking publicly almost two years ago - in February 2017. I began with meetups and slowly progressed towards my goal - an international conference - which I managed to achieve in September 2018. **During these two years, I gave 11 talks in total**. You can find the full list of my talks [here](http://miloszpiechocki.com/speaking.html).

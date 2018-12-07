@@ -13,12 +13,12 @@ tags:
 icon: fas fa-hammer
 ---
 
-My [previous post](https://codewithstyle.info/functional-javascript-app-scratch/) described how to create a very basic web application following the principles of functional programming. That's fine, but I bet you're not building _basic_ apps. **How to scale this approach?** This (and the following) post will present some techniques you could use to solve common problems encountered when creating more complex applications. ![](https://codewithstyle.info/wp-content/uploads/2018/09/Functional-JavaScript-app_-part-2.png) Let me remind you that the end goal is not to convince you to ditch all JavaScript frameworks and build your own instead. My point is to **explain the reasoning behind commonly used patterns and how they relate to functional programming**. Source code for this article is available [here](https://github.com/miloszpp/functional-climbs/tree/part-2-virtual-dom).
+My [previous post](https://codewithstyle.info/functional-javascript-app-scratch/) described how to create a very basic web application following the principles of functional programming. That's fine, but I bet you're not building _basic_ apps. **How to scale this approach?** This (and the following) post will present some techniques you could use to solve common problems encountered when creating more complex applications. ![](/images/2018/09/Functional-JavaScript-app_-part-2.png) Let me remind you that the end goal is not to convince you to ditch all JavaScript frameworks and build your own instead. My point is to **explain the reasoning behind commonly used patterns and how they relate to functional programming**. Source code for this article is available [here](https://github.com/miloszpp/functional-climbs/tree/part-2-virtual-dom).
 
 Limiting DOM updates
 --------------------
 
-Our little _framework_ relies on `view` function which translates state into DOM tree. The function is invoked on every state update. This means that **on every state change we need to re-create the whole DOM tree** and have it re-rendered by the browser. In a complex application with multiple actions and huge DOM tree this could have a huge impact on performance. Below you can find a screenshot illustrating the problem. The whole `div` is updated even though clicking _Complete_ should only affect two table rows. ![](https://codewithstyle.info/wp-content/uploads/2018/09/fp-app-without-vdom-small-1024x423.gif) Basically, we'd like to limit the amount of unnecessary DOM-related work. On the other hand, we want our code to stay declarative and functional so we have to avoid direct, imperative DOM manipulation.
+Our little _framework_ relies on `view` function which translates state into DOM tree. The function is invoked on every state update. This means that **on every state change we need to re-create the whole DOM tree** and have it re-rendered by the browser. In a complex application with multiple actions and huge DOM tree this could have a huge impact on performance. Below you can find a screenshot illustrating the problem. The whole `div` is updated even though clicking _Complete_ should only affect two table rows. ![](/images/2018/09/fp-app-without-vdom-small-1024x423.gif) Basically, we'd like to limit the amount of unnecessary DOM-related work. On the other hand, we want our code to stay declarative and functional so we have to avoid direct, imperative DOM manipulation.
 
 Introducing **virtual DOM**
 ---------------------------
@@ -30,7 +30,7 @@ Introducing **virtual DOM**
 *   the comparison results in a set of `patches` that represent minimal changes to the DOM
 *   `patches` can be applied to the actual DOM tree; only relevant parts of the DOM are updated, not the whole tree
 
-Below you can see the difference after enhancing the application with virtual DOM. Note that only relevant parts of the DOM are highlighted. ![](https://codewithstyle.info/wp-content/uploads/2018/09/fp-app-with-vdom-small-1024x449.gif)
+Below you can see the difference after enhancing the application with virtual DOM. Note that only relevant parts of the DOM are highlighted. ![](/images/2018/09/fp-app-with-vdom-small-1024x449.gif)
 
 Show me the code
 ----------------

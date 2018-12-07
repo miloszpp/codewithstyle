@@ -1,5 +1,5 @@
 # Logo
-logo_image_source: https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png
+logo_image_source: /images/2017/07/CODE-WITHSTYLE-1.png
 
 # Index Page
 index_banner_text: Code with Style!
@@ -22,14 +22,14 @@ archive_date_format: MMM YYYY
 archive_font_awesome_icon_css: fas fa-folder-open
 
 # About Widget
-about_widget_avatar_url: https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg
+about_widget_avatar_url: /images/2017/02/miloszpiechocki.jpeg
 about_widget_text: "Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies."
 
 
 # Comments.
 comments:
   # Disqus comments
-  disqus_shortname: 
+  disqus_shortname: codewithstyle
 
 # Google Analytics Tracking ID
 google_analytics:

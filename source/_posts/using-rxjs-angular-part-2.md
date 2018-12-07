@@ -9,7 +9,7 @@ date: 2017-10-30 20:14:40
 tags:
 ---
 
-In the previous post about Angular and RxJS we discussed the AsyncPipe and how it can be used to consume Observables in Angular templates. ![](https://codewithstyle.info/wp-content/uploads/2017/10/angular-rxjs.png) This time we will focus on the essence of functional-reactive programming. Let's see how we can reinvent the way we look at how data flows in our program. Check out the [first part](https://codewithstyle.info/using-rxjs-angular-part-1/) of this article where I explain the AsyncPipe. _Credits to [Piecioshka](https://piecioshka.pl/blog/) whose questions inspired me to look into RxJS in more detail!_
+In the previous post about Angular and RxJS we discussed the AsyncPipe and how it can be used to consume Observables in Angular templates. ![](/images/2017/10/angular-rxjs.png) This time we will focus on the essence of functional-reactive programming. Let's see how we can reinvent the way we look at how data flows in our program. Check out the [first part](https://codewithstyle.info/using-rxjs-angular-part-1/) of this article where I explain the AsyncPipe. _Credits to [Piecioshka](https://piecioshka.pl/blog/) whose questions inspired me to look into RxJS in more detail!_
 
 Creating your own Observables
 -----------------------------
@@ -72,7 +72,7 @@ But there are issues with this approach. It doesn't allow us to take advantage o
       }
     }
 
-We've used the mergeMap operator. It takes a function that for each value produced by an Observable creates a new Observable. It then merges all the resulting Observables into a single one which we can now safely use with the AsyncPipe! ![](https://codewithstyle.info/wp-content/uploads/2017/10/mergeMap.png "mergeMap")   On each click our clickStream Observable produces an (empty) value. We take this value and call httpClient.get which gives us an Observable that will produce a single value. If we merge these Observables we will get a stream of values returned from the server.
+We've used the mergeMap operator. It takes a function that for each value produced by an Observable creates a new Observable. It then merges all the resulting Observables into a single one which we can now safely use with the AsyncPipe! ![](/images/2017/10/mergeMap.png "mergeMap")   On each click our clickStream Observable produces an (empty) value. We take this value and call httpClient.get which gives us an Observable that will produce a single value. If we merge these Observables we will get a stream of values returned from the server.
 
 Why do this?
 ------------

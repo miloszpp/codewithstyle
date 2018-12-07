@@ -10,7 +10,7 @@ date: 2018-07-02 09:00:08
 tags:
 ---
 
-Version 5 of RxJS introduced the concept of _lettable_ (also known as _pipeable_) operators. Version 6 went one step further and deprecated the old way of calling operators (method chaining). You might have already used the `pipe` function. But do you really understand what it does? ![](https://codewithstyle.info/wp-content/uploads/2018/06/Monads-part3-—-kopia.png)
+Version 5 of RxJS introduced the concept of _lettable_ (also known as _pipeable_) operators. Version 6 went one step further and deprecated the old way of calling operators (method chaining). You might have already used the `pipe` function. But do you really understand what it does? ![](/images/2018/06/Monads-part3-—-kopia.png)
 
 Composing functions
 -------------------

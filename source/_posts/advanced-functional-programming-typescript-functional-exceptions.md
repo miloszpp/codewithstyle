@@ -9,7 +9,7 @@ date: 2018-05-03 16:01:12
 tags:
 ---
 
-After looking into different ways of implementing `Maybe` in [part 1](https://codewithstyle.info/advanced-functional-programming-in-typescript-maybe-monad/) and [part 2](https://codewithstyle.info/advanced-functional-programming-typescript-monads-generators/), let's move on to another useful example of monads. In this article, we'll introduce a new type called `Result` which is the functional programming's answer to exceptions. You can find the source code for this article [here](https://github.com/miloszpp/typescript-monads/tree/part-3-exceptions-and-result/src). ![](https://codewithstyle.info/wp-content/uploads/2018/05/Monads-part3.png)
+After looking into different ways of implementing `Maybe` in [part 1](https://codewithstyle.info/advanced-functional-programming-in-typescript-maybe-monad/) and [part 2](https://codewithstyle.info/advanced-functional-programming-typescript-monads-generators/), let's move on to another useful example of monads. In this article, we'll introduce a new type called `Result` which is the functional programming's answer to exceptions. You can find the source code for this article [here](https://github.com/miloszpp/typescript-monads/tree/part-3-exceptions-and-result/src). ![](/images/2018/05/Monads-part3.png)
 
 Exceptions
 ----------

@@ -83,7 +83,7 @@ product.quantity = 15;
 
 This is because the variable stores a reference to an object. We only mark the reference as immutable but not the object.
 
-### ![](https://codewithstyle.info/wp-content/uploads/2017/08/const-and-references-1.png "const and references")
+### ![](/images/2017/08/const-and-references-1.png "const and references")
 
 ### Freezing objects
 

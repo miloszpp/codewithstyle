@@ -9,7 +9,7 @@ date: 2017-09-18 16:15:49
 tags:
 ---
 
-![](https://codewithstyle.info/wp-content/uploads/2017/08/redux-300x235.png)So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter concept could seem slightly theoretical to you. It's time to see a practical application of immutability. You will now learn about Redux - an amazing concept which will change how you think about building applications. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
+![](/images/2017/08/redux-300x235.png)So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter concept could seem slightly theoretical to you. It's time to see a practical application of immutability. You will now learn about Redux - an amazing concept which will change how you think about building applications. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
 
 ### Application state
 
@@ -17,7 +17,7 @@ Every web application in JavaScript has **state**. State is the sum of all data 
 
 ### Redux approach to state management
 
-Redux says that you should store the application state in a single object. It can be a complicated, deeply nested object. The important thing is that the state is stored in a single location (as opposed to being distributed across the whole application). Another rule imposed by Redux is that the state should be immutable - you should never change anything in it manually. Instead, whenever you wish to update something you should return a new copy of the state. Redux also says that all changes to the state should be initiated by **actions**. An action could be for example clicking on a button or receiving some data. The action can contain some additional data. So, you have a state and an action object. Given these two you should produce a new state object. Redux says that a function which takes a state and an action and produces a new state is called a **reducer**. ![](https://codewithstyle.info/wp-content/uploads/2017/08/reducer.png "reducer")
+Redux says that you should store the application state in a single object. It can be a complicated, deeply nested object. The important thing is that the state is stored in a single location (as opposed to being distributed across the whole application). Another rule imposed by Redux is that the state should be immutable - you should never change anything in it manually. Instead, whenever you wish to update something you should return a new copy of the state. Redux also says that all changes to the state should be initiated by **actions**. An action could be for example clicking on a button or receiving some data. The action can contain some additional data. So, you have a state and an action object. Given these two you should produce a new state object. Redux says that a function which takes a state and an action and produces a new state is called a **reducer**. ![](/images/2017/08/reducer.png "reducer")
 
 ### Example
 

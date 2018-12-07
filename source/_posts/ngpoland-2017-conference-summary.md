@@ -10,7 +10,7 @@ date: 2017-11-25 10:59:27
 tags:
 ---
 
-Last Tuesday I gave a talk about using **Functional Programming in Angular** at the [NgPoland](http://ng-poland.pl) conference - the biggest Angular conference in Central and Eastern Europe (and big it was - over 600 Angularians in one place). While I'm planning to write an article based on my talk, first I would like to post some notes from the other talks I saw. ![](https://codewithstyle.info/wp-content/uploads/2017/11/23736340_10210922780092493_4316555156399740919_o.jpg) I will risk a statement that the choice of topics in this conference proves that **frontend programming is getting more and more functional**. At least four talks had something to do with functional programming!
+Last Tuesday I gave a talk about using **Functional Programming in Angular** at the [NgPoland](http://ng-poland.pl) conference - the biggest Angular conference in Central and Eastern Europe (and big it was - over 600 Angularians in one place). While I'm planning to write an article based on my talk, first I would like to post some notes from the other talks I saw. ![](/images/2017/11/23736340_10210922780092493_4316555156399740919_o.jpg) I will risk a statement that the choice of topics in this conference proves that **frontend programming is getting more and more functional**. At least four talks had something to do with functional programming!
 
 *   **Understand NGRX by building a Store** \- NGRX is pretty functional itself as it embraces immutability and pure functions
 *   **High-Performance Applications with Angular** \- many ways of improving performance in Angular are based on functional concepts - memoization, pure pipes, `OnPush` change detection strategy (hence immutability)
@@ -50,7 +50,7 @@ The talk was delivered by an early adopter of Cloud Firestore - the new storage 
 
 ### Angular 5 has arrived - Bartłomiej Narożnik
 
-Nice and succinct summary of the new features introduced in Angular 5. Bartłomiej tried to answer the question whether the new version is mature enough to upgrade. Additionally, he presented some cool statistics about the Angular repository. ![](https://codewithstyle.info/wp-content/uploads/2017/11/DPJmWT-XUAEhhmM-1024x768.jpg)
+Nice and succinct summary of the new features introduced in Angular 5. Bartłomiej tried to answer the question whether the new version is mature enough to upgrade. Additionally, he presented some cool statistics about the Angular repository. ![](/images/2017/11/DPJmWT-XUAEhhmM-1024x768.jpg)
 
 ### Understanding High Order Observables - Gerard Sans
 

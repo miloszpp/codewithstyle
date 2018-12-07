@@ -11,7 +11,7 @@ tags:
 icon: fas fa-trophy
 ---
 
-My blog is partnering up with [JS Poland](https://js-poland.pl/) conference again! ![](https://codewithstyle.info/wp-content/uploads/2018/10/js-poland-logo-top.png) JS Poland is an amazing event where you can:
+My blog is partnering up with [JS Poland](https://js-poland.pl/) conference again! ![](/images/2018/10/js-poland-logo-top.png) JS Poland is an amazing event where you can:
 
 *   listen to interesting talks from world-class speakers
 *   network with members of JavaScript community

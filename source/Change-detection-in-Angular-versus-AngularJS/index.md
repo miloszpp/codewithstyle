@@ -18,7 +18,7 @@ Let's think about how the process of change detection could look like in big pic
 *   An event handler is called for that event. The code can update some property on the model.
 *   The model and the view are not in sync any more. Now is the time for the framework to detect changes and update the view accordingly.
 
-![](https://codewithstyle.info/wp-content/uploads/2017/10/Change-detection-workflow.png "Change detection workflow") Now we know when change detection should be performed - whenever there is a chance that some model will be modified. In the above example it's a handler for a user-generated event that can make changes to the model. However, there are other situations that can result in model updates such as:
+![](/images/2017/10/Change-detection-workflow.png "Change detection workflow") Now we know when change detection should be performed - whenever there is a chance that some model will be modified. In the above example it's a handler for a user-generated event that can make changes to the model. However, there are other situations that can result in model updates such as:
 
 *   arrival of response to a HTTP request
 *   execution of callback passed to setInterval function

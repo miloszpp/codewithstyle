@@ -12,7 +12,7 @@ tags:
 icon: fas fa-hammer
 ---
 
-I've been writing a lot about specific functional concepts and their implementation in JavaScript and TypeScript. In this article, I'd like to show you how to put some of these ideas together and **create a working application based on functional programming principles**. The application we're about to build is called _Functional Climbs_. It presents a list of climbing routes and allows the user to mark some of them as completed. ![](https://codewithstyle.info/wp-content/uploads/2018/08/Functional-JavaScript-application-from-scratch.png) I'm not going to use any framework but there will be some helper libraries involved. The source code is available [here](https://github.com/miloszpp/functional-climbs).
+I've been writing a lot about specific functional concepts and their implementation in JavaScript and TypeScript. In this article, I'd like to show you how to put some of these ideas together and **create a working application based on functional programming principles**. The application we're about to build is called _Functional Climbs_. It presents a list of climbing routes and allows the user to mark some of them as completed. ![](/images/2018/08/Functional-JavaScript-application-from-scratch.png) I'm not going to use any framework but there will be some helper libraries involved. The source code is available [here](https://github.com/miloszpp/functional-climbs).
 
 State
 -----
@@ -147,7 +147,7 @@ Now all you need to do is to run `view` function on `initialState` and attach th
     
     
 
-To make this all work together you will need a module bundler. Check out the webpack config in the [source code](https://github.com/miloszpp/functional-climbs). When you launch the application you should see a table displaying climbs defined in the initial state. ![](https://codewithstyle.info/wp-content/uploads/2018/08/Screen-Shot-2018-08-13-at-20.50.47-1024x321.png) \[yikes-mailchimp form="1" description="1"\]
+To make this all work together you will need a module bundler. Check out the webpack config in the [source code](https://github.com/miloszpp/functional-climbs). When you launch the application you should see a table displaying climbs defined in the initial state. ![](/images/2018/08/Screen-Shot-2018-08-13-at-20.50.47-1024x321.png) \[yikes-mailchimp form="1" description="1"\]
 
 Let's have some _action_
 ------------------------
@@ -215,7 +215,7 @@ It's time to create some machinery so that action results in DOM updates. This i
     app(initialState);
     
 
-The `app` function _applies_ provided state object to the DOM. What's more, it defines the `dispatch` function which is used to trigger actions. This function uses `reducer` to apply the action on existing state and recursively passes the new state object to `app`. Finally, we call `app` with `initialState`. And that's it! Run the application and try out toggle buttons - they should work now. ![](https://codewithstyle.info/wp-content/uploads/2018/08/functional-climbs1-1.png)
+The `app` function _applies_ provided state object to the DOM. What's more, it defines the `dispatch` function which is used to trigger actions. This function uses `reducer` to apply the action on existing state and recursively passes the new state object to `app`. Finally, we call `app` with `initialState`. And that's it! Run the application and try out toggle buttons - they should work now. ![](/images/2018/08/functional-climbs1-1.png)
 
 Summary
 -------
