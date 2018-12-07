@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="In one of my recent post I compared two different approaches that authors of Scala and C# chose to solve the same problem. This post is based on the s">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Asynchronous programming in Scala vs C#">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Asynchronous programming in Scala vs C# - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Asynchronous programming in Scala vs C#</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2016-03-17</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/c/">#c#</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p><a href="http://codewithstyle.info/scalas-option-monad-versus-null-conditional-operator-in-c/">In one of my recent post</a> I compared two different approaches that authors of Scala and C# chose to solve the same problem. This post is based on the same idea but the problem being solved is asynchronous programming.</p>
+<h3 id="What’s-asynchronous-programming"><a href="#What’s-asynchronous-programming" class="headerlink" title="What’s asynchronous programming?"></a>What’s asynchronous programming?</h3><p>Let me explain by giving you an example. If you have ever used a web framework you might have been wondering how it handles multiple concurrent requests from different users. The traditional approach is to spawn a new thread (or get one from a thread pool) for every request that comes in and release it once the request is served. The problem with this solution is that whenever those threads perform IO operations (such as talking to a database) they simply block and wait for the operation to finish. Therefore, we end up wasting precious CPU time by allowing our threads to be blocked on IO. Instead of blocking threads on IO operation we could use an asynchronous database API. Such API is non-blocking. However, running a database query using such an API requires you to provide a <strong>callback</strong>. Callback in this case would be a function that would be invoked once the result is available. So, in the asynchronus model your thread serves the request, runs some computations and when it needs to call the database, it initiates the call and than switches to do some other, useful work. Some other thread will continue execution of your request when the database returns. [caption id=”attachment_64” align=”aligncenter” width=”400”]<img src="http://codewithstyle.info/wp-content/uploads/2016/03/drawit-diagram-1.png" alt="Asynchronous model example" title="drawit diagram"> Example of asynchronous processing in a web framework[/caption]</p>
+<h3 id="Asynchronous-programming-in-C"><a href="#Asynchronous-programming-in-C" class="headerlink" title="Asynchronous programming in C"></a>Asynchronous programming in C</h3><p>The biggest pain of writing programs in the asynchronous model is the necessity of callbacks. Fortunately, in C# we have lambda functions which allow us to write callbacks with ease. However, even with lambdas we can end up with lot of nesting. The key to asynchronous programming in C# is the <strong>Task</strong> class. Task represents a piece of work that can be either blocking or heavy on processor so it makes sense to run it asynchronously.</p>
+<p>Task<httpresponsemessage> getGoogleTask = client.GetAsync(“<a href="http://google.com&quot;)" target="_blank" rel="noopener">http://google.com&quot;)</a>;<br>getGoogleTask.ContinueWith(task =&gt; Debug.WriteLine(task.Result));</httpresponsemessage></p>
+<p>In the first line we create a task that fetches the Google main page. The task starts immedietely on a thread from a default, global thread pool. Therefore, the call itself is not blocking. On the second line we attach a callback which defines what should happen once the result is fetched. As I said, it is easy to introduce nesting with callbacks. What if we wanted to visit Facebook but only if we succeeded fetching the Google page?</p>
+<p>client.GetAsync(“<a href="http://google.com&quot;).ContinueWith" target="_blank" rel="noopener">http://google.com&quot;).ContinueWith</a>(googleTask =&gt;<br>{<br>    if (googleTask.Result.IsSuccessStatusCode)<br>    {<br>        client.GetAsync(“<a href="http://facebook.com&quot;).ContinueWith" target="_blank" rel="noopener">http://facebook.com&quot;).ContinueWith</a>(facebookTask =&gt;<br>        {<br>            if (facebookTask.Result.IsSuccessStatusCode)<br>            {<br>                Debug.WriteLine(“Google and Facebook available!”);<br>            }<br>        });<br>    }<br>});</p>
+<p>This code isn’t very readable. Also, if we wanted to visit more websites, we could end up with even more levels of nesting. C# 5.0 introduced an excellent language feature that lets you write asynchronous code just as if it was synchronous: the <strong>async</strong> and <strong>await</strong> keywords. The above example can be rewritten as follows:</p>
+<p>var googleResponse = await client.GetAsync(“<a href="http://google.com&quot;)" target="_blank" rel="noopener">http://google.com&quot;)</a>;<br>if (googleResponse.IsSuccessStatusCode)<br>{<br>    var facebookResponse = await client.GetAsync(“<a href="http://facebook.com&quot;)" target="_blank" rel="noopener">http://facebook.com&quot;)</a>;<br>    if (facebookResponse.IsSuccessStatusCode)<br>    {<br>        Debug.WriteLine(“Google and Facebook available!”);<br>    }<br>}</p>
+<p>One caveat about async/await is that the method containing any <strong>await</strong> calls must itself be declared as <strong>async</strong>. Also, the return type of such a method must be a Task. Therefore, the asynchronous-ness always propagates upstream. This actually makes sense - otherwise you would need to synchronously wait for a task to finish at some point. Modern web frameworks such as ASP.NET MVC let you declare the methods that handle the incoming requests as asynchronous.</p>
+<p>public async Task<actionresult> FetchWebsites()<br>{<br>    HttpClient client = new HttpClient();<br>    var googleResponse = await client.GetAsync(“<a href="http://google.com&quot;)" target="_blank" rel="noopener">http://google.com&quot;)</a>;<br>    if (googleResponse.IsSuccessStatusCode)<br>    {<br>        var facebookResponse = await client.GetAsync(“<a href="http://facebook.com&quot;)" target="_blank" rel="noopener">http://facebook.com&quot;)</a>;<br>        if (facebookResponse.IsSuccessStatusCode)<br>        {<br>            ViewBag.Message = “Google and Facebook available!”;<br>        }<br>    }</actionresult></p>
+<pre><code>return View();
+</code></pre><p>}</p>
+<p>One more thing about C# tasks - with them executing stuff in parallel is incredibly easy.</p>
+<p>string[] websites = new string[] { “<a href="http://google.com&quot;" target="_blank" rel="noopener">http://google.com&quot;</a>, “<a href="http://facebook.com&quot;" target="_blank" rel="noopener">http://facebook.com&quot;</a> };<br>Task<httpresponsemessage>[] tasks = websites.Select(website =&gt; client.GetAsync(website)).ToArray();<br>HttpResponseMessage[] responses = await Task.WhenAll(tasks);</httpresponsemessage></p>
+<p><strong>Task.WhenAll</strong> creates a task that will be finished when all tasks from the provided array are finished.</p>
+<h3 id="Asynchronous-programming-in-Scala"><a href="#Asynchronous-programming-in-Scala" class="headerlink" title="Asynchronous programming in Scala"></a>Asynchronous programming in Scala</h3><p>Let’s have a look at how Scala approaches the problem. One of the approaches to asynchronous programming is to use <a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="noopener">Futures</a>. Future is a class that has very similiar semantics to C#’s Task. Unfortunately, there is no built-in asynchronous HTTP client in Scala, but let’s assume we’ve got one and it’s interface looks like this:</p>
+<p>trait HttpClient {<br>    def get(url: String): Future[Response]<br>    case class Response(content: String, ok: Boolean)<br>}</p>
+<p>We can write code that looks very similiar to the C# example with <strong>flatMap</strong>:</p>
+<p>client.get(“<a href="http://google.com&quot;).flatMap" target="_blank" rel="noopener">http://google.com&quot;).flatMap</a>(googleResp =&gt;<br>  if (googleResp.ok) {<br>    client.get(“<a href="http://facebook.com&quot;).map" target="_blank" rel="noopener">http://facebook.com&quot;).map</a>(facebookResp =&gt; {<br>      if (facebookResp.ok) {<br>        Console.printf(“Google and Facebook are on-line!”)<br>      }<br>    })<br>  } else Future.successful()<br>)</p>
+<p>Flatmap invoked on a future takes a callback that will be execute once the result of that future is available. Since that callback must return a Future itself, we must return an empty future (Future.successful) in the else branch of our if. When fetching the Facebook page, we use map instead of flatMap because we don’t want to start another future inside the callback. Again, the main issue with this code is that it is nested. Very similarly to <a href="http://codewithstyle.info/scalas-option-monad-versus-null-conditional-operator-in-c/">how Scala handles nested null checks with Option monad</a>, here we can again use the for-comprehension syntax to get rid of nesting!</p>
+<p>for {<br>  googleResp &lt;- client.get(“<a href="http://google.com&quot;" target="_blank" rel="noopener">http://google.com&quot;</a>) if googleResp.ok<br>  facebookResp &lt;- client.get(“<a href="http://facebook.com&quot;" target="_blank" rel="noopener">http://facebook.com&quot;</a>) if facebookResp.ok<br>} yield Console.printf(“Google and Facebook are on-line!”)</p>
+<p>As you might have expected, parallel processing is also supported with Futures:</p>
+<p>val websites = List(“<a href="http://google.com&quot;" target="_blank" rel="noopener">http://google.com&quot;</a>, “<a href="http://facebook.com&quot;" target="_blank" rel="noopener">http://facebook.com&quot;</a>)<br>val responses = Future.sequence(websites.map(client.get))</p>
+<p>An example of a web framework that supports asynchronous request handlers is <a href="http://www.scalatra.org" target="_blank" rel="noopener">Scalatra</a>.</p>
+<h3 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h3><p>As you can see, C# and Scala approach asynchronous programming similliarly. What I find interesting here is how Scala handles callback nesting with the generic mechanism of for comprehension and C# introduces a separate language feature for that. This is exactly the same pattern as in <a href="http://codewithstyle.info/scalas-option-monad-versus-null-conditional-operator-in-c/">Option monad vs null-conditional operator</a>. To be honest, I find the async/await overall a bit more awesome - it really makes you feel as if you were writing synchronous code. <strong>Update:</strong> as pointed out by Darren and Yann in comments, you can also do async/await in Scala thanks to <a href="https://github.com/scala/async" target="_blank" rel="noopener">this library</a>. There is also a <a href="http://docs.scala-lang.org/sips/pending/async.html" target="_blank" rel="noopener">pending proposal</a> to add it to the language that admits that it’s inspired by C#’s asyns/await syntax.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/c/">#c#</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

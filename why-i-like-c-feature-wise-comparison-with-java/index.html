@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Recently I was browsing Quora and was quite surprised to stumble upon this question: Java vs C#. Is Microsoft finally closing the gap? I decided to ha">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Why I like C#: feature-wise comparison with Java">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Why I like C#: feature-wise comparison with Java - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Why I like C#: feature-wise comparison with Java</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2015-11-22</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/c/">#c#</a> <a class="fw3 ph1 dib" href="/tags/java/">#java</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Recently I was browsing Quora and was quite surprised to stumble upon this question: <a href="https://www.quora.com/Java-vs-C-Is-Microsoft-finally-closing-the-gap" target="_blank" rel="noopener">Java vs C#. Is Microsoft finally closing the gap?</a> I decided to have a closer look and found more of similiar questions there. Furthermore, at the place where I am currently working at, I am the only person with .NET background amongst mostly JVM people. We are all working on Scala projects and my colleagues are often surprised when I tell them that this or that Scala feature is also available in C#. This makes me want to write a blog post about how cool a language C# is, especially when compared with Java. I want to underline that I’m speaking only about the language features and <strong>not</strong> about things like popularity, cross-platformness, ability to deploy easily, etc.</p>
+<h2 id="Generics"><a href="#Generics" class="headerlink" title="Generics"></a>Generics</h2><p>C# creators were in a great situation since they could learn from Java’s mistakes. They didn’t waste the opportunity and did the right thing. The main problem with Java’s generics is <strong>type erasure</strong>. The term means that the information about the type parameter of a generic type is not available at runtime. In simple words, this:</p>
+<p>List<string> list = new LinkedList<string>();</string></string></p>
+<p>…becomes this:</p>
+<p>List list = new LinkedList();</p>
+<p>Type erasure makes writing generic types more difficult and less clean. For example, sometimes generic methods have to explicitly take a <code>Class</code> object representing the type parameter (like <a href="http://stackoverflow.com/questions/3437897/how-to-get-a-class-instance-of-generics-type-t" target="_blank" rel="noopener">here</a>). In C# this is not the case. You can easily access the type of the type parameter:</p>
+<p>class List<t><br>{<br>    public void PrintType() {<br>        Console.WriteLine(typeof(T));<br>    }<br>}</t></p>
+<h2 id="Lambdas-higher-order-functions-and-LINQ"><a href="#Lambdas-higher-order-functions-and-LINQ" class="headerlink" title="Lambdas, higher-order functions and LINQ"></a>Lambdas, higher-order functions and LINQ</h2><p>Not long ago I found <a href="https://github.com/winterbe/java8-tutorial" target="_blank" rel="noopener">this article</a> on <a href="https://news.ycombinator.com/" target="_blank" rel="noopener">Hacker News</a>. It discusses some of the new features of Java 8 such as lambdas, streams and functional interfaces. These things are called <em>modern</em> Java whereas in C# they have been available for quite a long time (not to mention that they have been available in Haskell or Ocaml for even longer). While not everyone has to agree about superiority of functional over imperative programming, it’s hard to disagree that processing collections with higher-order functions (such as <a href="https://github.com/winterbe/java8-tutorial#map" target="_blank" rel="noopener">map</a>/<a href="https://msdn.microsoft.com/pl-pl/library/bb548891(v=vs.110" target="_blank" rel="noopener">select</a>.aspx) or <a href="https://github.com/winterbe/java8-tutorial#filter" target="_blank" rel="noopener">filter</a>/<a href="https://msdn.microsoft.com/library/bb534803(v=vs.100" target="_blank" rel="noopener">where</a>.aspx)) is cleaner, less error-prone and much more readable than doing it with loops. Even though Java has already adopted lambdas and higher-order functions, it seems that C# has better support for them. Examples?</p>
+<ul>
+<li>In Java 8, you need to convert collections to <code>Stream</code> before calling <code>map</code> or <code>filter</code></li>
+<li>C# has built-in syntactic sugar for such opearations which makes such code even more readable and cleaner</li>
+</ul>
+<h2 id="Type-inference"><a href="#Type-inference" class="headerlink" title="Type inference"></a>Type inference</h2><p>Type inference is a nice feature that allows you not to declare the type of a variable if it’s being initialized on the same line. While it’s not as great as in Scala or Haskell, it certainly lets you cut some boilerplate code. <a href="https://docs.oracle.com/javase/tutorial/java/generics/genTypeInference.html" target="_blank" rel="noopener">Java does also have some type inference</a> but it is limited to generic methods. With type inference, the below declaration:</p>
+<p>Dictionary&lt;int, List&lt;Tuple&lt;int, int&gt;&gt;&gt; graph = new Dictionary&lt;int, List&lt;Tuple&lt;int, int&gt;&gt;&gt;();</p>
+<p>…can be written as:</p>
+<p>var graph = new Dictionary&lt;int, List&lt;Tuple&lt;int, int&gt;&gt;&gt;();</p>
+<h2 id="Asynchronous-code"><a href="#Asynchronous-code" class="headerlink" title="Asynchronous code"></a>Asynchronous code</h2><p>C# 5.0 introduced excellent support for asynchronous programming. The <code>async</code> and <code>await</code> keywords let you replace callback-style programming with code that looks exactly as if it were synchronous. It makes the code much cleaner and far easier to read. The comparison with Java is especially striking if you look at pre-Java 8 code where in order to execute a piece of code asynchronously, you had to create an anounymous type with one method! Have a look at usage of the <a href="https://github.com/AsyncHttpClient/async-http-client" target="_blank" rel="noopener">AsyncHttpClient</a> library:</p>
+<p>AsyncHttpClient asyncHttpClient = new AsyncHttpClient();<br>Future<integer> f = asyncHttpClient.prepareGet(“<a href="http://www.ning.com/&quot;).execute" target="_blank" rel="noopener">http://www.ning.com/&quot;).execute</a>(<br>   new AsyncCompletionHandler<integer>(){</integer></integer></p>
+<pre><code>@Override
+public Integer onCompleted(Response response) throws Exception{
+    // Do something with the Response
+    return response.getStatusCode();
+}
+
+@Override
+public void onThrowable(Throwable t){
+    // Something wrong happened.
+}
+</code></pre><p>});</p>
+<p>…and compare it with this C# code:</p>
+<p>async Task<int> AccessTheWebAsync()<br>{<br>    HttpClient client = new HttpClient();<br>    Task<string> getStringTask = client.GetStringAsync(“<a href="http://msdn.microsoft.com&quot;)" target="_blank" rel="noopener">http://msdn.microsoft.com&quot;)</a>;<br>    DoIndependentWork();<br>    string urlContents = await getStringTask;<br>    return urlContents.Length;<br>}</string></int></p>
+<h2 id="Value-types"><a href="#Value-types" class="headerlink" title="Value types"></a>Value types</h2><p>Value types is part of the reason why there is a _C_ in _C#_. There are two kinds of types in C# - value types and reference types. Value types differ from reference types mainly in the assignment sementics. When you assign a reference to a new variable, this variable points to the same object. When you assign a value type to a new variable, the whole piece of memory holding the data in the type is copied. This is great for lightweight objects representing data. In some situations it might save you from writing the <code>equals</code> and <code>hashCode</code> operators. What’s more, value types cannot be null which makes them safer than reference types. Finally, value types make primitive types such as <code>int</code> or <code>double</code> more natural. In Java, every type is a reference type.</p>
+<h2 id="Extension-methods"><a href="#Extension-methods" class="headerlink" title="Extension methods"></a>Extension methods</h2><p>Extension methods allow you to add functionality to an object (even if it had already been compiled). One of the cool uses of extension methods is providing a concrete method for an interface. Also, they allow better code reuse and makes it easier to write fluent APIs. Example of an extension method:</p>
+<p>public interface Animal {<br>    int Legs { get; }<br>}</p>
+<p>public static class AnimalExtensions {<br>    public static void PrintDescription(this Animal animal) {<br>        Console.WriteLine(“I have {0} legs”, animal.Legs);<br>    }<br>}</p>
+<p>animal.PrintDescription();</p>
+<h2 id="C-6-0-features"><a href="#C-6-0-features" class="headerlink" title="C# 6.0 features"></a>C# 6.0 features</h2><p>Finally, there are many great features introduced in C# 6.0. The language seems to be gravitating towards functional programming, which I think is a good idea, but most of them do not require the programmer to learn a new paradigm. To name some of the most exciting features of C# 6.0:</p>
+<ul>
+<li>Expression bodied methods - syntax improvment which makes you write shorter code</li>
+<li>Conditional null operator - which allows writing safer code (which feels like simplified <code>Maybe</code> monad)</li>
+<li>Expression filters - convenient syntax for exception handling</li>
+<li>Using static members - again, an improvment to make your code even shorter</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>I have named just a few of the language features of C# which I believe make it a superior language to Java. Obviously, there are many more things to look at when choosing a language than its features. However, I think it’s worth mentioning that thanks to Mono, Xamarin and Microsoft’s BizSpark program for startups, .NET became much more accessible to small companies and startups than it was a decade ago.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/c/">#c#</a> <a class="fw3 ph1 dib" href="/tags/java/">#java</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

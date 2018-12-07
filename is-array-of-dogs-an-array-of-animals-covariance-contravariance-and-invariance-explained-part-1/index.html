@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Welcome to the first post on my blog. I would like to dedicate it to a topic that sounds quite intimidating but is in fact quite simple to understand.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Is array of Dogs an array of Animals? Covariance, contravariance and invariance explained - part 1">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Is array of Dogs an array of Animals? Covariance, contravariance and invariance explained - part 1 - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Is array of Dogs an array of Animals? Covariance, contravariance and invariance explained - part 1</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2015-10-10</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/c/">#c#</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Welcome to the first post on my blog. I would like to dedicate it to a topic that sounds quite intimidating but is in fact quite simple to understand. There are already good explanations of type variance to be found on other blogs or <a href="http://stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a> but I would like to take a broader approach and look at how different programming languages deal with it.</p>
+<h2 id="The-problem"><a href="#The-problem" class="headerlink" title="The problem"></a>The problem</h2><p>So, what is this cryptic title about? Let me start with this classic example in Java.</p>
+<p>class Animal { }<br>class Dog extends Animal { }<br>class Cat extends Animal { }</p>
+<p>MyList<dog> dogs = new MyList<dog>();<br>MyList<animal> animals = dogs;</animal></dog></dog></p>
+<p>Would you expect this piece of code to compile? The answer depends on what operations are available on <code>MyList</code>. Let’s assume that <code>MyList</code> is very similiar to <code>ArrayList</code> and it allows you to <code>get</code> and <code>add</code>.</p>
+<p>class MyList<t> {<br>    public T get(int index) { /<em> get element at index </em>/ }<br>    public void add(T element) { /<em> add at the end </em>/ }<br>}</t></p>
+<p>Now, assuming that the questioned piece of code would compile, it would be perfectly valid to add a Cat to the list of Animals which is in fact a list of Dogs. This is not something we would want the compiler to allow.</p>
+<p>animals.add(new Cat());<br>Dog dog = dogs.get(0); // we are expecting a Dog but we’ve got a Cat!</p>
+<p>In this case, <code>MyList&lt;Dog&gt;</code> is <strong>not</strong> (does not inherit from) <code>MyList&lt;Animal&gt;</code>. We call <code>MyList</code> <strong>invariant</strong>. This is the kind of behaviour that we get in Java. Let’s now assume that <code>MyList</code> is read-only and does not have an <code>add</code> method.</p>
+<p>class MyList<t> {<br>    public MyList(List<t> original) { /<em> copy from original </em>/ }<br>    public T get(int index) { /<em> get element at index </em>/ }<br>}</t></t></p>
+<p>Now, the previous issue is no longer the case. If we call <code>animals.get()</code> we can get either a <code>Dog</code> or a <code>Cat</code> an we are ok with this. In such case, it makes sense to allow the questioned piece to compile. Hence, <code>MyList&lt;Dog&gt;</code> <strong>is</strong> (does inherit from) <code>MyList&lt;Animal&gt;</code> and we call <code>MyList</code> <strong>covariant</strong>.</p>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>As stated before, in Java the below piece would not compile. In other words, generic types in Java are <strong>invariant</strong>. This is quite limiting when compared to other languages which allow you to specify variance for generics.</p>
+<p>MyList<dog> dogs = new MyList<dog>();<br>MyList<animal> animals = dogs;</animal></dog></dog></p>
+<p>Compiler output:</p>
+<p>HelloWorld.java:22: error: incompatible types</p>
+<p>However, there is an interesting exception to generic’s invariance in Java. The below code will compile:</p>
+<p>Dog[] dogs = new Dog[];<br>Animal[] animals = dogs;<br></p>
+<p>So, what happens when we try do add a Cat to an array of Dogs? Java gives us an exception (of course this will happen on runtime and not on compile time). So, arrays are <strong>covariant</strong> in Java! This is not a very elegant situation and the reasons behind it are mainly historic. There is a good explanation of this on <a href="http://stackoverflow.com/questions/18666710/why-are-arrays-covariant-but-generics-are-invariant" target="_blank" rel="noopener">Stack Overflow</a>.</p>
+<h2 id="C"><a href="#C" class="headerlink" title="C#"></a>C#</h2><p>Similarly to Java, C# would not allow us to compile below code:</p>
+<p>class MyList<t> { }</t></p>
+<p>MyList<dog> dogs = new MyList<dog>();<br>MyList<animal> animals = dogs;</animal></dog></dog></p>
+<p>Compiler output:</p>
+<p>error CS0029: Cannot implicitly convert type `MyList’ to `MyList’</p>
+<p>However, C# goes a step further and allows us to create variant generic interfaces. It is possible to mark a type parameter with the <code>in</code> keyword to make the generic interface covariant.</p>
+<p>interface IMyList<out t=""> { }<br>class MyList<t> : IMyList<t> { }</t></t></out></p>
+<p>IMyList<dog> dogs = new MyList<dog>();<br>IMyList<animal> animals = dogs;</animal></dog></dog></p>
+<p>There are some nice examples of <strong>contravariance</strong> in C#. Since <strong>covariance</strong> means that you can use a more derived type than specified in type parameter, in <strong>contravariance</strong> you can use a more <strong>generic</strong> type than specified. It may seem a bit counterintuitive but let’s look at the <code>Action&lt;T&gt;</code> type which represents a function that takes a parameter of type T and does not return anything.</p>
+<p>Action<base> b = (target) =&gt; { /<em> do something with target </em>/ };<br>Action<derived> d = b;<br>d(new Derived());</derived></p>
+<p>In this case, it makes sense to say that <code>Action&lt;Base&gt;</code> is <code>Action&lt;Derived&gt;</code>. <code>Action&lt;Derived&gt;</code> requires a prameter of type <code>Derived</code> so giving it an instance of something more generic (<code>Base</code>) is ok. <a href="http://wordpress1653421.home.pl/home/platne/serwer16812/public_html/codewithstyle/?p=14" target="_blank" rel="noopener">In the next post I will look at how variance is exploited in inheritance.</a></p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/c/">#c#</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="My previous post described how to create a very basic web application following the principles of functional programming. That’s fine, but I bet you’r">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Functional JS application from scratch - part 2 - virtual DOM">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Functional JS application from scratch - part 2 - virtual DOM - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Functional JS application from scratch - part 2 - virtual DOM</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-09-30</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fas fa-hammer"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/functional-programming/">#functional programming</a> <a class="fw3 ph1 dib" href="/tags/vanilla-js/">#vanilla js</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>My <a href="https://codewithstyle.info/functional-javascript-app-scratch/">previous post</a> described how to create a very basic web application following the principles of functional programming. That’s fine, but I bet you’re not building <em>basic</em> apps. <strong>How to scale this approach?</strong> This (and the following) post will present some techniques you could use to solve common problems encountered when creating more complex applications. <img src="https://codewithstyle.info/wp-content/uploads/2018/09/Functional-JavaScript-app_-part-2.png" alt=""> Let me remind you that the end goal is not to convince you to ditch all JavaScript frameworks and build your own instead. My point is to <strong>explain the reasoning behind commonly used patterns and how they relate to functional programming</strong>. Source code for this article is available <a href="https://github.com/miloszpp/functional-climbs/tree/part-2-virtual-dom" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="Limiting-DOM-updates"><a href="#Limiting-DOM-updates" class="headerlink" title="Limiting DOM updates"></a>Limiting DOM updates</h2><p>Our little <em>framework</em> relies on <code>view</code> function which translates state into DOM tree. The function is invoked on every state update. This means that <strong>on every state change we need to re-create the whole DOM tree</strong> and have it re-rendered by the browser. In a complex application with multiple actions and huge DOM tree this could have a huge impact on performance. Below you can find a screenshot illustrating the problem. The whole <code>div</code> is updated even though clicking <em>Complete</em> should only affect two table rows. <img src="https://codewithstyle.info/wp-content/uploads/2018/09/fp-app-without-vdom-small-1024x423.gif" alt=""> Basically, we’d like to limit the amount of unnecessary DOM-related work. On the other hand, we want our code to stay declarative and functional so we have to avoid direct, imperative DOM manipulation.</p>
+<h2 id="Introducing-virtual-DOM"><a href="#Introducing-virtual-DOM" class="headerlink" title="Introducing virtual DOM"></a>Introducing <strong>virtual DOM</strong></h2><p><strong>Virtual DOM</strong> is the answer to our problems! It is a clever technique where instead of creating actual DOM objects you operate on <em>virtual</em> DOM elements. Operations on virtual nodes are much faster than on actual nodes since there is no browser API involved. Obviously, at some point we need to update the actual DOM tree. Here is how we will do this:</p>
+<ul>
+<li><code>view</code> function will return a virtual DOM tree</li>
+<li>on every state update (every <code>app</code> invocation) we will compare the result of the <code>view</code> call with the previous tree</li>
+<li>the comparison results in a set of <code>patches</code> that represent minimal changes to the DOM</li>
+<li><code>patches</code> can be applied to the actual DOM tree; only relevant parts of the DOM are updated, not the whole tree</li>
+</ul>
+<p>Below you can see the difference after enhancing the application with virtual DOM. Note that only relevant parts of the DOM are highlighted. <img src="https://codewithstyle.info/wp-content/uploads/2018/09/fp-app-with-vdom-small-1024x449.gif" alt=""></p>
+<h2 id="Show-me-the-code"><a href="#Show-me-the-code" class="headerlink" title="Show me the code"></a>Show me the code</h2><p>Let’s rework our application to take advantage of virtual DOM.</p>
+<h3 id="View-function"><a href="#View-function" class="headerlink" title="View function"></a>View function</h3><p>The first step is to adjust the <code>view</code> function to return virtual nodes instead of real DOM nodes. We are not going to implement the virtual DOM mechanism itself. It’s a highly non-trivial task and not in the scope of this article. Instead, let’s use one of existing virtual DOM libraries. Our library of choice is simply called <a href="https://github.com/Matt-Esch/virtual-dom" target="_blank" rel="noopener">virtual-dom</a>. The best thing about it is that it’s compatible with <code>hyperscript-helpers</code>. Remember how we wrapped <code>hyperscript</code> with <code>hyperscript-helpers</code> so that we were able to use functions such as <code>div</code>, <code>h2</code>, <code>table</code>, etc.? This extra level of indirection will prove enormously useful now. Our <code>view</code> function will continue using these functions. However, they will proxy to <code>virtual-dom</code> instead of <code>hyperscript</code> resulting in virtual DOM nodes instead of real DOM nodes.</p>
+<pre><code>import h from &apos;virtual-dom/h&apos;;
+import hh from &apos;hyperscript-helpers&apos;;
+
+const { table, tr, td, th, div, h2, button } = hh(h);
+</code></pre><p>That’s it! There are no more changes to <code>view</code> function!</p>
+<h3 id="Engine"><a href="#Engine" class="headerlink" title="Engine"></a>Engine</h3><p>The next (and last) step is to adjust the <code>app</code> function. It’s going to get a bit more complex. Before, all we had to do was to replace the <em>old</em> DOM tree with the <em>new</em> tree. However, <code>view</code> returns a virtual tree now. We need to compare the <em>new</em> tree and with <em>old</em> one using <code>diff</code> function provided by the library. The comparison will return a set of <code>patches</code> which can be later applied on the actual DOM tree. The above procedure describes what happens on state update. However, we need an initial DOM tree to begin with! We can get one from the initial virtual tree by calling <code>createElement</code>, also provided by the library. Below you can find the update code.</p>
+<pre><code>import diff from &apos;virtual-dom/diff&apos;;
+import patch from &apos;virtual-dom/patch&apos;;
+import createElement from &apos;virtual-dom/create-element&apos;;
+
+function app(state, previousView = null) {
+    const updatedView = view(dispatch, state);
+
+    if (previousView === null) {
+      const updatedViewDom = createElement(updatedView);
+      rootNode.appendChild(updatedViewDom);
+    } else {
+      const patches = diff(previousView, updatedView);
+      patch(rootNode.children[0], patches);
+    }
+
+    function dispatch(action) {
+        const nextState = reducer(state, action);
+        app(nextState, updatedView);
+    }
+}
+
+app(initialState);
+</code></pre><p>The <code>app</code> function accepts a new parameter called <code>previousView</code>. We need it to be able to compare updated virtual DOM with the previous version. When <code>previousView</code> is <code>null</code>, it means that <code>app</code> is called for the first time (with <code>initialState</code>) and that there is no real DOM tree in place yet. Therefore, we call <code>createElement</code> and append the result to <code>rootNode</code>. When <code>previousView</code> is not empty, we should compare it with the new virtual tree (<code>updatedView</code>) and apply patches on <code>rootNode</code>‘s first child (because we initially attached the whole tree to <code>rootNode</code>). Obviously, this part is not functional code. Patching the DOM is an imperative operation with side effects. However, this part of the code wasn’t pure in the first place. What’s important is that <strong>we’ve managed to preserve the purity of the rest of the code</strong>.</p>
+<h2 id="Virtual-DOM-in-real-world"><a href="#Virtual-DOM-in-real-world" class="headerlink" title="Virtual DOM in real world"></a>Virtual DOM in real world</h2><p>The concept of virtual DOM is instrumental in React framework. This is actually what made React famous for its performance. By the way, if you are familiar with React, you might have noticed similarities between our application and the framework. Indeed, <strong>our <code>view</code> function is nothing less than a React functional component</strong>! It’s interesting to see how other frameworks deal with limiting the amount of DOM operations while maintaining declarativeness. For example, Angular takes a different approach based on <strong>change detection</strong>. You can read more about it in <a href="https://codewithstyle.info/change-detection-angular-versus-angularjs/">one of my posts</a>. This comparison between those two mechanisms seems very interesting to me and I asked a <a href="https://www.reddit.com/r/Angular2/comments/8ytfc1/reacts_virtual_dom_vs_angulars_change_detection/" target="_blank" rel="noopener">question on Reddit specifically about it</a>. I’ve got an amazing reply from Rob Wolmard which details the pros and cons of both approaches:</p>
+<blockquote>
+<p>The tradeoff (and part of the philosophy Angular is built around) is that templating allows Angular to deeply understand a template, and generate highly optimized code, in both pure CPU cycles, but low memory consumption and garbage collection. The flexibility of being able to return whatever from a JSX-style <code>render()</code> function means the framework has to be able to handle whatever, and each time a new virtual DOM representation is created, it can consume a fair amount of memory - especially important on low end devices.</p>
+</blockquote>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this post you’ve learned what virtual DOM is and how frameworks can use it to optimize performance while remaining declarative. I believe that this example nicely illustrates how trying to build your own framework can push you to learn new things and understand how existing frameworks work underneath.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/functional-programming/">#functional programming</a> <a class="fw3 ph1 dib" href="/tags/vanilla-js/">#vanilla js</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Hangfire is a great tool which can help you with doing background processing in .NET web applications. It’s great for tasks such as background import ">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Real bug story: very long-running jobs in Hangfire">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Real bug story: very long-running jobs in Hangfire - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Real bug story: very long-running jobs in Hangfire</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-10-09</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <p><a href="https://www.hangfire.io/" target="_blank" rel="noopener">Hangfire</a> is a great tool which can help you with doing background processing in .NET web applications. It’s great for tasks such as background import or asynchronous processing of some events or requests. What’s amazing about Hangfire is that it works very well in a setup where you have multiple instances of your application deployed behind a load balancer. In such case Hangfire can synchronize using database or Redis.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>You need to be extra careful when using long running jobs in connection with DisableConcurrentExecution  attribute.</p>
+<h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p>Some time ago I run into an interesting problem at work. I was using Hangfire to process requests from a queue. Users could add requests to the queue and than a Hangfire job would run every 5 minutes, take them off one by one and execute them. Processing of a single request was quite lengthy - it took about 2 minutes. The way I implemented it was to load all pending requests and execute them in a single run of the job. What’s more, I wanted the requests to be processed sequentially. I applied the DisableConcurrentExecution  attribute in order to make sure that there is only a single instance of the job running at given time. The problem materialized itself when I added several hundreds requests to the queue. After some time the job started throwing the following error:</p>
+<pre><code>Timeout expired. The timeout period elapsed prior to obtaining a connection from the pool
+</code></pre><p>What happened was the following:</p>
+<ol>
+<li>The first job run noticed 200 new requests and started processing them. It would take ~400 minutes to finish the processing.</li>
+<li>Next executions of the job should not happen because of the DisableConcurrentExecution attribute. However, Hangfire does actually create the job instance - it’s not starting it until the other execution is not finished.</li>
+<li>Our plumbing around Hangfire made it start a database transaction whenever a Job object is resolved from the IoC container. The database connection was obviously pulled from the connection pool.</li>
+<li>After some time we’ve had 100 job instances waiting for the first one to finish. Each one has borrowed a database connection from the connection pool.</li>
+<li>In consequence, at some point we were running out of the connections in the pool and the job started to crash.</li>
+</ol>
+<p><img src="https://codewithstyle.info/wp-content/uploads/2017/10/Hangfire_–_Background_jobs_and_workers_for__NET_and__NET_Core.png" alt=""></p>
+<h3 id="Solution-s"><a href="#Solution-s" class="headerlink" title="Solution(s)"></a>Solution(s)</h3><p>It was a nasty issue and took some time to figure out. We’ve ended up with a workaround and increased the connection pool size because we knew that this huge batch of requests was a one-off thing. However, the whole design turned out to be flawed. It would be a much better idea to have more fine-grained jobs and process a single request in a single job execution. And this it my key takeaway from this bug story.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

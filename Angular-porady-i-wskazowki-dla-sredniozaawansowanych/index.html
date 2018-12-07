@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Angular - porady i wskazówki dla średniozaawansowanychPrzeszedłeś przez kurs lub szkolenie z Angulara i zbudowałeś już swoją pierwszą aplikację? Być m">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Angular - porady i wskazówki dla średniozaawansowanych">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Angular - porady i wskazówki dla średniozaawansowanych - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Check if it is a root tag or category page -->
+
+
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Angular - porady i wskazówki dla średniozaawansowanych</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-11-29</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa-file-text-o"></i>
+    </div>
+</div>
+
+
+    <!-- Content -->
+    <div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+        <div class="content">
+            <div class="mw8 center">
+                            
+                    <div class="w-100 mw7 fw3 lh-copy post-content">
+                        <!-- Main Post Content -->
+                        <h1 id="Angular-porady-i-wskazowki-dla-sredniozaawansowanych"><a href="#Angular-porady-i-wskazowki-dla-sredniozaawansowanych" class="headerlink" title="Angular - porady i wskazówki dla średniozaawansowanych"></a>Angular - porady i wskazówki dla średniozaawansowanych</h1><p>Przeszedłeś przez kurs lub szkolenie z Angulara i zbudowałeś już swoją pierwszą aplikację? Być może znasz już dobrze AngularJS (czyli <em>starego</em> Angulara w wersji 1.x), łatwo Ci było ogarnąć podstawy <em>nowego</em> Angulara, ale nie wiesz za bardzo co dalej? Ten artykuł jest właśnie dla Ciebie! Przedstawię w nim kilka technik i podejść, które warto poznać żeby móc wykorzystać w pełni moc tego wspaniałego frameworka.</p>
+<h2 id="Poznaj-Angulara-od-srodka"><a href="#Poznaj-Angulara-od-srodka" class="headerlink" title="Poznaj Angulara od środka"></a>Poznaj Angulara od środka</h2><p>Frameworki powstają żeby ułatwić nam życie i abyśmy nie musieli za każdym razem implementować od zera wszystkich funkcjonalności. Nie znaczy to jednak, że framework jest czarną skrzynką, której działania nie musimy rozumieć. Dlatego jeśli chciałbyś stać się lepszym programistą Angular to powinieneś zacząć od zastanowienia się jak niektóre mechanizmy są w nim zaimplementowane.</p>
+<h2 id="Wykrywanie-zmian"><a href="#Wykrywanie-zmian" class="headerlink" title="Wykrywanie zmian"></a>Wykrywanie zmian</h2><p>Jedną z podstawowych funkcjonalności Angulara jest <strong>data binding</strong>. To za jego sprawą zmiany w modelu danych są automatycznie odzwierciedlane w widoku. Mechanizmem odpowiedzialnym za data binding jest <strong>change detection</strong>. W dużym uproszczeniu, change detection polega na porównaniu wartości użytych w property bindings przed zajściem jakiegoś wydarzenia (np. kliknięcia przycisku lub nadejścia odpowiedzi z serwera aplikacyjnego) z wartościami po zajściu tego wydarzenia. Jeśli istniał handler, który zaktualizował jakąś wartość, to framework wykrywa takę zmianę i musi nanieść ją na widok. Dla każdego komponentu w naszej aplikacji Angular generuje <strong>Change Detector</strong>, którego rolą jest właśnie porównywanie wartości.</p>
+<h3 id="Reczne-wywolywanie-Change-Detectora"><a href="#Reczne-wywolywanie-Change-Detectora" class="headerlink" title="Ręczne wywoływanie Change Detectora"></a>Ręczne wywoływanie Change Detectora</h3><p>Łatwo dojść do wniosku, że bardzo wiele cykli change detection wykonuje się niepotrzebnie. Przykładowo, jeśli danym wydarzeniem jest zainteresowany tylko jeden komponent, to nie ma potrzeby wywoływania <strong>Change Detectorów</strong> dla wszystkich komponentów za każdym razem. Angular pozwala nam w prosty sposób <em>odłączyć</em> Change Detector od komponentu. Wystarczy wstrzyknąć obiekt <code>ChangeDetectorRef</code> i wywołać na nim metodę <code>detach</code>.</p>
+<pre><code>constructor(ref: ChangeDetectorRef) {
+  ref.detach();
+}
+</code></pre><p>Musimy jednak pamiętać, że w takim przypadku widok nie będzie reagował na zmiany w modelu danych. Jeśli chcemy odświeżyć widok musimy wywołać wykrywanie zmian ręcznie. Poniższy przykład pokazuje jak to zrobić. Widok zostanie odświeżony tylko po kliknięciu przycisku <em>Detect changes</em>.</p>
+<pre><code>@Component({
+  selector: &apos;app-change-detection&apos;,
+  template: `
+    &lt;p&gt;
+      Counter: { { counter }}
+      &lt;button (click)=&quot;increment()&quot;&gt;Increment&lt;/button&gt;
+      &lt;button (click)=&quot;detect()&quot;&gt;Detect changes&lt;/button&gt;
+    &lt;/p&gt;
+  `,
+})
+export class ChangeDetectionComponent {
+  counter = 0;
+
+  constructor(private ref: ChangeDetectorRef) { ref.detach(); }
+  increment() { this.counter++; }
+  detect() { this.ref.detectChanges(); }
+}
+</code></pre><p>Dzięki takiemu podejściu możemy znacząco poprawić wydajność naszej aplikacji poprzez uniknięcie niepotrzebnych wykonań <strong>Change Detectorów</strong>.</p>
+<h3 id="Strategia-OnPush"><a href="#Strategia-OnPush" class="headerlink" title="Strategia OnPush"></a>Strategia <code>OnPush</code></h3><p>Ręczne sterowanie mechanizmem wykrywania zmian może okazać się nie lada wyzwaniem. Innym pomysłem na usprawnienie tego procesu, który jednak nie zmusza nas do rezygnacji z automatycznego wykrywania zmian jest użycie strategii wykrywania zmian <code>OnPush</code>. Wyobraźmy sobie, że mamy komponent <code>BookDetailsComponent</code>, który zawiera wewnątrz komponent <code>AuthorDetailsComponent</code>, jak poniżej.</p>
+<pre><code>{ { book.title }}
+&lt;app-author-details [author]=&quot;author&quot;&gt;&lt;/app-author-details&gt;
+&lt;button (click)=&quot;changeName()&quot;&gt;Change author name&lt;/button&gt;
+</code></pre><p>Domyślnie po wykrywaniu zmian dla komponentu <code>BookDetailsComponent</code> Angular uruchomi wykrywanie zmian dla komponentu <code>AuthorDetailsComponent</code>. Jednakże po włączeniu strategii <code>OnPush</code>, Angualr uruchomi Change Detector dla zagnieżdżonego komponentu tylko i wyłącznie gdy wykryje zmianę w polu <code>author</code>. Pozwoli nam to oszczędzić sporo czasu na wykrywaniu zmian.</p>
+<pre><code>@Component({
+  selector: &apos;app-author-details&apos;,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+</code></pre><p>Z takim podejściem wiąże się jednak zmiana sposobu pisania kodu w naszej aplikacji. Po włączeniu strategii <code>OnPush</code> poniższy kod nie spowoduje odświeżenia widoku:</p>
+<pre><code>changeName() {
+  this.author.name = &quot;GEORGE&quot;;
+}
+</code></pre><p>Nie zmieniła się wartość pola <code>author</code> - zmieniło się tylko pole w tym obiekcie. Musimy zatem inaczej wyrazić naszą intencję:</p>
+<pre><code>changeName() {
+  this.author = { ...this.author, name: &quot;GEORGE&quot; };
+}
+</code></pre><p>Takie podejście do pisania kodu wiąże się z pojęciem <strong>niemutowalności</strong>. Zamiast modyfikować obiekty, tworzymy ich nowe wersje.</p>
+<h2 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h2><p>Kolejnym mechanizmem w Angularze wartym zgłębienia jest <strong>Dependency Injection</strong>. Zakładam, że rozumiesz na podstawowym poziomie do czego służy Dependency Injection.</p>
+<h3 id="Drzewo-Injectorow"><a href="#Drzewo-Injectorow" class="headerlink" title="Drzewo Injectorów"></a>Drzewo Injectorów</h3><p>Za każdym razem gdy wstrzykujemy coś za pomocą Dependency Injection, Angular odwołuje się do obiektu <code>Injector</code>. Obiekt ten potrafi zwrócić nam instancję danej usługi gdy o nią poprosimy. Warto wiedzieć, że Injectorów w aplikacji jest więcej niż jeden. Każda aplikacja zawiera jeden <strong>root Injector</strong>. Dla każdego komponentu tworzony jest jednak <strong>child Injector</strong>. Mamy zatem w zasadzie drzewo <strong>Injectorów</strong> o kształcie przypominającym drzewo komponentów. Jeśli jakiś komponent pyta o usługę, która nie jest zarejestrowana we właściwym dla niego <strong>Injectorze</strong>, to zapytanie to jest przekazywane w górę drzewa. W większości przypadków odpowie na nie dopiero <strong>root Injector</strong>, w którym to zarejestrowane jest większość serwisów (za pomocą <code>providers</code> w dekoratorze głównego modułu). <img src="https://codewithstyle.info/wp-content/uploads/2017/11/InjectorTree.png" alt=""> Taki mechanizm umożliwia Angularowi wstrzykiwanie obiektów, które istnieją tylko w kontekście danego komponentu. Przykładowo, jeśli implementujemy własną dyrektywę, to może wstrzyknąć obiekt <code>ElementRef</code>, który daje nam dostęp do drzewa DOM związanego z dyrektywą. Oczywiście istnieje wiele innych zastosowań drzewa <strong>Injectorów</strong>. Przykładowo, możemy w komponencie za pomocą <code>providers</code> podmienić implementację danej usługi na bardziej wyspecjalizowaną. Możemy również ograniczyć dostęp do danej usługi tylko do jednego komponentu, ponieważ wiemy że tylko tam usługa będzie potrzebna. Warto zatem pamiętać, że usługi można rejestrować zarówno na poziomie modułu jak i komponentu.</p>
+<h3 id="Moduly-shared-i-core-oraz-lazy-loading"><a href="#Moduly-shared-i-core-oraz-lazy-loading" class="headerlink" title="Moduły shared i core oraz lazy loading"></a>Moduły shared i core oraz lazy loading</h3><p>Powyższa własność Angulara ma poważne konsekwencje, które mogą nas zaboleć jeśli używamy <em>lazy loadingu</em>. Okazuje się bowiem, że każdy moduł załadowany leniwie powoduje utworzenie nowego child injectora. Oznacza to zatem, że jeśli dana usługa jest rejestrowana zarówno przez moduł główny oraz moduł załadowany leniwie, to komponenty z modułu leniwego dostaną inną instancję usługi niż komponenty z modułu głównego! Na ogół jednak spodziewamy się, że serwis będzie <strong>singletonem</strong>. W związku z powyższym oficjalny Angular Style Guide sugeruje umieszczenie usług wspólnych dla wszystkich modułów w module <code>Core</code> (w przeciwieństwie do modułu <code>Shared</code>). Moduł ten jest importowany tylko raz, w module głównym. Moduł <code>Shared</code> jest za to importowany we wszystkich innych modułach, przez co nie powinien zawierać rejestracji usług. Jest za to dobrym miejscem na deklarowanie dyrektyw i komponentów wspólnych dla wszystkich modułów. W prostych słowach można ująć to następująco: <em> Jeśli chcesz uwspólnić dla wielu modułów komponent, dyrektywę lub pipe, to umieść ją w module <code>Shared</code> oraz zaimportuj ten moduł we wszystkich innych modułach. </em> Jeśli chcesz uwspólnić serwis to umieść go w module <code>Core</code> oraz zaimportuj ten moduł jedynie w głównym module.</p>
+<h2 id="RxJS"><a href="#RxJS" class="headerlink" title="RxJS"></a>RxJS</h2><p>Ostatnie zagadnienie, które chciałbym poruszyć, to używanie <code>Observables</code>. Jak wiemy, obiekty typu <code>Observable</code> reprezentują strumień wartości, które zostaną wyemitowane w późniejszym czasie. <code>Observables</code> są obecne w Angularze w kilku miejscach. Jednym z nich jest klasa <code>HttpClient</code>, której używamy na co dzień do komunikacji z serwerem (tzw. backendem). W celu wysłania zapytania do serwera możemy wywołać metodę <code>HttpClient.get</code>, która zwróci nam właśnie <code>Observable</code>. W tym przypadku owym <em>strumieniem</em> będzie pojedyncza wartość (lub błąd) zwrócona przez serwer. Podczas nauki Angulara zapewne używałeś klasy <code>HttpClient</code> w następujący sposób:</p>
+<pre><code>ngOnInit() {
+  this.httpClient.get&lt;Post[]&gt;(this.postsUrl).subscribe(posts =&gt; {
+    this.posts = posts;
+  });
+}
+</code></pre><p>W podejściu tym subskrybujemy <code>Observable</code> podając funkcję która ma się wykonać gdy wyemituje on wartość. W naszym przypadku funkcja ta przypisze tablicę postów do pola <code>posts</code>, którego możemy użyć w szablonie.</p>
+<pre><code>&lt;ul&gt;
+  &lt;li *ngFor=&quot;let post of posts&quot;&gt;{ { post.title }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>Warto wiedzieć, że Angular umożliwia uzyskanie takiego samego efektu w prostszy sposób. Z pomocą przychodzi <code>AsyncPipe</code>. Jest to <em>pipe</em> dzięki któremu możemy w szablonie użyć bindingu bezpośrednio do <code>Observable</code> dzięki czemu <code>subscribe</code> nie jest potrzebnej.</p>
+<pre><code>ngOnInit() {
+  this.postsObservable = this.httpClient.get&lt;Post[]&gt;(this.postsUrl);
+}
+</code></pre><p>Zauważ użycie <code>async</code> w szablonie:</p>
+<pre><code>&lt;ul&gt;
+  &lt;li *ngFor=&quot;let post of postsObservable | async&quot;&gt;{ { post.title }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>Bardzo często mamy do czynienia z sytuacją, że chcielibyśmy wyświetlić w szablonie jakąś treść zanim dane z serwera zostaną załadowane. Dyrektywa <code>*ngIf</code> posiada użyteczną acz mniej znaną składnię dzięki której możemy w elegancki sposób zaimplementować taki scenariusz.</p>
+<pre><code>&lt;ul *ngIf=&quot;postsObservable | async as posts; else loading&quot;&gt;
+  &lt;li *ngFor=&quot;let post of posts&quot;&gt;{ { post.title }}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ng-template #loading&gt;Loading...&lt;/ng-template&gt;
+</code></pre><p>Jak widać, nie dość że <code>*ngIf</code> pozwala nam przypisać wartość <em>odpakowaną</em> z <code>Observable</code> do nowej zmiennej (<code>posts</code>), to jeszcze umożliwia nam podanie szablonu, który wyświetli się w przypadku gdy wartość przed średnikiem nie konwertuje się do <code>true</code>.</p>
+<h2 id="Podsumowanie"><a href="#Podsumowanie" class="headerlink" title="Podsumowanie"></a>Podsumowanie</h2><p>W artykule tym omówiłem kilka mechanizmów związanych z Angularem, które nie pojawiają się na ogół w kursach dla początkujących, a o których na pewno warto wiedzieć. Po raz kolejny podkreślę, że warto spędzić trochę czasu na próbie zrozumienia w jaki sposób Angular działa <em>pod spodem</em>. Dzięki głebokiemu zrozumieniu frameworka unikniemy błędów oraz będziemy lepiej rozumieć jak poprawić wydajność naszych aplikacji.</p>
+
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

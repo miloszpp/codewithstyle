@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter con">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Functional JavaScript part 7: Redux">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Functional JavaScript part 7: Redux - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Functional JavaScript part 7: Redux</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-09-18</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <p><img src="https://codewithstyle.info/wp-content/uploads/2017/08/redux-300x235.png" alt="">So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter concept could seem slightly theoretical to you. It’s time to see a practical application of immutability. You will now learn about Redux - an amazing concept which will change how you think about building applications. <strong>This post is part of the <a href="https://codewithstyle.info/functional-programming-javascript-plain-words/">Functional Programming in JavaScript series</a>.</strong></p>
+<h3 id="Application-state"><a href="#Application-state" class="headerlink" title="Application state"></a>Application state</h3><p>Every web application in JavaScript has <strong>state</strong>. State is the sum of all data stored in memory during execution of the application. Every list of objects that you fetch from some backend API is part of the state. Variables that indicate whether some UI component should be visible or not are part of the state. Information about the currently logged user is part of the state. In a traditional Single Page Application the state is distributed across different places and can be updated from many different places. Therefore, it’s quite easy to lose control over the state. At some point, when making another change to your application, you might be surprised to learn that this particular variable is being updated by some method that you totally forgot about.</p>
+<h3 id="Redux-approach-to-state-management"><a href="#Redux-approach-to-state-management" class="headerlink" title="Redux approach to state management"></a>Redux approach to state management</h3><p>Redux says that you should store the application state in a single object. It can be a complicated, deeply nested object. The important thing is that the state is stored in a single location (as opposed to being distributed across the whole application). Another rule imposed by Redux is that the state should be immutable - you should never change anything in it manually. Instead, whenever you wish to update something you should return a new copy of the state. Redux also says that all changes to the state should be initiated by <strong>actions</strong>. An action could be for example clicking on a button or receiving some data. The action can contain some additional data. So, you have a state and an action object. Given these two you should produce a new state object. Redux says that a function which takes a state and an action and produces a new state is called a <strong>reducer</strong>. <img src="https://codewithstyle.info/wp-content/uploads/2017/08/reducer.png" alt="" title="reducer"></p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Let’s have a look at some real example. You are working on a bookstore application. Such application would store a list of books as part of its state. Therefore, the <strong>state</strong> object could look like this:</p>
+<p>const state = {<br>  books: [<br>    { title: “Code Complete”, author: “Steve McConnell”, quantity: 10 },<br>    { title: “Clean Code”, author: “Robert Cecil Martin”, quantity: 4 }<br>  ]<br>};</p>
+<p>One of the possible actions a user can perform is to buy a book. Let’s see how an object describing such an <strong>action</strong> could look like.</p>
+<p>const action = {<br> type: “BUY_BOOK”,<br> title: “Code Complete”,<br> quantity: 2<br>};</p>
+<p>Now we need to write a <strong>reducer</strong> - a function that will take the state and the action and produce a new state object. Given a list of books with quantities and an action object saying which and how many books are being bought, we need to find the book in the state and decrease its in-store quantity. Keep in mind that we need to return a new state object and not modify the existing one!</p>
+<p>function reduce(state, action) {<br>  if (action.type === “BUY_BOOK”) {<br>    const newBooks = state.books.map(book =&gt; {<br>      if (book.title === action.title)<br>        return {<br>          …book,<br>          quantity: book.quantity - action.quantity<br>        };<br>      else<br>        return book;<br>    });<br>    return { …state, books: newBooks };<br>  }<br>  else return state;<br>}</p>
+<p>Let’s go through this code. First, we inspect the action’s type - there will be more actions in our application so we need to differentiate between them. Next, we map the existing collection of books to a new collection of books. The new one will be very similar to the old one except it will have decreased quantity for one of the books. That’s exactly what the function passed to map does. For most of the books it will return an unchanged object. However, when it finds a book with title corresponding to the one in the action, it will produce a new book object with decreased quantity.</p>
+<h3 id="Benefits-of-Redux"><a href="#Benefits-of-Redux" class="headerlink" title="Benefits of Redux"></a>Benefits of Redux</h3><p>Ok, but what are the benefits of Redux? So far it looks like a complicated way to do simple things. That’s actually true. It doesn’t make much sense to use Redux when your application’s state is very simple. It shows its merit when you have to deal with a very complicated application that would normally be implemented with state distributed in many places. In such case, an application written the Redux way would be much less prone to introducing new bugs. Representing your application’s state as a single object gives you other interesting benefits. For example, you could store every action before applying it. You would then get a full history of your application’s state. It would be very easy to <strong>travel back in time</strong> or see how would your application look like if one of the actions hasn’t happened (by applying all actions apart from the one). In fact, there are <a href="https://github.com/gaearon/redux-devtools" target="_blank" rel="noopener">tools</a> which allow you to do exactly that.</p>
+<h3 id="More-on-reducers"><a href="#More-on-reducers" class="headerlink" title="More on reducers"></a>More on reducers</h3><p>You might find the name <em>reducer</em> sounding familiar. Indeed, reducers are very much related to the reduce  higher order function which you learned about in <a href="https://codewithstyle.info/functional-javascript-part-3-reduce/">one of the previous chapters</a>. Reduce would operate on an array and would take a function which accepts the existing accumulator and next element array and returns the new accumulator. That’s exactly what a reducer function in Redux does! If you were given an array of actions and a reducer function than you could call reduce on that list and provide the reducer function as an argument. It’s also worth mentioning that functions such as reducers have a special name in functional programming. They are called <strong>pure functions</strong>. A function is pure if given some specific arguments will always return the same result. It means that the result doesn’t depend on any mutable state as is the case in Redux. Additionally, pure functions cannot cause any mutations themselves - in fact, they cannot produce any <strong>side effects</strong> at all (e.g. they cannot manipulate the DOM or print to console).</p>
+<h3 id="Redux-library"><a href="#Redux-library" class="headerlink" title="Redux library"></a>Redux library</h3><p>Wait, wasn’t Redux supposed to be a library? The code above doesn’t include any non-vanilla JavaScript calls. That’s true - you can actually build applications the Redux way without using the <a href="http://redux.js.org/" target="_blank" rel="noopener">Redux library!</a> The library itself provides you with some utilities that make it easier to build applications. However, this article focuses on the concepts behind Redux and not on the library itself. Once you understood the concepts you will find learning the library very easy.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>This chapter combines lots of ideas from the previous posts and shows you a really powerful concept in functional programming. Redux is a completely new way of building applications and definitely takes some time to get accustomed to but it can make handling complexity much easier. Note the heavy use of concepts introduced in the previous parts of the code - higher order functions, object spread operator and immutability. It shows how interconnected the concepts in functional programming are. For me it feels like pieces of a puzzle coming together! If you have any issues understanding anything in this post or if you simply would like to provide feedback, please leave a comment below. I want this course to be as good as possible and I need your help for that! If you found this post helpful, please consider sharing it on Facebook or Twitter.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="This post is part of a series in which I will describe how I built my first PWA. It will touch on many topics such as Angular 2, Ionic 2, Firebase, se">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="How I built a PWA with Angular and Firebase Part 1: Introduction">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>How I built a PWA with Angular and Firebase Part 1: Introduction - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">How I built a PWA with Angular and Firebase Part 1: Introduction</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-04-14</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/angular2/">#angular2</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/pwa/">#pwa</a> <a class="fw3 ph1 dib" href="/tags/severless/">#severless</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>This post is part of a series in which I will describe how I built my first PWA. It will touch on many topics such as Angular 2, Ionic 2, Firebase, service workers, push notifications, serverless architectures. I hope you find it useful when building your own PWAs. I’ve spent last month working on my new project. It’s called <a href="http://friendtainer.com" target="_blank" rel="noopener">Friendtainer</a> and it’s a smartphone app which helps you meet with your friends regularly. You can add contacts and decide how often you want to meet. If you fail to record a meeting within given timespan you will start receiving reminders until you record a meeting.</p>
+<ul>
+<li><a href="https://codewithstyle.info/how-i-built-a-progressive-web-app-with-angular-and-firebase-part-1/">Part 1: Explaining PWA and introduction</a></li>
+<li><a href="https://codewithstyle.info/how-i-built-a-pwa-with-angular-and-firebase-part-2-ionic-2/">Part 2: Ionic and app manifest</a></li>
+<li><a href="https://codewithstyle.info/push-notifications-with-fcm/">Part 3: Push notifications with Firebase Cloud Messaging</a></li>
+</ul>
+<h3 id="PWAs-Progressive-Web-Apps"><a href="#PWAs-Progressive-Web-Apps" class="headerlink" title="PWAs (Progressive Web Apps)"></a>PWAs (Progressive Web Apps)</h3><p>I decided to create the app as a Progressive Web Application (PWA). What is a PWA? It’s a new term coined by Google which basically means a web application which provides a native-like experience on mobile devices. There are a few indicators of whether a web app is a PWA:</p>
+<ul>
+<li>Looks like a native app on mobile devices</li>
+<li>Loads fast and supports offline mode</li>
+<li>Can be launched from the phone’s home screen</li>
+<li>Runs full-screen</li>
+<li>May support push notifications (so the phone will display notifications even if the browser is not running)</li>
+</ul>
+<p>What are the advantages of a PWA over a native mobile app? <strong>Discoverability</strong>! You don’t need to put your app in the App Store or the Play Store. All your users need to do is to go to a specific URL. Besides, you can use your web skills and don’t need to learn platform-specific technologies such as Swift or the Android framework.</p>
+<h3 id="Modern-web-technologies-at-work"><a href="#Modern-web-technologies-at-work" class="headerlink" title="Modern web technologies at work"></a>Modern web technologies at work</h3><p>As you can see, there are quite a few requirements that the app should satisfy. Let’s take them one by one.</p>
+<ul>
+<li><em>Looks like a native app on mobile devices</em> - I know Angular best so I would like to use it to build the app. <a href="http://ionic.io/2" target="_blank" rel="noopener">Ionic 2</a> is an excellent framework based on Angular 2 which provides a set of UI components that make your app look like a native app. The framework detects the device it’s running on and applies different styling depending on whether it’s the iOS or the Android operating system.</li>
+</ul>
+<p><img src="http://codewithstyle.info/wp-content/uploads/2017/04/Zrzut-ekranu-2017-04-14-o-12.06.43.png" alt=""></p>
+<ul>
+<li><em>Loads fast and supports offline mode</em> - this part is taken care of by <a href="https://developers.google.com/web/fundamentals/getting-started/primers/service-workers" target="_blank" rel="noopener">Service Workers</a>. Service Workers is a relatively new technology which allows you to run JavaScript in the background. What it means is that your web app can register a piece of JavaScript code that will keep running even if the user closes the browser! Service Workers can also intercept HTTP calls made by the app. Therefore, it’s possible to implement offline caching of all calls made by the app using them.</li>
+<li><em>Can be launched from the phone’s home screen</em> and <em>Runs full-screen</em> - another technology called <a href="https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/" target="_blank" rel="noopener">The Web App Manifest</a> is responsible exactly for this. It’s quite easy to achieve - all you need to do is write a JSON file which defines various properties of the app. Given a proper manifest, Chrome on Android will show a suggestion to the user to install the app on the home screen.</li>
+</ul>
+<p><img src="http://codewithstyle.info/wp-content/uploads/2017/04/Zrzut-ekranu-2017-04-14-o-12.00.43.png" alt=""></p>
+<ul>
+<li><em>Push notifications</em> - I wanted my app to send friend meeting reminders to the users so Push Notifications sounds great! Thanks to Service Workers and the <a href="https://developer.mozilla.org/en/docs/Web/API/Push_API" target="_blank" rel="noopener">Push API</a> it’s possible for a web app to produce native-like notifications on Android phones. However, something has to send the notifications. I decided to use Firebase Cloud Messaging as a transport and Webtask for hosting the code that would actually invoke the notifications.</li>
+</ul>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>I wanted to develop my app fast and not spend time on setting up infrastructure so I decided to go for serverless architecture with Firebase Database instead of a dedicated backend. Firebase Database is a no-SQL, real-time database that web applications can directly connect to. It is tightly integrated with Firebase authentication and has a powerful validation rule engine. Therefore, it’s possible to avoid having a separate application server. <img src="http://codewithstyle.info/wp-content/uploads/2017/04/Architecture.png" alt="" title="Architecture"> The app will consist of the following components:</p>
+<ul>
+<li>The frontend written in Ionic 2 utilizing Service Workers for offline caching and receiving push notifications while the app is not in the foreground. It will also have a Web Manifest file to enable adding to the home screen.</li>
+<li>The data will be stored in a Firebase Database. Validation rules will enforce that a user can only modify their own data. Firebase will also provide authentication.</li>
+<li>A scheduled <a href="https://webtask.io/" target="_blank" rel="noopener">Webtask</a> (function-as-a-service) will run daily, read data from the Firebase Database and send out push notifications and email reminders. Firebase also offers a similar functionality (it’s called Functions) but at the moment of writing they don’t support scheduled execution.</li>
+</ul>
+<p>If you are not that familiar with Firebase or Webtasks, take a look at <a href="http://codewithstyle.info/building-serverless-web-application-angular-2-webtask-firebase/">my previous post</a> where I talk more about it. <strong>Check out <a href="http://codewithstyle.info/how-i-built-a-pwa-with-angular-and-firebase-part-2-ionic-2/">Part 2: Ionic 2 and app manifest</a></strong></p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/angular2/">#angular2</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/pwa/">#pwa</a> <a class="fw3 ph1 dib" href="/tags/severless/">#severless</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

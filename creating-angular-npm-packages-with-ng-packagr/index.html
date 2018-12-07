@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="In this short post, I would like to share some of the experiences I’ve had when creating an NPM Angular package using ng-packagr. 
+Angular Package For">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Creating Angular NPM packages with ng-packagr">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Creating Angular NPM packages with ng-packagr - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Creating Angular NPM packages with ng-packagr</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-01-25</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <p>In this short post, I would like to share some of the experiences I’ve had when creating an NPM Angular package using <code>ng-packagr</code>. <img src="https://codewithstyle.info/wp-content/uploads/2018/01/Change-detection-in-AngularJS-vs-Angular-—-kopia-—-kopia.png" alt=""></p>
+<h2 id="Angular-Package-Format-and-ng-packagr"><a href="#Angular-Package-Format-and-ng-packagr" class="headerlink" title="Angular Package Format and ng-packagr"></a>Angular Package Format and <code>ng-packagr</code></h2><p>First of all, when creating an Angular library, it’s important to understand that you need to include a bit more than just plain TypeScript files inside the NPM package. It should contain JavaScript code that is ready to be consumed in various ways - e.g. by Webpack, Rollup or Angular CLI. There are some best-practices describing what to include in an Angular NPM package - it’s called <a href="https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview" target="_blank" rel="noopener">Angular Package Format</a>. It’s actually not trivial to produce a package that complies with the standard. Fortunately, we can use the excellent <a href="https://www.npmjs.com/package/ng-packagr" target="_blank" rel="noopener">ng-packagr</a> tool for that. The documentation for the package is pretty good and it’s actually quite easy to get going with it.</p>
+<h2 id="AOT-metadata-generation-issue"><a href="#AOT-metadata-generation-issue" class="headerlink" title="AOT metadata generation issue"></a>AOT metadata generation issue</h2><p>It worked pretty well for me too, except for two issues on which I’ve spent too much time. Both of them only manifested themselves when I tried to build the consuming project (the project to which my new common package is a dependency) using Angular Ahead of Time compilation (AOT). When trying to build my consumer project I’ve got the following error:</p>
+<pre><code>ERROR in Error: Unexpected value &apos;SomeModuleName in ...........path-to-module.d.ts&apos; imported by the module &apos;AppModule in ...............path-to-module.ts&apos;. Please add a @NgModule annotation.
+</code></pre><p>After some digging, I’ve found out that the root cause was that when building my package I wasn’t generating appropriate metadata to be further used by the AOT compiler. This should be normally done by <code>ng-packagr</code>. It turned out that the tool could not generate the metadata properly because I was using invalid paths inside the <code>public_api.ts</code> file. Inside my package, I was making heavy use of <code>index.ts</code> files where I re-exported all the relevant symbols from the module. The file structure looked like this:</p>
+<pre><code>+ src
+|--+ module1
+|  |-- module1.module.ts
+|  |-- index.ts
+|  + module2
+|  |-- module2.module.ts
+|  └-- index.ts
+└ public_api.ts
+</code></pre><p>And the <code>public_api.ts</code> was referencing the modules like this:</p>
+<pre><code>import * from &apos;./src/module1&apos;;
+import * from &apos;./src/module2&apos;;
+</code></pre><p>It turns out that this is not enough to generate the metadata properly. I had to change the imports to include <code>index</code>.</p>
+<pre><code>import * from &apos;./src/module1/index&apos;;
+import * from &apos;./src/module2/index&apos;;
+</code></pre><p>After this change, the AOT compilation started to work properly. The only place where I could find this information was a comment by <strong>JoeQueR</strong> on <a href="https://github.com/dherges/ng-packagr/issues/355" target="_blank" rel="noopener">GitHub</a>. Thanks, <a href="https://github.com/JoeQueR" target="_blank" rel="noopener">JoeQueR</a>!</p>
+<h2 id="Module’s-forRoot-and-AOT"><a href="#Module’s-forRoot-and-AOT" class="headerlink" title="Module’s forRoot and AOT"></a>Module’s <code>forRoot</code> and AOT</h2><p>Another problem I had isn’t that much related to <code>ng-packagr</code> itself but rather to the <code>NgModule.forRoot</code> convention. <code>forRoot</code> is a static method which allows isolating services provided by given module so that they are only provided once. The <code>forRoot</code> method should be only invoked when importing the module in the <code>app</code> module or in the <code>core</code> module. This approach helps you avoid issues with lazy loading. In my common package, I’ve implemented a <code>forRoot</code> method which conditionally provided some additional services based on an argument passed to the method. It looked a bit like below:</p>
+<pre><code>export class SomeModule {
+  public static forRoot(includeSomeService: boolean): ModuleWithProviders {
+    return {
+      ngModule: ModalModule, 
+      providers: [
+        Service1, 
+        ...(includeSomeService ? [ Service2 ] : [])
+      ]
+    };
+  }
+}
+</code></pre><p>It turns out that you cannot do this! All the providers should be included in generated metadata and in this case, the final provider list will only be known at runtime so it’s not possible to figure it out during compile time. Therefore, it’s not possible to implement such scenario. The <code>providers</code> array has to be determined statically.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="With this post we will finalize the part of this course devoted to array operations Vanilla JavaScript provides us with some higher order functions (s">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Miłosz Piechocki">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Functional JavaScript part 4: lodash">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="codewithstyle.info">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Functional JavaScript part 4: lodash - codewithstyle.info</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+    
+    <div class="w-100">
+        <nav class="db flex-l pv3 mw8 center items-center-l">
+            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+                <img src="https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+            </a>
+            <div class="db v-mid w-100 w-75-l tc tr-l">
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                        Home
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+                        Functional Programming
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                        Archives
+                    </a>
+                
+                    <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+                        Author
+                    </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title -->
+    <div class="w-100 vh-40 dt">
+        <div class="v-mid white center mw8">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Functional JavaScript part 4: lodash</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-08-12</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon "></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <p>With this post we will finalize the part of this course devoted to array operations Vanilla JavaScript provides us with some higher order functions (such as forEach , filter , map and reduce). However, there are actually many more such functions in the world of functional programming. <a href="https://lodash.com/" target="_blank" rel="noopener">Lodash</a> is a library which extends your arsenal of higher order functions. Let’s have a look at how to use it in practice. <strong>This post is part of the <a href="https://codewithstyle.info/functional-programming-javascript-plain-words/">Functional Programming in JavaScript series</a>.</strong></p>
+<h3 id="Exploring-lodash"><a href="#Exploring-lodash" class="headerlink" title="Exploring lodash"></a>Exploring lodash</h3><p>The best place to explore functions available in lodash is the <a href="https://lodash.com/docs/" target="_blank" rel="noopener">documentation</a>. You will notice that there are many expandable sections on the left hand side. For now let’s focus on <strong>Array</strong> and <strong>Collection</strong>. <img src="http://codewithstyle.info/wp-content/uploads/2017/08/lodash_documentation-1024x612.png" alt=""></p>
+<h3 id="Using-lodash"><a href="#Using-lodash" class="headerlink" title="Using lodash"></a>Using lodash</h3><p>Lodash methods are not available directly on the array object. It could be achieved with JavaScript’s prototypical inheritance but it’s not considered a good practice to extend native prototypes (actually, it’s disputable but <a href="https://github.com/lodash/lodash/issues/409" target="_blank" rel="noopener">lodash creators decided not to do this</a>). Therefore, in order to use a lodash method we need to call it on the global _  object. You may note that this will make chaining less convenient but there is a cure for that - we’ll look at it at the end of this post. Let’s see a usage example:</p>
+<p>var numbers = [1, 2, 3, 4, 5];<br>console.log(_.drop(numbers, 2));</p>
+<p>Drop function takes an array and a number of elements to drop. It returns a new array that doesn’t contain the first n  elements. As a side note, it’s actually not a higher order function since it doesn’t take a function as argument.</p>
+<h3 id="Validation-with-every-and-any"><a href="#Validation-with-every-and-any" class="headerlink" title="Validation with every and any"></a>Validation with every and any</h3><p>Let’s consider the following requirement: <em>we’re running a bike parts shop. W__e are given a list of items in the customer’s shopping cart. We should validate that he is ordering at least one piece of each item.</em> All of the imperative approaches to this problem I can think of are a little clumsy. We could either:</p>
+<ul>
+<li>count the items with quantity equal to 0 and check if the number is equal to zero</li>
+<li>have a separate function in which we iterate over the items and return early if we encounter one with quantity equal to 0</li>
+</ul>
+<p>Let’s see how we can use lodash in order to solve it in an elegant way:</p>
+<p>var basket = [<br>  { name: “Cable Lock”, quantity: 2 },<br>  { name: “U Lock”, quantity: 5 },<br>  { name: “Tail Light”, quantity: 0 }<br>];</p>
+<p>if (!_.every(basket, item =&gt; item.quantity &gt; 0)) {<br>  alert(“You must order at least 1 piece of each item”);<br>}</p>
+<p>Function every takes a function that evaluates to true or false, applies this function on all elements and returns true only if the function was true on all elements. In other words, it checks whether <strong>every</strong> element satisfies given condition. In fact, what we want to do is to check if it is not true that every element satisfies given condition. Therefore, we can check whether there are <strong>some</strong> elements that don’t satisfy our condition (the condition being quantity greater than 0).</p>
+<p>if (_.some(basket, item =&gt; item.quantity == 0)) {<br>  alert(“You must order at least 1 piece of each item”);<br>}</p>
+<p>Which results in even cleaner and more readable code. Doesn’t it feel a bit like writing in natural language?</p>
+<h3 id="Grouping-with-groupBy"><a href="#Grouping-with-groupBy" class="headerlink" title="Grouping with groupBy"></a>Grouping with groupBy</h3><p>Here comes another requirement! <em>We’ve received a list of available products from some backend API. It would be nice to display them in separate boxes based on the category they belong to.</em> The imperative solution is particularly verbose:</p>
+<p>var products = [<br> { name: “Cable Lock”, category: “Safety” },<br> { name: “U Lock”, category: “Safety” },<br> { name: “Tail Light”, category: “Basics” }<br>];</p>
+<p>var productsByCategory = {};<br>for (var i = 0; i &lt; products.length; i++) {<br>  var category = products[i].category;<br>  if (!productsByCategory.hasOwnProperty(category))   {<br>    productsByCategory[category] = [];<br>  }<br>  productsByCategory[category].push(products[i]);<br>}<br>console.log(productsByCategory);</p>
+<p>We create an empty object (productsByCategory) in which we will store the results - keys will represent categories and for each key we will store an array of products. Next, we iterate over the products. For each product we check whether we already have an entry in the productsByCategory object. If we don’t then we need to create it and initialize it with an empty array. Finally, we add the product to the list under its category. The result will look like this:</p>
+<p>{Safety: Array(2), Basics: Array(1)}</p>
+<p>I bet you’re expecting the functional version to be much simpler - and it is. Yes, it’s a single line again.</p>
+<p>var productsByCategory = _.groupBy(products, product =&gt; product.category);</p>
+<p>The function takes an array and a function which determines how to group the elements of that array. The grouping functions is evaluated for each element. Those elements for which the same value is returned are packed into separate groups. Finally, an object is returned with keys equal to unique values returned by the grouping function applied on all of the elements. <img src="https://codewithstyle.info/wp-content/uploads/2017/08/drawit-diagram.png" alt="" title="drawit diagram"> The grouping function does not have to be a simple property selector - we can put any sort of expression in it. For example, it’s trivial to split products into groups based on the length of their names:</p>
+<p>var productsByNameLength = _.groupBy(products, product =&gt; {<br>  if (product.name.length &lt; 10) return “short”;<br>  if (product.name.length &gt;= 10 &amp;&amp; product.name.length &lt; 20) return “medium”;<br>  return “long”;<br>});</p>
+<h3 id="Sorting-with-orderBy"><a href="#Sorting-with-orderBy" class="headerlink" title="Sorting with orderBy"></a>Sorting with orderBy</h3><p>The last useful function I’d like you to look at is orderBy. As the name suggests, it let’s you sort an array. Vanilla JavaScript already has a sort  function built-in. orderBy  is more convenient to use and more functional in its nature. Firstly, while sort  orders the array in-place, orderBy  doesn’t modify the existing array but returns a fresh copy. Secondly, sort takes a comparator function - a function which takes two elements and compares them. orderBy  is more consistent with other functions we’ve looked at - it takes a function which selects the value to use for ordering. Let’s say that we would like to have a fresh copy of our products array sorted by quantity. Without lodash we would need to do the following:</p>
+<p>var sortedBasket = basket.slice(0);<br>sortedBasket.sort((a, b) =&gt; a.quantity - b.quantity);<br>console.log(sortedBasket);</p>
+<p>In the first line we use slice  in order to clone the array. slice  is for cutting out slices of an array. We can tell it to cut out the whole array as a slice which will give as a copy of this array. Next we call sort  providing a comparator function. This comparator takes two elements and returns a negative number if the first element is smaller than the second, positive number if the second element is smaller and 0 if the elements are equal. By subtracting the second element from the first we will achieve the desired behavior. Let’s now see a lodash solution:</p>
+<p>var sortedBasket = _.orderBy(basket, item =&gt; item.quantity);</p>
+<p>Here we just specify that we want to use the quantity property for sorting. The original array will remain as it was. You might be wondering why it can be important to not change the original array. One important aspect of functional programming is <strong>immutability</strong>. The idea is to never modify existing objects but instead return new copies. It might sound wasteful but in fact it has many advantages. We will take a deeper look at immutability in the posts to come. For now, here are a few practical examples of when it’s required to not sort an array in-place.</p>
+<ul>
+<li>One example would be passing an array between two Angular components - we don’t want one of the components to modify internal state of another component</li>
+<li>Another example is Redux where we are not allowed to mutate state as we always have to return a fresh copy of the state; there will be a separate chapter dedicates solely to Redux</li>
+</ul>
+<h3 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h3><p>I’ve already mentioned that with lodash syntax it’s no longer as easy to chain method calls as with vanilla Javascript. However, lodash has solved this problem. Let’s see an example:</p>
+<p>var safetyProducts = _.filter(products, p =&gt; p.category === “Safety”);<br>var quantities = _.map(safetyProducts, p =&gt; p.quantity);<br>var bigQuantites = _.filter(quantities, q =&gt; q &gt; 10);</p>
+<p>We have three consecutive lodash calls here. It would be nice to chain these calls so that the data flow would be more readable.</p>
+<p>var bigQuantites = _.chain(products)<br>  .filter(p =&gt; p.category === “Safety”)<br>  .map(p =&gt; p.quantity)<br>  .filter(q =&gt; q &gt; 10)<br>  .value();</p>
+<p>Here we use the chain  method to wrap our array in a special object that knows about all the lodash methods. Next, we can simply call lodash methods directly on this object. At the end we need to unwrap our array by calling value.<img src="https://codewithstyle.info/wp-content/uploads/2017/08/lodash-chaining.png" alt="" title="lodash chaining"></p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>And that’s all about lodash. Of course, there is much, much more in it and I strongly encourage you to explore it using the documentation. Since you already know the concept of higher order functions understanding the remaining functions will be much easier for you. I hope you find higher order functions on arrays useful and fun. They’re really worth learning and understanding since the concept is very widespread. The investment will pay off in random places (for example when learning RxJS). How to use functional array operations? From now on, every time you find yourself writing a for loop, stop for a moment and try to figure out if you can write it using in a more functional style. The cases when it’s not possible or beneficial are very, very rare. This post concludes the chapter about array operations. Next we will take a look at immutability in JavaScript! If you have any issues understanding anything in this post or if you simply would like to provide feedback, please leave a comment below. I want this course to be as good as possible and I need your help for that! If you found this post helpful, please consider sharing it on Facebook or Twitter.</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+
+                    <div class="mt5 tc tl-l">
+    <h3>Download free e-book</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts and I will send you a link to a free e-book about functional programming in JavaScript.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="enter your email">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End mc_embed_signup-->
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fas fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
