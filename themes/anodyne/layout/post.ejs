@@ -1,0 +1,58 @@
+<!-- Banner -->
+<%- partial('_partial/banner.ejs', {
+    mainText: page.title || theme.default_post_title || __('default_post_title'),
+    secondaryText: page.date ? page.date.format(config.date_format) : '',
+    faIconCss: page.icon || theme.default_post_ico || '',
+    imageUrl: page.image || '',
+}) %>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    <% if (page.tags && page.tags.length) {
+                        var tags = [];
+                        page.tags.forEach(function(tag) {
+                            tags.push('<a class="fw3 ph1 dib" href="' +  config.root + tag.path + '">#' + tag.name + '</a>');
+                        });
+                    %>
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <%- tags.join(' ') %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Main Post Content -->
+                    <%- page.content %>
+                    
+                    <!-- Tags Bottom -->
+                    <% if (page.tags && page.tags.length) { %>
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><%- tags.join(' ') %>
+                        </div>
+                    <% } %>
+
+                    <!-- Comments -->
+                    <%- partial('_partial/comments.ejs') %>
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <%- partial('_partial/widget-about') %>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+
+                    <%- partial('_partial/widget-subscribe') %>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

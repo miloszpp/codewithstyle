@@ -1,0 +1,53 @@
+# Logo
+logo_image_source: https://codewithstyle.info/wp-content/uploads/2017/07/CODE-WITHSTYLE-1.png
+
+# Index Page
+index_banner_text: Code with Style!
+index_banner_text_secondary: Web Development & Functional Programming.
+index_font_awesome_icon_css: fas fa-globe-africa
+
+# Header
+menu:
+  Home: /
+  Functional Programming: /functional-programming
+  Archives: /archives
+  Author: http://miloszpiechocki.com/
+
+# Post
+default_post_title: Untitled
+default_post_icon: fa-file-text-o
+
+# Archive Date Format
+archive_date_format: MMM YYYY
+archive_font_awesome_icon_css: fas fa-folder-open
+
+# About Widget
+about_widget_avatar_url: https://codewithstyle.info/wp-content/uploads/2017/02/miloszpiechocki.jpeg
+about_widget_text: "Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies."
+
+
+# Comments.
+comments:
+  # Disqus comments
+  disqus_shortname: 
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Media Platforms
+social_platforms:
+  - url: http://twitter.com/miloszpp/
+    fa_icon: fab fa-twitter
+  - url: http://facebook.com/codewithstyle.info/
+    fa_icon: fab fa-facebook
+  - url: https://github.com/miloszpp
+    fa_icon: fab fa-github
+  - url: https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw
+    fa_icon: fab fa-youtube
+  - url: mailto:milosz@miloszpiechocki.com
+    fa_icon: fas fa-envelope
+  - url: /#
+    fa_icon: fas fa-rss
+
+# Footer about
+footer_about: "@Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class=\"link dim white\" href=\"http://www.codeblocq.com/\">Jonathan Klughertz</a>"
