@@ -13,12 +13,18 @@ tags:
 icon: fas fa-hammer
 ---
 
-My [previous post](https://codewithstyle.info/functional-javascript-app-scratch/) described how to create a very basic web application following the principles of functional programming. That's fine, but I bet you're not building _basic_ apps. **How to scale this approach?** This (and the following) post will present some techniques you could use to solve common problems encountered when creating more complex applications. ![](/images/2018/09/Functional-JavaScript-app_-part-2.png) Let me remind you that the end goal is not to convince you to ditch all JavaScript frameworks and build your own instead. My point is to **explain the reasoning behind commonly used patterns and how they relate to functional programming**. Source code for this article is available [here](https://github.com/miloszpp/functional-climbs/tree/part-2-virtual-dom).
+My [previous post](https://codewithstyle.info/functional-javascript-app-scratch/) described how to create a very basic web application following the principles of functional programming. That's fine, but I bet you're not building _basic_ apps. **How to scale this approach?** This (and the following) post will present some techniques you could use to solve common problems encountered when creating more complex applications.
+
+Let me remind you that the end goal is not to convince you to ditch all JavaScript frameworks and build your own instead. My point is to **explain the reasoning behind commonly used patterns and how they relate to functional programming**. Source code for this article is available [here](https://github.com/miloszpp/functional-climbs/tree/part-2-virtual-dom).
 
 Limiting DOM updates
 --------------------
 
-Our little _framework_ relies on `view` function which translates state into DOM tree. The function is invoked on every state update. This means that **on every state change we need to re-create the whole DOM tree** and have it re-rendered by the browser. In a complex application with multiple actions and huge DOM tree this could have a huge impact on performance. Below you can find a screenshot illustrating the problem. The whole `div` is updated even though clicking _Complete_ should only affect two table rows. ![](/images/2018/09/fp-app-without-vdom-small-1024x423.gif) Basically, we'd like to limit the amount of unnecessary DOM-related work. On the other hand, we want our code to stay declarative and functional so we have to avoid direct, imperative DOM manipulation.
+Our little _framework_ relies on `view` function which translates state into DOM tree. The function is invoked on every state update. This means that **on every state change we need to re-create the whole DOM tree** and have it re-rendered by the browser. In a complex application with multiple actions and huge DOM tree this could have a huge impact on performance. Below you can find a screenshot illustrating the problem. The whole `div` is updated even though clicking _Complete_ should only affect two table rows. 
+
+![](/images/2018/09/fp-app-without-vdom-small-1024x423.gif) 
+
+Basically, we'd like to limit the amount of unnecessary DOM-related work. On the other hand, we want our code to stay declarative and functional so we have to avoid direct, imperative DOM manipulation.
 
 Introducing **virtual DOM**
 ---------------------------
@@ -30,7 +36,9 @@ Introducing **virtual DOM**
 *   the comparison results in a set of `patches` that represent minimal changes to the DOM
 *   `patches` can be applied to the actual DOM tree; only relevant parts of the DOM are updated, not the whole tree
 
-Below you can see the difference after enhancing the application with virtual DOM. Note that only relevant parts of the DOM are highlighted. ![](/images/2018/09/fp-app-with-vdom-small-1024x449.gif)
+Below you can see the difference after enhancing the application with virtual DOM. Note that only relevant parts of the DOM are highlighted. 
+
+![](/images/2018/09/fp-app-with-vdom-small-1024x449.gif)
 
 Show me the code
 ----------------
@@ -41,11 +49,13 @@ Let's rework our application to take advantage of virtual DOM.
 
 The first step is to adjust the `view` function to return virtual nodes instead of real DOM nodes. We are not going to implement the virtual DOM mechanism itself. It's a highly non-trivial task and not in the scope of this article. Instead, let's use one of existing virtual DOM libraries. Our library of choice is simply called [virtual-dom](https://github.com/Matt-Esch/virtual-dom). The best thing about it is that it's compatible with `hyperscript-helpers`. Remember how we wrapped `hyperscript` with `hyperscript-helpers` so that we were able to use functions such as `div`, `h2`, `table`, etc.? This extra level of indirection will prove enormously useful now. Our `view` function will continue using these functions. However, they will proxy to `virtual-dom` instead of `hyperscript` resulting in virtual DOM nodes instead of real DOM nodes.
 
+
+```typescript
     import h from 'virtual-dom/h';
     import hh from 'hyperscript-helpers';
     
     const { table, tr, td, th, div, h2, button } = hh(h);
-    
+```
 
 That's it! There are no more changes to `view` function!
 
@@ -53,6 +63,7 @@ That's it! There are no more changes to `view` function!
 
 The next (and last) step is to adjust the `app` function. It's going to get a bit more complex. Before, all we had to do was to replace the _old_ DOM tree with the _new_ tree. However, `view` returns a virtual tree now. We need to compare the _new_ tree and with _old_ one using `diff` function provided by the library. The comparison will return a set of `patches` which can be later applied on the actual DOM tree. The above procedure describes what happens on state update. However, we need an initial DOM tree to begin with! We can get one from the initial virtual tree by calling `createElement`, also provided by the library. Below you can find the update code.
 
+```typescript
     import diff from 'virtual-dom/diff';
     import patch from 'virtual-dom/patch';
     import createElement from 'virtual-dom/create-element';
@@ -75,7 +86,7 @@ The next (and last) step is to adjust the `app` function. It's going to get a bi
     }
     
     app(initialState);
-    
+```
 
 The `app` function accepts a new parameter called `previousView`. We need it to be able to compare updated virtual DOM with the previous version. When `previousView` is `null`, it means that `app` is called for the first time (with `initialState`) and that there is no real DOM tree in place yet. Therefore, we call `createElement` and append the result to `rootNode`. When `previousView` is not empty, we should compare it with the new virtual tree (`updatedView`) and apply patches on `rootNode`'s first child (because we initially attached the whole tree to `rootNode`). Obviously, this part is not functional code. Patching the DOM is an imperative operation with side effects. However, this part of the code wasn't pure in the first place. What's important is that **we've managed to preserve the purity of the rest of the code**.
 

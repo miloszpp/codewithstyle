@@ -11,7 +11,7 @@ tags:
 icon: fas fa-pen
 ---
 
-Yesterday I realised it's been some time since I've started blogging. Actually, it's been over 30 months! I've decided it's a good opportunity to share some numbers and my thoughts on blogging in general. I hope fellow IT bloggers will find my story useful. If you're not interested in the details but just want to **get inspired**, feel free to jump to the last part of the article! ![](/images/2018/07/30-months-of-blogging.png)
+Yesterday I realised it's been some time since I've started blogging. Actually, it's been over 30 months! I've decided it's a good opportunity to share some numbers and my thoughts on blogging in general. I hope fellow IT bloggers will find my story useful. If you're not interested in the details but just want to **get inspired**, feel free to jump to the last part of the article!
 
 Numbers
 -------
