@@ -3,9 +3,12 @@ title: Reactive Programming with RxJS in Angular Video Course
 url: 738.html
 id: 738
 date: 2018-06-26 19:43:19
+image: /images/posts/reactive-angular.jpg
 ---
 
-I present to you my free video course about functional-reactive programming in Angular with RxJS! ![](/images/2018/03/Reactive-Angular.png) Below you can find the list of available episodes.
+I present to you my free video course about functional-reactive programming in Angular with RxJS! 
+
+Below you can find the list of available episodes.
 
 1.  [Introduction](https://www.youtube.com/watch?v=G_GTbcRvxnM&t=304s)
 2.  [AsyncPipe](https://www.youtube.com/watch?v=EIEOvuybdsc&t=12s)
@@ -16,4 +19,4 @@ I present to you my free video course about functional-reactive programming in A
 7.  [Reactive Forms](https://youtu.be/D1KdhAQpADM)
 8.  [Scan operator and Redux pattern](https://youtu.be/RD1T_NhlBOI)
 
-If you enjoy the course, please [subscribe to my YouTube channel](https://www.youtube.com/codewithstyleinfo)! You can also subscribe to the blog's newsletter so that you don't miss any articles! \[yikes-mailchimp form="1" description="0"\]
+If you enjoy the course, please [subscribe to my YouTube channel](https://www.youtube.com/codewithstyleinfo)! You can also subscribe to the blog's newsletter so that you don't miss any articles!
