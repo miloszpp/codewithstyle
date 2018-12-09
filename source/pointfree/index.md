@@ -30,4 +30,4 @@ Recommended reading
 Sign-up for more
 ----------------
 
-I'm planning to write some articles about pointfree programming for this blog (including one explaining `Tradux`). Sign-up for blog newsletter if you want to be notified when this happens. As a bonus, you'll get a free e-book about functional programming basics in JS. \[yikes-mailchimp form="1" description="1"\]
+I'm planning to write some articles about pointfree programming for this blog (including one explaining `Tradux`). Sign-up for blog newsletter if you want to be notified when this happens. As a bonus, you'll get a free e-book about functional programming basics in JS. 

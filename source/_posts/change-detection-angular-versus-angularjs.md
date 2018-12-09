@@ -7,6 +7,8 @@ categories:
   - Web
 date: 2017-11-08 21:05:26
 tags:
+  - angular
+  - angularjs
 ---
 
 **Change detection** is the mechanism responsible for data binding in Angular. Thanks to it you don't need to manually manipulate the DOM tree. Instead, you can make changes to the model and they are automatically reflected in the view. In this post I'll try to briefly explain the differences of how change detection works in **AngularJS** (version 1.x) versus **Angular** (version 2+). Why should you care about this? It's generally a good idea to understand how the framework you're using works under the hood. The improvements in change detection contributed heavily to performance boost of Angular 2+. **Scroll to the bottom for a table summarizing major differences.**
@@ -21,7 +23,9 @@ Let's think about how the process of change detection could look like in big pic
 3.  An event handler is called for that event. The code can update some property on the model.
 4.  The model and the view are not in sync any more. Now is the time for the framework to detect changes and update the view accordingly.
 
-![Change detection diagram](/images/2017/10/Change-detection-workflow.png) Now we know when change detection should be performed - whenever there is a chance that some model will be modified. In the above example it's a handler for a user-generated event that can make changes to the model. However, there are other situations that can result in model updates such as:
+![Change detection diagram](/images/2017/10/Change-detection-workflow.png) 
+
+Now we know when change detection should be performed - whenever there is a chance that some model will be modified. In the above example it's a handler for a user-generated event that can make changes to the model. However, there are other situations that can result in model updates such as:
 
 *   arrival of response to a HTTP request
 *   execution of callback passed to `setInterval` function
@@ -43,10 +47,11 @@ Digest loop in AngularJS
 
 Whenever we use data binding or pass an expression to `ng-if` or `ng-for` we create a watcher. During the `$digest` call, AngularJS iterates over all watchers and compares old values of watched expressions with new values. The tricky part is that **AngularJS allows two-way data binding**. That means that after a change in the model is reflected in the view, it might turn out that the change in the view triggers another change in the model. Therefore, a single pass through the watcher array may not be enough. AngularJS repeats the process until it detects no more changes in the model. Unfortunately, it's quite easy to write code in a way that the model never stabilizes. What's more, having to iterate over the watchers so many times is not great in terms of performance.
 
+```js
     $scope.$watch('foo', function() {
       $scope.foo = $scope.foo + 1;
     });
-    
+```
 
 Above you can see an example of infinite digest loop taken from Angular documentation.
 
@@ -65,18 +70,8 @@ Summary
 
 In this article I've explained basics of change detection in Angular. Having understood this it's easier to understand some of the design choices taken in Angular versus AngularJS. To wrap up, here is a table that summarizes the major differences.
 
-AngularJS
-
-Angular
-
-Change detection is invoked internally by the framework (by calling `$digest`). Sometimes it is necessary to trigger change detection manually.
-
-Change detection is invoked automatically using zones. The framework hooks into internal browser API calls and performs CD after asynchronous events.
-
-Two-way data binding is supported which means that single pass of change detection is not enough. AngularJS runs digest cycles until the model stabilizes.
-
-Two-way data binding is not supported hence single pass of change detection is enough. Unidirectional data flow is enforced - the data flows from the model to the view, never the other way around.
-
-Dirty checking is dynamic. Watchers are created at runtime.
-
-Every component has its own custom change detector. With AOT enabled change detectors can be generated at build time. Change detection code is VM-friendly.
+| AngularJS                                                                                                                                                  | Angular                                                                                                                                                                                              |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Change detection is invoked internally by the framework (by calling $digest). Sometimes it is necessary to trigger change detection manually               | Change detection is invoked automatically using zones. The framework hooks into internal browser API calls and performs CD after asynchronous events.                                                |
+| Two-way data binding is supported which means that single pass of change detection is not enough. AngularJS runs digest cycles until the model stabilizes. | Two-way data binding is not supported hence single pass of change detection is enough. Unidirectional data flow is enforced - the data flows from the model to the view, never the other way around. |
+| Dirty checking is dynamic. Watchers are created at runtime.                                                                                                | Every component has its own custom change detector. With AOT enabled change detectors can be generated at build time. Change detection code is VM-friendly.                                          | 

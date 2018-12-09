@@ -7,15 +7,25 @@ categories:
   - TypeScript
 date: 2018-02-19 08:00:53
 tags:
+  - functional programming
+  - monads
+  - typescript
 ---
 
-With this post, I would like to start a short series about **monads**. If you are familiar with some functional programming techniques in JavaScript (such as immutability or pure functions), this is a great next step to go deeper into this amazing paradigm. Regardless of whether you've never heard about monads or have heard about them but never really understood them, this series will strive to explain then in simple, practical terms. ![](/images/2018/02/Monads-part1.png) I've already tackled this topic on the blog a few times (see [monads in C#](https://codewithstyle.info/understand-monads-linq/) and [monads in Scala](https://codewithstyle.info/scalas-option-monad-versus-null-conditional-operator-in-c/)) but this time I would like to explore how monads can be useful in the front-end world. One final word - I chose TypeScript over JavaScript because it's just easier to talk about monads in a strongly-typed language. You don't have to be a TypeScript expert to understand the article. **You can find all the code from the series in [this repository](https://github.com/miloszpp/typescript-monads). Check the commit history for code relevant to the specific part of the series.** Let's get ready for our monadic journey!
+With this post, I would like to start a short series about **monads**. If you are familiar with some functional programming techniques in JavaScript (such as immutability or pure functions), this is a great next step to go deeper into this amazing paradigm. Regardless of whether you've never heard about monads or have heard about them but never really understood them, this series will strive to explain then in simple, practical terms. 
+
+I've already tackled this topic on the blog a few times (see [monads in C#](https://codewithstyle.info/understand-monads-linq/) and [monads in Scala](https://codewithstyle.info/scalas-option-monad-versus-null-conditional-operator-in-c/)) but this time I would like to explore how monads can be useful in the front-end world. One final word - I chose TypeScript over JavaScript because it's just easier to talk about monads in a strongly-typed language. You don't have to be a TypeScript expert to understand the article. 
+
+**You can find all the code from the series in [this repository](https://github.com/miloszpp/typescript-monads). Check the commit history for code relevant to the specific part of the series.** 
+
+Let's get ready for our monadic journey!
 
 Background
 ----------
 
 We're going to build a simple application that implements the following scenario: _A company has a hierarchical employee structure (each employee can have another employee as a supervisor). As a user, I would like to be able to enter employee ID (a numeric value) and see their supervisor's name._ Let's start with a plain, non-monadic implementation. Here is some HTML for the user interface:
 
+```html
     <body>
         <h1>Find employee's supervisor</h1>
         <p>
@@ -27,10 +37,11 @@ We're going to build a simple application that implements the following scenario
         </p>
         <p id="searchResults"></p>
     </body>
-    
+```
 
 The HTML consists of an input for the employee's ID and a button to search for the employee's supervisor's name. And here comes the code that orchestrates this form:
 
+```typescript
     import { EmployeeRepository } from "./employee.repository";
     
     const employeeIdInputEl = document.getElementById("employeeIdInput") as HTMLInputElement;
@@ -59,10 +70,11 @@ The HTML consists of an input for the employee's ID and a button to search for t
             }
         }
     }
-    
+```
 
 Firstly, we get hold of some HTML elements. Next, we attach a click handler to the button. Inside the handler, we invoke the `getSupervisorName` function which holds all of the actual logic (we will get back to it soon). Finally, we update the `p` tag with search results. Finally, let's have a quick look at the `EmployeeRepository` class:
 
+```typescript
     import { Employee } from "./employee.model";
     
     export class EmployeeRepository {
@@ -77,22 +89,24 @@ Firstly, we get hold of some HTML elements. Next, we attach a click handler to t
             return results.length ? results[0] : null;
         }
     }
-    
+```
 
 It's just an in-memory storage of the employee hierarchy with some hardcoded values. The `Employee` interface could look like this:
 
+```typescript
     export interface Employee {
         id: number;
         name: string;
         supervisorId?: number;
     }
-    
+```
 
 Nesting, nesting, nesting
 -------------------------
 
 As promised, let's focus on the `getSupervisorName` function.
 
+```typescript
     function getSupervisorName(enteredId: string) {
         if (enteredId) {
             const employee = repository.findById(parseInt(enteredId));
@@ -104,7 +118,7 @@ As promised, let's focus on the `getSupervisorName` function.
             }
         }
     }
-    
+```
 
 As we can see, the function body involves several levels of nesting. This is because many things can go wrong during the search for the supervisor.
 
@@ -118,23 +132,25 @@ In other words, there are many operations involved and each of them can return a
 *   when writing such code, it's easy to miss some of the edge cases and the compiler won't stop us from doing so
 *   such code is not very readable
 
-Let's see how to solve both of these problems. \[yikes-mailchimp form="1" description="1"\]
+Let's see how to solve both of these problems.
 
 Introducing `Maybe`
 -------------------
 
 One way of simplifying code is to identify a pattern and create an abstraction that hides the implementation details of this pattern. The recurring theme in the `getSupervisorName` function is the nesting of `if` statements.
 
+```typescript
     if (result) {
       const nextResult = operation(result);
       if (nextResult) {
          // and so on...
       }
     } // else stop
-    
+```
 
 But how to create an abstraction over such a pattern? The reason we have to do these `if` checks is that the value stored inside `result` can be empty. We'll create a simple wrapper type that holds a simple value and is aware of whether the value is empty (ie. `null` or `undefined` or empty string) or not. Let's call this wrapper type `Maybe`.
 
+```typescript
     export class Maybe<T> {
         private constructor(private value: T | null) {}
     
@@ -157,27 +173,30 @@ But how to create an abstraction over such a pattern? The reason we have to do t
             return this.value === null ? defaultValue : this.value;
         }
     }
-    
+```
 
 Instances of `Maybe` hold a `value` that can either be an actual value or `null`. Here, `null` is the internal representation of an empty value. The constructor is private so you can only create `Maybe` instances by calling `some` or `none` static methods. `fromValue` is a convenience method that transforms a regular value to a `Maybe` instance. Finally, `getOrElse` is a safe way of extracting the value contained by `Maybe`. The caller has to provide the default value that will be used in case `Maybe` is empty. So far, so good. We can now explicitly say that the result returned by some method can be empty. Let's change the `findById` method on `EmployeeRepository`:
 
+```typescript
     findById(id: number): Maybe<Employee> {
         const results = this.employees.filter(employee => employee.id === id);
         return results.length ? Maybe.some(results[0]) : Maybe.none();
     }
-    
+```
 
 Note that the return type of `findById` is now more meaningful and better captures the programmer's intention. `findById` can indeed return an empty value if an employee with given ID doesn't exist inside the repository. What's more, we can change the `Employee` interface to explicitly state the fact that `supervisorId` can be empty:
 
+```typescript
     export interface Employee {
         id: number;
         name: string;
         supervisorId: Maybe<number>;
     }
-    
+```
 
 We'll now add some operations to make `Maybe` type more useful. You know the `map` method that you can call on arrays, right? It applies a given function to every element of an array. If we look at `Maybe` as at a special array that can have from zero to one elements, it turns out that defining `map` on it totally makes sense.
 
+```typescript
     map<R>(f: (wrapped: T) => R): Maybe<R> {
         if (this.value === null) {
             return Maybe.none<R>();
@@ -185,21 +204,23 @@ We'll now add some operations to make `Maybe` type more useful. You know the `ma
             return Maybe.some(f(this.value));
         }
     }
-    
+```
 
 Our `map` takes a function `f` that transforms the element wrapped by `Maybe` and returns a new `Maybe` with the result of the transformation. If `Maybe` was a `none` then the result of `map` will also be an empty `Maybe` (just like calling `map` on an empty array would give you an empty array). `R` is the type parameter representing the type returned by `f` transformation. But how is this `map` useful? The original version of the `getSupervisorName` function included the below `if` statement:
 
+```typescript
     const supervisor = repository.findById(employee.supervisorId);
     if (supervisor) {
         return supervisor.name;
     }
-    
+```
 
 But `findById` returns a `Maybe` now! And we have the `map` operation available which, accidentally, has exactly the same semantics as the `if` statement above! Therefore, we can rewrite the above piece like this:
 
+```typescript
     const supervisor: Maybe<Employee> = repository.findById(employee.supervisorId);
     return supervisor.map(s => s.name);
-    
+```
 
 Didn't we just hide the `if` statement behind an abstraction? Yes, we did! However, we're not ready to rewrite the whole function in such style yet.
 
@@ -208,21 +229,24 @@ Maybe `map`, or maybe `flatMap`?
 
 Using `map` works fine for transformations such as above. But how about this one?
 
+```typescript
     const employee = repository.findById(parseInt(enteredId));
     if (employee && employee.supervisorId) {
         const supervisor = repository.findById(employee.supervisorId);
         // ...
     }
-    
+```
 
 We could try to rewrite it using `map`:
 
+```typescript
     const employee: Maybe<Employee> = repository.findById(parseInt(enteredId));
     const supervisor: Maybe<Maybe<Employee>> = employee.map(e => repository.findById(e.supervisorId));
-    
+```
 
 See the problem? The type of `supervisor` is `Maybe<Maybe<Employee>>`. This is because our transformation function now maps from a regular value to a `Maybe` (and previously it was mapping from regular value to a regular value). Is there a way to transform `Maybe<Maybe<Employee>>` to a simple `Maybe<Employee>`? In other words, we would like to **flatten** our `Maybe`. Again, there is an analogy to arrays. You can flatten nested array `[[1, 2, 3], [4, 5, 6]]` to `[1, 2, 3, 4, 5, 6]`. We'll add a new operation to `Maybe` and call it `flatMap`. It's just like `map` but it also flattens the result so that we don't end up with nested `Maybe`s.
 
+```typescript
     flatMap<R>(f: (wrapped: T) => Maybe<R>): Maybe<R> {
         if (this.value === null) {
             return Maybe.none<R>();
@@ -230,19 +254,21 @@ See the problem? The type of `supervisor` is `Maybe<Maybe<Employee>>`. This is b
             return f(this.value);
         }
     }
-    
+```
 
 The implementation is pretty simple. If given instance of `Maybe` is not empty then we extract the wrapped value, apply the provided function and simply return the result (which can either be empty or not empty). If the instance was empty, we simply return an empty `Maybe`. Note the type signature of `f`. Previously, it was mapping from `T` to `R`. Now, it's mapping from `T` to `Maybe<R>`. Thanks to the addition of `flatMap`, we can now rewrite the above code piece like this:
 
+```typescript
     const employee: Maybe<Employee> = repository.findById(parseInt(enteredId));
     const supervisor: Maybe<Employee> = employee.flatMap(e => repository.findById(e.supervisorId));
-    
+```
 
 Maybe Monad in action
 ---------------------
 
 Now, we've got all we need to rewrite the `getSupervisorName` function.
 
+```typescript
     function getSupervisorName(maybeEnteredId: Maybe<string>): Maybe<string> {
         return maybeEnteredId
             .flatMap(employeeIdString => Maybe.fromValue(parseInt(employeeIdString))) // parseInt can fail
@@ -251,15 +277,16 @@ Now, we've got all we need to rewrite the `getSupervisorName` function.
             .flatMap(supervisorId => repository.findById(supervisorId))
             .map(supervisor => supervisor.name);
     }
-    
+```
 
 We've eliminated all of the nested `if` statements! The `getSupervisorName` function's body is now an elegant pipeline of transformations applied to the input value. We've hidden the details of handling empty results because they're just boilerplate and obfuscate the real intention of the code. They're now taken care of by `Maybe`. Note that if any of the operations inside `flatMap` returned a `none`, it would cause the whole thing to immediately return a `none`. This is actually the same behaviour that we had with nested `if` statements. Here is an example of how the function can be used inside the click handler:
 
+```typescript
     findEmployeeButtonEl.addEventListener("click", () => {
         const supervisorName = getSupervisorName(Maybe.fromValue(employeeIdInputEl.value));
         searchResultsEl.innerText = `Supervisor name: ${supervisorName.getOrElse("could not find")}`;
     });
-    
+```
 
 And, guess what, `Maybe` is a **monad**! The formal definition of a monad is that it's a container type that has two operations:
 
