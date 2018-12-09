@@ -31,10 +31,15 @@
                     <% items.forEach(function(item){ %>
                        <%- partial('_partial/tag-category-index', {item: item, isTagIndex: isTagIndex}) %>
                    <% }) %>
-                <% } else { %>            
-                    <div class="w-100 mw7 fw3 lh-copy post-content">
-                        <!-- Main Post Content -->
-                        <%- page.content %>
+                <% } else { %>       
+                    <div class="cf">     
+                      <div class="fl w-100 w-70-l mw7 fw3 lh-copy post-content">
+                          <!-- Main Post Content -->
+                          <%- page.content %>
+                      </div>
+                      <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                        <%- partial('_partial/sidebar') %>
+                      </div>
                     </div>
                 <% } %>
             </div>
