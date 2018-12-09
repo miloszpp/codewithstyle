@@ -9,8 +9,10 @@ index_font_awesome_icon_css: fas fa-code
 # Header
 menu:
   Home: /
-  Functional Programming: /functional-programming
-  Reactive Angular: /reactive-programming-rxjs-angular-video-course
+  FP: /functional-programming
+  Angular: /tags/angular
+  RxJS: /tags/rxjs
+  TypeScript: /tags/typescript
   Author: http://miloszpiechocki.com/
 
 # Post
