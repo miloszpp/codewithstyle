@@ -1,16 +1,26 @@
 <div class="bg-1 ph2 ph5-ns pv5">
-        <div class="mv8">
-            <div class="center tc">
-                <% theme.social_platforms.forEach(function(platform) { %>
-                    <div class="dib mh3">
-                        <a class="f3 f2-ns white dim" href="<%- platform.url %>" target="_blank">
-                            <i class="<%- platform.fa_icon %>"></i>
-                        </a>
-                    </div>
-                <% }) %>
-            </div>
-            <div class="f6 f5-ns center tc white pt5 fw3">
-                <%- theme.footer_about %>
-            </div>
+    <div class="mv8">
+        <div class="center tc">
+            <% theme.social_platforms.forEach(function(platform) { %>
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="<%- platform.url %>" target="_blank">
+                        <i class="<%- platform.fa_icon %>"></i>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            <%- theme.footer_about %>
         </div>
     </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>

@@ -28,6 +28,22 @@
 
                     <!-- Main Post Content -->
                     <%- page.content %>
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Did you like this article? Please share!</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" 
+                           href="https://twitter.com/intent/tweet?text=<%- page.title %> by @miloszpp"
+                           data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" 
+                             data-href="<%- page.url %>" 
+                             data-layout="button_count"
+                             data-size="large">
+                        </div>
+                      </div>
+                    </div>
                     
                     <!-- Tags Bottom -->
                     <% if (page.tags && page.tags.length) { %>
