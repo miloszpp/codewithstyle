@@ -21,8 +21,8 @@ Below is the code that caused issues. It is an interface declaration with two ov
 ```csharp
 public interface IRepository<T> where T : class
 {
-	T Get(object id, params Expression<Func<T, object>>\[\] includeExprs);
-	T Get(object id, params string\[\] includeExprs);
+	T Get(object id, params Expression<Func<T, object>>[] includeExprs);
+	T Get(object id, params string[] includeExprs);
 }
 ```
 
@@ -34,7 +34,7 @@ repository.Get("some id");
 
 strange things will happen. Under VS2013 the code will compile without issues. However, under VS2017 it will cause a compile error:
 
-The call is ambiguous between the following methods or properties: 'IRepository<T>.Get(object, params Expression<Func<T, object>>\[\])' and 'IRepository<T>.Get(object, params string\[\])'
+The call is ambiguous between the following methods or properties: 'IRepository<T>.Get(object, params Expression<Func<T, object>>[])' and 'IRepository<T>.Get(object, params string[])'
 
 ### Solution
 
@@ -53,7 +53,7 @@ I decided to solve the issue by adding a third method overload taking only the i
 ```csharp
 public T Get(object id)
 {
-	return this.Get(id, new string\[\] {});
+	return this.Get(id, new string[] {});
 }
 ```
 

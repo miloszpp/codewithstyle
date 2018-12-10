@@ -53,13 +53,13 @@ const authConfig = {
 };
 
 @NgModule({
-  declarations: \[ /* ... */ \],
-  imports: \[
+  declarations: [ /* ... */ ],
+  imports: [
     AngularFireModule.initializeApp(config.firebase, authConfig),
     /\* ... */
-  \],
-  providers: \[\],
-  bootstrap: \[AppComponent\]
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
@@ -98,11 +98,11 @@ As you can see, we simply propagate calls to the Angularfire2 API. When loggin
 <form (ngSubmit)="submit()" *ngIf="!authState">
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="Email" \[(ngModel)\]="model.email" />
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="model.email" />
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password" \[(ngModel)\]="model.password" />
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="model.password" />
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
@@ -130,11 +130,11 @@ Finally, here goes the HTML form:
 <form (ngSubmit)="submit()">
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="Email" \[(ngModel)\]="model.email" />
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="model.email" />
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password" \[(ngModel)\]="model.password" />
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="model.password" />
   </div>
   <button type="submit" class="btn btn-default">Register</button>
 </form>

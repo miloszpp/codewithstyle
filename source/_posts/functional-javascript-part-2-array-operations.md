@@ -20,9 +20,9 @@ In the [first post of the series](http://codewithstyle.info/functional-javascrip
 Arrays are a basic programming construct present in most of programming languages. They let us deal with situations where we need to store or operate on multiple instances of some piece of data. As I already explained, imperative programming is all about executing instructions in a sequence. We can use various kinds of loops to deal with arrays. Usually, the loop body describes what to do to each element of an array. Let's have a look at the for loop in JavaScript. The below example iterates over an array and prints each element.
 
 ```javascript
-var books = \[ "Gone with the Wind", "War and Peace" \]; 
+var books = [ "Gone with the Wind", "War and Peace" ]; 
 for (var i = 0; i < books.length; i++) {
-  console.log(books\[i\]);
+  console.log(books[i]);
 }
 ```
 
@@ -56,10 +56,10 @@ books.forEach(printBook);
 Now, calling books.forEach(printBook) is essentially equivalent to:
 
 ```javascript
-printBook(books\[0\]);
-printBook(books\[1\]);
+printBook(books[0]);
+printBook(books[1]);
 ...
-printBook(books\[books.length - 1\]);
+printBook(books[books.length - 1]);
 ```
 
 ### Map
@@ -68,11 +68,11 @@ I hope you agree that the forEach loop improved our code on multiple levels. Ho
 
 ```javascript
 var webApiUrl = "https://jsonplaceholder.typicode.com/posts/";
-var postIds = \[1, 4, 5\];
-var postPromises = \[\];
+var postIds = [1, 4, 5];
+var postPromises = [];
 
 for (var i = 0; i < postIds.length; i++) {
-  var promise = fetch(webApiUrl + postIds\[i\]).then(response => response.json());
+  var promise = fetch(webApiUrl + postIds[i]).then(response => response.json());
   postPromises.push(promise);
 }
 
@@ -83,7 +83,7 @@ In the above piece, we iterate over the array of ids. For each id we call the RE
 
 ```javascript
 var webApiUrl = "https://jsonplaceholder.typicode.com/posts/";
-var postIds = \[1, 4, 5\];
+var postIds = [1, 4, 5];
 
 var postPromises = postIds.map(postId => fetch(webApiUrl + postId).then(response => response.json()));
 
@@ -103,12 +103,12 @@ So far the functions we've discussed operated on all elements of an array. What 
 
 ```javascript
 var webApiUrl = "https://jsonplaceholder.typicode.com/posts/";
-var postIds = \[1, 4, 5\];
-var postPromises = \[\];
+var postIds = [1, 4, 5];
+var postPromises = [];
 
 for (var i = 0; i < postIds.length; i++) {
-  if (postIds\[i\] % 2 == 0) {
-    var promise = fetch(webApiUrl + postIds\[i\]).then(response => response.json());
+  if (postIds[i] % 2 == 0) {
+    var promise = fetch(webApiUrl + postIds[i]).then(response => response.json());
     postPromises.push(promise);
   }
 }
@@ -120,7 +120,7 @@ Let's now have a look at a functional version:
 
 ```javascript
 var webApiUrl = "https://jsonplaceholder.typicode.com/posts/";
-var postIds = \[1, 4, 5\];
+var postIds = [1, 4, 5];
 
 var postPromises = postIds
   .filter(postId => postId % 2 == 0)

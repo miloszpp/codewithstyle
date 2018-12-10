@@ -59,10 +59,10 @@ The script will take a couple of parameters as input:
 
 ```
 Param(
-    \[string\]$sourcesDirectory, #the root of your project
-    \[string\]$testAssembly, #the file pattern describing test assemblies to look for
-    \[string\]$testFiltercriteria="", #test filter criteria (as in Run Visual Studio Tests task)
-    \[string\]$openCoverFilters="+\[*\]*" #OpenCover-specific filters
+    [string]$sourcesDirectory, #the root of your project
+    [string]$testAssembly, #the file pattern describing test assemblies to look for
+    [string]$testFiltercriteria="", #test filter criteria (as in Run Visual Studio Tests task)
+    [string]$openCoverFilters="+[*]*" #OpenCover-specific filters
 )
 ```
 

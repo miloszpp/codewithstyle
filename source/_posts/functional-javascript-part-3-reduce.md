@@ -43,8 +43,8 @@ var pathParts = path.split(".");
 
 var current = book;
 for (var i = 0; i < pathParts.length; i++) {
-  var currentPart = pathParts\[i\];
-  current = current\[currentPart\];
+  var currentPart = pathParts[i];
+  current = current[currentPart];
 }
 
 console.log(current);
@@ -53,7 +53,7 @@ console.log(current);
 Firstly, we split the path so that instead of a single string, we deal with an array where each element is a single property in consecutively nested object. Next, we initialize a helper variable current to the object which we wish to inspect (book  in our case). This variable will store the currently nested objects as we descend deeper and deeper inside the object. We iterate over the path parts and for each part we use it to go one level deeper. Once we are done, we end up with the desired value. And here comes the functional version:
 
 ```javascript
-pathParts.reduce((current, currentPart) => current\[currentPart\], book);
+pathParts.reduce((current, currentPart) => current[currentPart], book);
 ```
 
 A single line! Isn't it awesome? Ok, I cheated a bit by omitting some code, but it's still one line versus four.

@@ -3,6 +3,7 @@ title: 'Why I like C#: feature-wise comparison with Java'
 tags:
   - csharp
   - java
+  - thoughts
 url: 10.html
 id: 10
 categories:
@@ -20,22 +21,26 @@ Generics
 
 C# creators were in a great situation since they could learn from Java's mistakes. They didn't waste the opportunity and did the right thing. The main problem with Java's generics is **type erasure**. The term means that the information about the type parameter of a generic type is not available at runtime. In simple words, this:
 
+```java
 List<string> list = new LinkedList<string>();
+```
 
 ...becomes this:
 
+```java
 List list = new LinkedList();
+```
 
 Type erasure makes writing generic types more difficult and less clean. For example, sometimes generic methods have to explicitly take a `Class` object representing the type parameter (like [here](http://stackoverflow.com/questions/3437897/how-to-get-a-class-instance-of-generics-type-t)). In C# this is not the case. You can easily access the type of the type parameter:
 
+```csharp
 class List<T> 
 {
     public void PrintType() {
         Console.WriteLine(typeof(T));
     }
 }
-
- 
+```
 
 Lambdas, higher-order functions and LINQ
 ----------------------------------------
@@ -45,26 +50,28 @@ Not long ago I found [this article](https://github.com/winterbe/java8-tutorial) 
 *   In Java 8, you need to convert collections to `Stream` before calling `map` or `filter`
 *   C# has built-in syntactic sugar for such opearations which makes such code even more readable and cleaner
 
- 
 
 Type inference
 --------------
 
 Type inference is a nice feature that allows you not to declare the type of a variable if it's being initialized on the same line. While it's not as great as in Scala or Haskell, it certainly lets you cut some boilerplate code. [Java does also have some type inference](https://docs.oracle.com/javase/tutorial/java/generics/genTypeInference.html) but it is limited to generic methods. With type inference, the below declaration:
 
+```csharp
 Dictionary<int, List<Tuple<int, int>>> graph = new Dictionary<int, List<Tuple<int, int>>>();
+```
 
 ...can be written as:
 
+```csharp
 var graph = new Dictionary<int, List<Tuple<int, int>>>();
-
- 
+```
 
 Asynchronous code
 -----------------
 
 C# 5.0 introduced excellent support for asynchronous programming. The `async` and `await` keywords let you replace callback-style programming with code that looks exactly as if it were synchronous. It makes the code much cleaner and far easier to read. The comparison with Java is especially striking if you look at pre-Java 8 code where in order to execute a piece of code asynchronously, you had to create an anounymous type with one method! Have a look at usage of the [AsyncHttpClient](https://github.com/AsyncHttpClient/async-http-client) library:
 
+```java
 AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 Future<integer> f = asyncHttpClient.prepareGet("http://www.ning.com/").execute(
    new AsyncCompletionHandler<integer>(){
@@ -80,9 +87,11 @@ Future<integer> f = asyncHttpClient.prepareGet("http://www.ning.com/").execute(
         // Something wrong happened.
     }
 });
+```
 
 ...and compare it with this C# code:
 
+```csharp
 async Task<int> AccessTheWebAsync()
 { 
     HttpClient client = new HttpClient();
@@ -91,8 +100,7 @@ async Task<int> AccessTheWebAsync()
     string urlContents = await getStringTask;
     return urlContents.Length;
 }
-
- 
+```
 
 Value types
 -----------
@@ -104,6 +112,7 @@ Extension methods
 
 Extension methods allow you to add functionality to an object (even if it had already been compiled). One of the cool uses of extension methods is providing a concrete method for an interface. Also, they allow better code reuse and makes it easier to write fluent APIs. Example of an extension method:
 
+```csharp
 public interface Animal {
     int Legs { get; }
 }
@@ -115,8 +124,7 @@ public static class AnimalExtensions {
 }
 
 animal.PrintDescription();
-
- 
+```
 
 C# 6.0 features
 ---------------
@@ -127,8 +135,6 @@ Finally, there are many great features introduced in C# 6.0. The language seems 
 *   Conditional null operator - which allows writing safer code (which feels like simplified `Maybe` monad)
 *   Expression filters - convenient syntax for exception handling
 *   Using static members - again, an improvment to make your code even shorter
-
- 
 
 Conclusion
 ----------

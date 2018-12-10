@@ -110,18 +110,18 @@ npm install --save angularfire2
 Modify the imports section of AppModule  inside app.module.ts  so that it looks like this (you can import AngularFireModule  from angularfire2  module):
 
 ```typescript
-imports: \[
+imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(config.firebase)
-  \],
+  ],
 ```
 
 Now you can inject AngularFire object to Tasks component (tasks.compontent.ts ):
 
 ```typescript
-  public tasks: FirebaseListObservable<Task\[\]>;
+  public tasks: FirebaseListObservable<Task[]>;
 
   constructor(public http: Http, angularFire: AngularFire) {
     this.tasks = angularFire.database.list('tasks');

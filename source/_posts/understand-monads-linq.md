@@ -21,7 +21,7 @@ This post is another attempt on explaining **the M word** in an approachable 
 LINQ is a technology introduced in C# 3.0 and .NET 3.5. One of its major applications is processing collections in an elegant, declarative way. Here's an example of LINQ's s_elect_ expression:
 
 ```csharp
-var numbers = new\[\] { 1, 2, 3, 4, 5 };
+var numbers = new[] { 1, 2, 3, 4, 5 };
 var squares = numbers.Select(x => x * x);
 ```
 

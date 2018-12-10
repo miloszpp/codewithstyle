@@ -97,7 +97,7 @@ Ionic apps created using the CLI tool already include a manifest file so you ju
   "short_name": "Friendtainer",
   "start_url": "index.html",
   "display": "standalone",
-  "icons": \[{
+  "icons": [{
     "src": "assets/images/logo-500.png",
     "sizes": "500x500",
     "type": "image/png"
@@ -109,7 +109,7 @@ Ionic apps created using the CLI tool already include a manifest file so you ju
     "src": "assets/images/logo-128.png",
     "sizes": "128x128",
     "type": "image/png"
-  }\],
+  }],
   "background_color": "#FFFFFF",
   "theme_color": "#68A9FF",
   "gcm\_sender\_id": "103953800507",

@@ -48,7 +48,7 @@ Next, we need to extend the AutoPlugin  class. Inside that class we need to c
 object MySBTPlugin extends AutoPlugin {
 
   object autoImport {
-    val hello = inputKey\[Unit\]("Says hello!")
+    val hello = inputKey[Unit]("Says hello!")
   }
 ```
 
