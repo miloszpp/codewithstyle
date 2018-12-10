@@ -12,7 +12,7 @@ Everyone's talking about **Functional Programming** in JavaScript but it soundss
 
 ### How can I benefit from this?
 
-![Functional JavaScript](http://codewithstyle.info/wp-content/uploads/2017/07/javascript-300x300.png) Recently, we have observed a massive trend of embracing Functional Programming. Many object oriented languages started to incorporate functional programming features. In the front-end world there is an abundance of examples of how Functional Programming concepts made its way into popular frameworks. Learning Functional Programming in JavaScript will give you a **head-start** when learning new frameworks and libraries. What's more, you will have a much better chance **succeeding in a JavaScript interview**.
+![Functional JavaScript](/images/2017/07/javascript-300x300.png) Recently, we have observed a massive trend of embracing Functional Programming. Many object oriented languages started to incorporate functional programming features. In the front-end world there is an abundance of examples of how Functional Programming concepts made its way into popular frameworks. Learning Functional Programming in JavaScript will give you a **head-start** when learning new frameworks and libraries. What's more, you will have a much better chance **succeeding in a JavaScript interview**.
 
 ### Get a free e-book on Functional Programming in Javascript
 

@@ -1,7 +1,7 @@
 ---
 title: Using Automapper to improve performance of Entity Framework
 tags:
-  - 'c#'
+  - csharp
   - entity framework
 url: 69.html
 id: 69
@@ -17,7 +17,7 @@ Entity Framework is an ORM technology widely used in the .NET world. It's very 
 
 ### Navigation properties
 
-The main goal of Entity Framework is to map an object graph to a relational database. Tables are mapped to classes. Relationships between tables are represented with **navigation properties**. ![ef](http://codewithstyle.info/wp-content/uploads/2016/04/ef-300x191.png) The above example will be mapped to the following classes:
+The main goal of Entity Framework is to map an object graph to a relational database. Tables are mapped to classes. Relationships between tables are represented with **navigation properties**. ![ef](/images/2016/04/ef-300x191.png) The above example will be mapped to the following classes:
 
     public partial class Article
     {

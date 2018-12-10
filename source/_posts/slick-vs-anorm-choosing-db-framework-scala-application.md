@@ -17,14 +17,17 @@ Scala doesn't offer many DB access libraries. [Slick](http://slick.lightbend.com
 
 Slick is a **Functional Relational Mapper**. You might be familiar with Object Relational Mappers such as Hibernate. Slick embraces Scala's functional elements and offers an alternative. Slick authors claim that the gap between relational data and functional programming is much smaller than between object-oriented programming. Slick allows you to write type safe, SQL-like queries in Scala which are translated into SQL. You define mappings which translate query results into your domain classes (and the other way for INSERT  and UPDATE ). Writing plain SQL is also allowed.
 
+```scala
 // Example taken from docs
 ( for( c <- coffees; if c.price < limit ) yield c.name ).result
 // Equivalent SQL: select COF_NAME from COFFEES where PRICE < 10.0
+```
 
 ### What is Anorm?
 
 Anorm is a thin layer providing database access. It is in a way similar to Spring's JDBC templates. In Anorm you write queries in plain SQL. You can define your own row parsers which translate query result into your domain classes. Anorm provides a set of handy macros for generating parsers. Additionally, it offers protection against SQL injection with prepared statements. Anorm authors claim that SQL is the best DSL for accessing relational database and introducing another one is a mistake.
 
+```scala
 // example taken from docs
 SQL"""
   select * from Country c 
@@ -32,6 +35,7 @@ SQL"""
     where l.Language = $lang and c.Population >= ${population - margin}
     order by c.Population desc limit 1"""
   .as(SqlParser.str("Country.code").single
+```
 
 ### Blocking/non-blocking
 
@@ -45,6 +49,7 @@ Slick's DSL is very expressive but it will always be less than plain SQL. Anorm'
 
 One of huge strengths of Slick is query composability. Suppose you had two very similar queries:
 
+```scala
 SELECT name, age, occupation, c.country
 FROM author AS a
 LEFT JOIN cities c ON c.id = a.city_id
@@ -54,6 +59,7 @@ SELECT name, age, occupation, c.country
 FROM author AS a
 LEFT JOIN cities c ON c.id = a.city_id
 WHERE age < 50
+```
 
 In Slick, it's very easy to abstract the common part into a query. In Anorm, all you can do is textual composition which can get really messy.
 
@@ -61,7 +67,9 @@ In Slick, it's very easy to abstract the common part into a query. In Anorm, all
 
 In Slick you can define two-way mappings between your types and SQL. Therefore, INSERT s are as simply as:
 
+```
 authors += author
+```
 
 In Anorm you need to write your INSERT s and UPDATE s by hand which is usually a tedious and error-prone task.
 

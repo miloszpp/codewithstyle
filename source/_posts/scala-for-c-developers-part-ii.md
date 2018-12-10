@@ -1,7 +1,7 @@
 ---
 title: 'Scala for C# developers - part II'
 tags:
-  - 'c#'
+  - csharp
   - scala
 url: 11.html
 id: 11

@@ -3,7 +3,7 @@ title: >-
   Is array of Dogs an array of Animals? Covariance, contravariance and
   invariance explained - part 2
 tags:
-  - 'c#'
+  - csharp
   - scala
 url: 14.html
 id: 14

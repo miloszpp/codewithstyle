@@ -1,7 +1,8 @@
 ---
 title: 'Method overload resolution in C# 6.0: an interesting bug story'
 tags:
-  - 'c#'
+  - csharp
+  - csharp6
 url: 179.html
 id: 179
 categories:
@@ -17,15 +18,19 @@ Recently at work I've been looking into migrating our projects from VS2013 to VS
 
 Below is the code that caused issues. It is an interface declaration with two overloads of a single Get  method.
 
+```csharp
 public interface IRepository<T> where T : class
 {
 	T Get(object id, params Expression<Func<T, object>>\[\] includeExprs);
 	T Get(object id, params string\[\] includeExprs);
 }
+```
 
 The code itself was fine. However, if we try to call it like this:
 
+```csharp
 repository.Get("some id");
+```
 
 strange things will happen. Under VS2013 the code will compile without issues. However, under VS2017 it will cause a compile error:
 
@@ -35,7 +40,9 @@ The call is ambiguous between the following methods or properties: 'IRepository<
 
 Hmm, this totally makes sense. How is the compiler supposed to know which overload I mean? The solution is pretty simple - either don't use method overloading here or provide a third overload that takes no parameter list.
 
+```csharp
 T Get(object id);
+```
 
 I started to wonder which language feature introduced in C# 6.0 or C# 7.0 is responsible for this change of behaviour. After spending some time on fruitless thinking, I decided to ask a [question](http://stackoverflow.com/questions/42951282/breaking-change-in-method-overload-resolution-in-c-sharp-6-explanation) on StackOverflow. [Lasse](http://stackoverflow.com/users/267/lasse-v-karlsen) in his elaborate answer enlightened me that this is not strictly a change introduced by one of the new language features but rather a stricter behaviour introduced by the [Roslyn](https://roslyn.codeplex.com/) compiler which is shipped with Visual Studio starting from version 2015. I have later found this stated explicitly in [Roslyn documentation](https://github.com/dotnet/roslyn/blob/master/docs/compilers/CSharp/Overload%20Resolution.md#tie-breaking-rule-with-unused-param-array-parameters).
 
@@ -43,10 +50,12 @@ I started to wonder which language feature introduced in C# 6.0 or C# 7.0 is res
 
 I decided to solve the issue by adding a third method overload taking only the id  parameter. In its implementation I picked one of the existing overloads randomly and called it with an empty parameter list:
 
+```csharp
 public T Get(object id)
 {
 	return this.Get(id, new string\[\] {});
 }
+```
 
 How surprised I was to find out that some of our unit tests started to fail. After another couple of hours, I found the reason. It turned out that one of the overloads of the Get  method behaved differently with an empty parameter list (the first one would load all includes for an entity when given an empty list while the second one would load none).
 

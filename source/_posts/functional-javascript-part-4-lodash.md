@@ -20,7 +20,7 @@ With this post we will finalize the part of this course devoted to array operati
 
 The best place to explore functions available in lodash is the [documentation](https://lodash.com/docs/). You will notice that there are many expandable sections on the left hand side. For now let's focus on **Array** and **Collection**. 
 
-![](http://codewithstyle.info/wp-content/uploads/2017/08/lodash_documentation-1024x612.png)
+![](/images/2017/08/lodash_documentation-1024x612.png)
 
 ### Using lodash
 

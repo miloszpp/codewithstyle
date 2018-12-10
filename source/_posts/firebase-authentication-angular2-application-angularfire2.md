@@ -1,7 +1,7 @@
 ---
 title: Firebase authentication in Angular2 application with Angularfire2
 tags:
-  - angular2
+  - angular
   - firebase
   - serverless
 url: 160.html
@@ -13,7 +13,9 @@ categories:
 date: 2017-02-22 17:21:01
 ---
 
-Implementing authentication in web apps is a tedious and repetitive task. What's more, it's very easy to do it wrong and expose security holes in our app. Fortunately, **Firebase Authentication** comes to rescue offering authentication as a service. It means that you no longer need to implement storage and verification of credentials, email verification, password recovery, etc. In this post I'll explain how to add email/password authentication to an Angular2 application. Site note: Firebase Authentication can be very useful when building a [serverless application](http://codewithstyle.info/building-serverless-web-application-angular-2-webtask-firebase/). For reference, here is a working example illustrating this article: [https://github.com/miloszpp/angularfire-sdk-auth-sample](https://github.com/miloszpp/angularfire-sdk-auth-sample).  
+Implementing authentication in web apps is a tedious and repetitive task. What's more, it's very easy to do it wrong and expose security holes in our app. Fortunately, **Firebase Authentication** comes to rescue offering authentication as a service. It means that you no longer need to implement storage and verification of credentials, email verification, password recovery, etc. In this post I'll explain how to add email/password authentication to an Angular2 application. 
+
+Site note: Firebase Authentication can be very useful when building a [serverless application](http://codewithstyle.info/building-serverless-web-application-angular-2-webtask-firebase/). For reference, here is a working example illustrating this article: [https://github.com/miloszpp/angularfire-sdk-auth-sample](https://github.com/miloszpp/angularfire-sdk-auth-sample).  
 
 ### Overview
 
@@ -36,8 +38,13 @@ To begin with, let's install Angularfire2 and Firebase modules:
 
 npm install firebase angularfire2
 
-Next, we need to enable email/password authentication method in the Firebase console. ![Firebase: enabling email/password authentication](http://codewithstyle.info/wp-content/uploads/2017/02/Zrzut-ekranu-2017-02-21-o-21.27.24-1024x414.png) Finally, let's load Angularfire2 in our **app.module.ts**:
+Next, we need to enable email/password authentication method in the Firebase console. 
 
+![Firebase: enabling email/password authentication](/images/2017/02/Zrzut-ekranu-2017-02-21-o-21.27.24-1024x414.png) 
+
+Finally, let's load Angularfire2 in our **app.module.ts**:
+
+```typescript
 import { AuthProviders, AuthMethods } from 'angularfire2';
 
 const authConfig = {
@@ -55,11 +62,13 @@ const authConfig = {
   bootstrap: \[AppComponent\]
 })
 export class AppModule { }
+```
 
 ### Login component
 
 Firstly, let's inject AngularFire into the component:
 
+```typescript
 public model: LoginModel;
 public authState: FirebaseAuthState;
 
@@ -69,9 +78,11 @@ constructor(public af: AngularFire) {
     this.authState = auth;
   });
 }
+```
 
 As you can see, this.af.auth  is an observable. It fires whenever an event related to authentication occurs. In our case, it's either logging in or logging out. FirebaseAuthState  stores information about currently logged user. Next, let's add two methods for logging in and logging out:
 
+```typescript
 public submit() {
   this.af.auth.login(this.model).catch(alert);
 }
@@ -79,9 +90,11 @@ public submit() {
 public logout() {
   this.af.auth.logout();
 }
+```
 
 As you can see, we simply propagate calls to the Angularfire2 API. When logging in, we need to provide email and password (encapsulated in model). Finally, we need some HTML to display the form:
 
+```html
 <form (ngSubmit)="submit()" *ngIf="!authState">
   <div class="form-group">
     <label for="email">Email</label>
@@ -97,6 +110,7 @@ As you can see, we simply propagate calls to the Angularfire2 API. When loggin
   Logged as { { authState.auth.email }}
   <button (click)="logout()">Logout</button>
 </div>
+```
 
 The form is only visible when the user is not logged in (authState  will be undefined). Otherwise, we show the user name and the logout button.
 
@@ -104,12 +118,15 @@ The form is only visible when the user is not logged in (authState  will be und
 
 We've allowed our users to logged in but so far there are no registered users! Let's fix that and create a registration component. Firstly, we need to inject the AngularFire service just like we did in the login controller. Next, let's create a method to be called when the user provides his registration details:
 
+```typescript
 public submit() {
   this.af.auth.createUser(this.model).then(() => /* success! */, alert);
 }
+```
 
 Finally, here goes the HTML form:
 
+```html
 <form (ngSubmit)="submit()">
   <div class="form-group">
     <label for="email">Email</label>
@@ -121,6 +138,7 @@ Finally, here goes the HTML form:
   </div>
   <button type="submit" class="btn btn-default">Register</button>
 </form>
+```
 
 ### Summary
 

@@ -1,7 +1,7 @@
 ---
 title: 'Asynchronous programming in Scala vs C#'
 tags:
-  - 'c#'
+  - csharp
   - scala
 url: 60.html
 id: 60
@@ -17,7 +17,7 @@ date: 2016-03-17 22:33:36
 
 ### What's asynchronous programming?
 
-Let me explain by giving you an example. If you have ever used a web framework you might have been wondering how it handles multiple concurrent requests from different users. The traditional approach is to spawn a new thread (or get one from a thread pool) for every request that comes in and release it once the request is served. The problem with this solution is that whenever those threads perform IO operations (such as talking to a database) they simply block and wait for the operation to finish. Therefore, we end up wasting precious CPU time by allowing our threads to be blocked on IO. Instead of blocking threads on IO operation we could use an asynchronous database API. Such API is non-blocking. However, running a database query using such an API requires you to provide a **callback**. Callback in this case would be a function that would be invoked once the result is available. So, in the asynchronus model your thread serves the request, runs some computations and when it needs to call the database, it initiates the call and than switches to do some other, useful work. Some other thread will continue execution of your request when the database returns. \[caption id="attachment_64" align="aligncenter" width="400"\]![Asynchronous model example](http://codewithstyle.info/wp-content/uploads/2016/03/drawit-diagram-1.png "drawit diagram") Example of asynchronous processing in a web framework\[/caption\]
+Let me explain by giving you an example. If you have ever used a web framework you might have been wondering how it handles multiple concurrent requests from different users. The traditional approach is to spawn a new thread (or get one from a thread pool) for every request that comes in and release it once the request is served. The problem with this solution is that whenever those threads perform IO operations (such as talking to a database) they simply block and wait for the operation to finish. Therefore, we end up wasting precious CPU time by allowing our threads to be blocked on IO. Instead of blocking threads on IO operation we could use an asynchronous database API. Such API is non-blocking. However, running a database query using such an API requires you to provide a **callback**. Callback in this case would be a function that would be invoked once the result is available. So, in the asynchronus model your thread serves the request, runs some computations and when it needs to call the database, it initiates the call and than switches to do some other, useful work. Some other thread will continue execution of your request when the database returns. \[caption id="attachment_64" align="aligncenter" width="400"\]![Asynchronous model example](/images/2016/03/drawit-diagram-1.png "drawit diagram") Example of asynchronous processing in a web framework\[/caption\]
 
 ### Asynchronous programming in C#
 

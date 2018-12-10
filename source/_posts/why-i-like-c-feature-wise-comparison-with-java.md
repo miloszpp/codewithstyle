@@ -1,7 +1,7 @@
 ---
 title: 'Why I like C#: feature-wise comparison with Java'
 tags:
-  - 'c#'
+  - csharp
   - java
 url: 10.html
 id: 10

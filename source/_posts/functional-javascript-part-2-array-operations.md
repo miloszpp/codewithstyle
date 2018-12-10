@@ -95,7 +95,7 @@ So what does map  do? It takes an array and transforms it to another array by a
 *   forEach  runs given function on each element
 *   map  runs given function on each element and collects the returned values, producing a new array
 
-![](http://codewithstyle.info/wp-content/uploads/2017/08/Map-explained.png "Map explained")
+![](/images/2017/08/Map-explained.png "Map explained")
 
 ### Filter
 
@@ -131,11 +131,11 @@ Promise.all(postPromises).then(posts => console.log(posts));
 
 We've added a call to the filter  function. The filter  function takes a **filtering function** and applies it to every element of an array. If the value returned by the filtering function is false, than given element is not included in the resulting array. In other words, the filtering function is used to decide which elements should stay and which should be filtered out. 
 
-![](http://codewithstyle.info/wp-content/uploads/2017/08/filter-explained.png "filter explained") 
+![](/images/2017/08/filter-explained.png "filter explained") 
 
 In the above example, you can already see how easily we can **chain** invocations of higher order functions. This is because every such function is invoked on an array and returns an array. With such code, the **data flow** is immediately visible and easy to understand. What I mean by that is that it's easy to understand how the array is transformed. 
 
-![](http://codewithstyle.info/wp-content/uploads/2017/08/chaining-higher-order-functions-1.png "chaining higher order functions")
+![](/images/2017/08/chaining-higher-order-functions-1.png "chaining higher order functions")
 
 ### Conclusion
 
