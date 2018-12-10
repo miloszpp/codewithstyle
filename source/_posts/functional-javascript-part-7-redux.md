@@ -7,9 +7,13 @@ categories:
   - Web
 date: 2017-09-18 16:15:49
 tags:
+  - functional programming
+  - redux
 ---
 
-![](/images/2017/08/redux-300x235.png)So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter concept could seem slightly theoretical to you. It's time to see a practical application of immutability. You will now learn about Redux - an amazing concept which will change how you think about building applications. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
+So far you had a chance to learn about two big ideas in functional JavaScript: functional array operations and immutability. Especially the latter concept could seem slightly theoretical to you. It's time to see a practical application of immutability. You will now learn about Redux - an amazing concept which will change how you think about building applications. 
+
+**This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
 
 ### Application state
 
@@ -17,29 +21,36 @@ Every web application in JavaScript has **state**. State is the sum of all data 
 
 ### Redux approach to state management
 
-Redux says that you should store the application state in a single object. It can be a complicated, deeply nested object. The important thing is that the state is stored in a single location (as opposed to being distributed across the whole application). Another rule imposed by Redux is that the state should be immutable - you should never change anything in it manually. Instead, whenever you wish to update something you should return a new copy of the state. Redux also says that all changes to the state should be initiated by **actions**. An action could be for example clicking on a button or receiving some data. The action can contain some additional data. So, you have a state and an action object. Given these two you should produce a new state object. Redux says that a function which takes a state and an action and produces a new state is called a **reducer**. ![](/images/2017/08/reducer.png "reducer")
+Redux says that you should store the application state in a single object. It can be a complicated, deeply nested object. The important thing is that the state is stored in a single location (as opposed to being distributed across the whole application). Another rule imposed by Redux is that the state should be immutable - you should never change anything in it manually. Instead, whenever you wish to update something you should return a new copy of the state. Redux also says that all changes to the state should be initiated by **actions**. An action could be for example clicking on a button or receiving some data. The action can contain some additional data. So, you have a state and an action object. Given these two you should produce a new state object. Redux says that a function which takes a state and an action and produces a new state is called a **reducer**. 
+
+![](/images/2017/08/reducer.png "reducer")
 
 ### Example
 
 Let's have a look at some real example. You are working on a bookstore application. Such application would store a list of books as part of its state. Therefore, the **state** object could look like this:
 
+```javascript
 const state = {
-  books: \[
+  books: [
     { title: "Code Complete", author: "Steve McConnell", quantity: 10 },
     { title: "Clean Code", author: "Robert Cecil Martin", quantity: 4 }
-  \]
+  ]
 };
+```
 
 One of the possible actions a user can perform is to buy a book. Let's see how an object describing such an **action** could look like.
 
+```javascript
 const action = {
  type: "BUY_BOOK",
  title: "Code Complete",
  quantity: 2
 };
+```
 
 Now we need to write a **reducer** \- a function that will take the state and the action and produce a new state object. Given a list of books with quantities and an action object saying which and how many books are being bought, we need to find the book in the state and decrease its in-store quantity. Keep in mind that we need to return a new state object and not modify the existing one!
 
+```javascript
 function reduce(state, action) {
   if (action.type === "BUY_BOOK") {
     const newBooks = state.books.map(book => {
@@ -55,6 +66,7 @@ function reduce(state, action) {
   }
   else return state;
 }
+```
 
 Let's go through this code. First, we inspect the action's type - there will be more actions in our application so we need to differentiate between them. Next, we map the existing collection of books to a new collection of books. The new one will be very similar to the old one except it will have decreased quantity for one of the books. That's exactly what the function passed to map does. For most of the books it will return an unchanged object. However, when it finds a book with title corresponding to the one in the action, it will produce a new book object with decreased quantity.
 

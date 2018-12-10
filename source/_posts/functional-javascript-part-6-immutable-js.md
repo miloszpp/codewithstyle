@@ -7,29 +7,44 @@ categories:
   - Web
 date: 2017-08-24 14:33:27
 tags:
+  - functional programming
+  - immutability
 ---
 
-In the previous post we saw some techniques that can help us implement immutability. However, none of them feel very natural in plain, vanilla JavaScript. It doesn't feel like the language and the standard library have been designed with immutability in mind. It's not surprising given that one of the language's main purposes was to **mutate** DOM (the Document Object Model). ![](/images/2017/08/Zrzut-ekranu-2017-08-24-o-21.54.50-300x70.png) Fortunately, [Immutable.js](https://facebook.github.io/immutable-js/) comes to rescue. It is a library which makes working immutable objects much more natural. In this post we will learn how to use the library and how we can benefit from it. **This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
+In the previous post we saw some techniques that can help us implement immutability. However, none of them feel very natural in plain, vanilla JavaScript. It doesn't feel like the language and the standard library have been designed with immutability in mind. It's not surprising given that one of the language's main purposes was to **mutate** DOM (the Document Object Model). 
+
+![](/images/2017/08/Zrzut-ekranu-2017-08-24-o-21.54.50-300x70.png) 
+
+Fortunately, [Immutable.js](https://facebook.github.io/immutable-js/) comes to rescue. It is a library which makes working immutable objects much more natural. In this post we will learn how to use the library and how we can benefit from it. 
+
+**This post is part of the [Functional Programming in JavaScript series](https://codewithstyle.info/functional-programming-javascript-plain-words/).**
 
 ### Map instead of object
 
 Immutable.js introduces a few immutable data structures. Let's focus on Map  which is an immutable version of plain JavaScript object. The name comes from the world of algorithms and data structures where we use it as a name for a structure which _maps_ some keys to some values (just like a JavaScript object). It's very easy to initialize a Map from a plain JavaScript object:
 
+```javascript
 const product = Immutable.Map({ name: "Product", quantity: 10 });
+```
 
 We must not use assignment operator with a Map object's properties. Instead, we should call the set  method on it.
 
+```javascript
 const product = Immutable.Map({ name: "U-lock", quantity: 10 });
 const updatedProduct = product.set("category", "safety");
+```
 
 As expected set will not mutate the original object. Instead, it will return a new updated object. We can easily return to the world of plain JavaScript objects with toJS:
 
+```javascript
 updatedProduct.toJS();
+```
 
 ### Nested objects
 
 There are many interesting operations available on Map. For example, setIn works great with deeply nested objects. Imagine having an object with several levels of nesting and having to update a property residing in a deeply nested object.
 
+```javascript
 const employee = {
   name: "John",
   reportsTo: {
@@ -41,8 +56,9 @@ const employee = {
 };
 
 const immutableEmployee = Immutable.fromJS(employee);
-const updatedEmployee = immutableEmployee.setIn(\["reportsTo", "reportsTo"\], "Celine");
+const updatedEmployee = immutableEmployee.setIn(["reportsTo", "reportsTo"], "Celine");
 console.log(updatedEmployee.toJS());
+```
 
 First of all, note that we've used fromJS  instead of Map . This is because Map only works shallowly - when it sees a property that's a reference to an object it doesn't convert it to Map but jest leaves it as it is. On the other hand fromJS  will always traverse all levels of nesting. As you can see setIn takes an array of strings defining the path of properties leading to the value we are interested in. The second argument is the value we want to set the property to. Obviously setIn doesn't mutate the object but returns a fresh copy instead.
 
@@ -50,29 +66,39 @@ First of all, note that we've used fromJS  instead of Map . This is because Ma
 
 We haven't yet discussed immutability of arrays. In the previous chapters we've talked about how to avoid mutating objects. What about arrays? Basic array operations in vanilla JavaScript are mutable - they update the array in-place:
 
-const numbers = \[1, 2, 3, 4\];
+```javascript
+const numbers = [1, 2, 3, 4];
 numbers.push(5);
+```
 
 An immutable version of push would have to clone the array first and add the element to the new copy. We've already discussed a similar approach when talking about sort in the [chapter about lodash](https://codewithstyle.info/functional-javascript-part-4-lodash/).
 
+```javascript
 function immutablePush(arr, newElement) {
   const arrCopy = arr.slice(0);
   arrCopy.push(newElement);
   return arrCopy;
 }
+```
 
 The ES6 spread operator lets us do this in a more concise way. It's like the object spread operator - it "unwraps" array elements and lets you put them directly in another list.
 
-const newNumbers = \[...numbers, 7\];
+```javascript
+const newNumbers = [...numbers, 7];
+```
 
 But how about adding an element in the middle of an array? It gets a little messy.
 
-const newNumbers = \[...numbers.slice(0, 2), 7, ...numbers.slice(3)\];
+```javascript
+const newNumbers = [...numbers.slice(0, 2), 7, ...numbers.slice(3)];
+```
 
 Immutable.js simplifies immutable array operations by introducing a List object. List has methods similar to array's but all of them are immutable and return a fresh copy instead of mutating the list.
 
-const numbersList = Immutable.List(\[1, 2, 3, 4, 5\]);
+```javascript
+const numbersList = Immutable.List([1, 2, 3, 4, 5]);
 const newNumbersList = numbersList.insert(2, 99);
+```
 
 List has many useful methods which make working with it in immutable way easier than working with arrays.
 
