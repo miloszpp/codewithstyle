@@ -1,5 +1,5 @@
 ---
-title: 'Talk video: become a better JavaScript Developer with functional programming'
+title: 'Become a better JavaScript Developer with functional programming'
 url: 817.html
 id: 817
 categories:
@@ -9,6 +9,7 @@ date: 2018-09-26 20:09:58
 tags:
   - functional programming
   - video
+  - talk
 icon: fab fa-youtube
 ---
 

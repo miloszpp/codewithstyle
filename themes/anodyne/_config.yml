@@ -4,8 +4,7 @@ logo_image_source: /images/2017/07/CODE-WITHSTYLE-1.png
 # Index Page
 index_banner_text: Code with Style!
 index_banner_text_secondary: Web Development & Functional Programming.
-index_font_awesome_icon_css: fas fa-code
-
+index_font_awesome_icon_css:
 # Header
 menu:
   Home: /

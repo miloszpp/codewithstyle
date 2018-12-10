@@ -7,6 +7,8 @@ categories:
   - Other topics
 date: 2017-10-09 17:00:59
 tags:
+  - .net
+  - hangfire
 ---
 
 [Hangfire](https://www.hangfire.io/) is a great tool which can help you with doing background processing in .NET web applications. It's great for tasks such as background import or asynchronous processing of some events or requests. What's amazing about Hangfire is that it works very well in a setup where you have multiple instances of your application deployed behind a load balancer. In such case Hangfire can synchronize using database or Redis.
@@ -19,7 +21,9 @@ You need to be extra careful when using long running jobs in connection with Dis
 
 Some time ago I run into an interesting problem at work. I was using Hangfire to process requests from a queue. Users could add requests to the queue and than a Hangfire job would run every 5 minutes, take them off one by one and execute them. Processing of a single request was quite lengthy - it took about 2 minutes. The way I implemented it was to load all pending requests and execute them in a single run of the job. What's more, I wanted the requests to be processed sequentially. I applied the DisableConcurrentExecution  attribute in order to make sure that there is only a single instance of the job running at given time. The problem materialized itself when I added several hundreds requests to the queue. After some time the job started throwing the following error:
 
+```
     Timeout expired. The timeout period elapsed prior to obtaining a connection from the pool
+```
 
 What happened was the following:
 

@@ -10,6 +10,7 @@ tags:
   - functional programming
   - video
   - monads
+  - talk
 ---
 
 Recently I had a chance to talk about monads at the amazing [WarsawJS Meetup](https://warsawjs.com/). Below you can find a recording of the session. Slides from the talk are available [here](https://miloszpp.github.io/warsawjs-slides-monads/). The talk is very much related to some content on the blog. Here is a list of posts about monads in JavaScript/TypeScript:
