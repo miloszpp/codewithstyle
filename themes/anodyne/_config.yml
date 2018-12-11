@@ -7,11 +7,8 @@ index_banner_text_secondary: Web Development & Functional Programming.
 index_font_awesome_icon_css:
 # Header
 menu:
-  Home: /
-  FP: /functional-programming
-  Angular: /tags/angular
-  RxJS: /tags/rxjs
-  TypeScript: /tags/typescript
+  Table of Contents: /toc
+  Functional Programming: /functional-programming
   Author: http://miloszpiechocki.com/
 
 # Post

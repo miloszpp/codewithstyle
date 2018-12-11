@@ -9,6 +9,7 @@ categories:
 date: 2016-03-05 10:48:00
 tags:
   - thoughts
+  - blogging
 ---
 
 In this short post I name some random conclusions I had after the first four months of blogging. I hope this will be helpful for people who are considering starting their own programming blog (which I fully recommend to do!).

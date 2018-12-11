@@ -10,6 +10,7 @@ date: 2017-06-08 19:10:43
 tags:
   - thoughts
   - conferences
+  - public speaking
 ---
 
 Two weeks ago I had an opportunity to talk at the [Code Europe](https://www.codeeurope.pl/en) conference in Warsaw. By doing this I managed to achieve one of my long term goals - to speak in front of more than 100 people. It might not sound impressive but given that I am a rather shy person I consider it a success. 
