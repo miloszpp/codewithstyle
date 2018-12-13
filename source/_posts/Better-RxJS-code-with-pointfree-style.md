@@ -12,8 +12,6 @@ icon: fas fa-dot-circle
 date: 2018-12-13 23:00:00
 ---
 
-Pointfree style minimal example Partial application Composition - link to RxJS pipe post RxJS example from talk Another RxJS example
-
 What is pointfree style?
 ------------------------
 
