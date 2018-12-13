@@ -12,6 +12,8 @@ icon: fas fa-dot-circle
 date: 2018-12-13 23:00:00
 ---
 
+Recently I gave a talk about pointfree style programming at the [JS Poland Conference](https://js-poland.pl/). I decided to turn some of the ideas I mentioned during the talk into a blog post!
+
 What is pointfree style?
 ------------------------
 
