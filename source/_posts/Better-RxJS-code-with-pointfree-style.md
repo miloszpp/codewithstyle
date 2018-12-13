@@ -8,7 +8,8 @@ tags:
   - functional programming
   - pointfree style
 image: /images/2018/11/business-3421076_1920.jpg
-icon: 
+icon: fas fa-dot-circle
+date: 2018-12-13 23:00:00
 ---
 
 Pointfree style minimal example Partial application Composition - link to RxJS pipe post RxJS example from talk Another RxJS example
