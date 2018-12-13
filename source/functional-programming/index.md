@@ -24,12 +24,16 @@ This page contains links to functional programming content on the blog. They are
 *   [Part 1: building the engine](https://codewithstyle.info/functional-javascript-app-scratch/)
 *   [Part 2: scaling the app with virtual DOM](https://codewithstyle.info/functional-js-application-scratch-part-2-virtual-dom/)
 
+### Pointfree (tacit) style
+
+*   [Deep dive into pipe function in RxJS](https://codewithstyle.info/deep-dive-pipe-function-rxjs/)
+*   [Better RxJS code with pointfree style](/Better-RxJS-code-with-pointfree-style/)
+
 ### Miscellaneous
 
-*   [TRADUX: real-time trading platform simulator](https://codewithstyle.info/tradux/)
 *   [Precise domain modelling with discriminated unions in TypeScript](https://codewithstyle.info/typescript-discriminated-union-types/)
 *   [Building an interpreter with discriminated unions in TypeScript](https://codewithstyle.info/building-an-interpreter-with-discriminated-unions/)
-*   [Deep dive into pipe function in RxJS](https://codewithstyle.info/deep-dive-pipe-function-rxjs/)
+*   [TRADUX: real-time trading platform simulator](https://codewithstyle.info/tradux/)
 
 ### Practical monads in TypeScript
 
