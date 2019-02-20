@@ -75,7 +75,8 @@ class Article extends React.Component<{ content: string }> {
 }
 
 type ArticleProps = PropsType<Article>;
-// type HeaderProps = {
+
+// type ArticleProps = {
 //   content: string;
 // }
 ```
