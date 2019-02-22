@@ -103,6 +103,21 @@ const Header: React.FunctionComponent<{ text: string }>
 type HeaderProps = PropsType<typeof Header>;
 ```
 
+### UPDATE
+
+As pointed out in [voreny](https://disqus.com/by/voreny/)'s comment, there is a better way to handle both functional and class components. `PropsType` can be defined using `React.ComponentType` (see [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e1f5f7a4447a04910d8cbc7c8aff075bde712147/types/react/index.d.ts#L59) for definition):
+
+```typescript
+type PropsType<C> =
+  C extends React.ComponentType<infer P> ? P : never;
+```
+
+The only caveat is that it has to be used with `typeof` keyword for classes:
+
+```typescript
+type ArticleProps = PropsType<typeof Article>;
+```
+
 ## Summary
 
 I hope this article convinced you of the usefulness of conditional types in TypeScript. This is just one of many applications of advanced types, so don't hesitate to dive deep into this section of TypeScript docs!
