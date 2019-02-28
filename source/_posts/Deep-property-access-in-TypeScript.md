@@ -1,6 +1,8 @@
 ---
 title: Deep property access in TypeScript
 date: 2019-02-26 18:04:28
+icon: code
+image: /images/posts/space-2638126.jpg
 tags:
     - typescript
     - advanced types
@@ -150,3 +152,5 @@ In fact, this technique is widely used in libraries and frameworks. [Here](https
 In this article, you've seen how to solve a common problem of safely accessing deeply nested properties. On the way, you have learned about index types (the `keyof` operator), literal types and the generic technique of typing functions that accept multiple arguments whose types depend on each other.
 
 Please leave a comment if you enjoyed this article!
+
+Cover photo [source](https://pixabay.com/pl/photos/przestrzeń-deep-space-galaktyka-2638126/).
