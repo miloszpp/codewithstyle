@@ -37,6 +37,7 @@ interface Customer {
 At some point, you might want to find out the city of the company of given customer. Without `strictNullChecks`, it would be pretty straightforward. 
 
 ```typescript
+const c: Customer = /* ... */;
 const city = c.company.address.city;
 ```
 
@@ -133,7 +134,7 @@ function get<
 // ...and so on...
 
 function get(obj: any, ...props): any {
-  return props.reduce((result, prop) => result && result[prop], obj);
+  return obj && props.reduce((result, prop) => result && result[prop], obj);
 }
 ```
 
@@ -154,3 +155,7 @@ In this article, you've seen how to solve a common problem of safely accessing d
 Please leave a comment if you enjoyed this article!
 
 Cover photo [source](https://pixabay.com/pl/photos/przestrzeń-deep-space-galaktyka-2638126/).
+
+**UPDATE**
+
+People on this [reddit thread](https://www.reddit.com/r/typescript/comments/aynx0o/safe_deep_property_access_in_typescript/) suggested some examples of libraries that implement safe deep property access. Take a look at their source code.
