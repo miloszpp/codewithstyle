@@ -1,7 +1,7 @@
 ---
 title: Deep property access in TypeScript
 date: 2019-02-26 18:04:28
-icon: code
+icon: fas fa-code
 image: /images/posts/space-2638126.jpg
 tags:
     - typescript
@@ -17,6 +17,13 @@ In this article, you'll see how to take advantage of **mapped types** to deal wi
 Check out the source code with snippets used in this article [here](https://stackblitz.com/edit/deep-properties).
 
 Many thanks to [mgol](https://twitter.com/m_gol) for the inspiration for the idea behind this article.
+
+---
+
+**Update 1:** *Check out an interesting this discussion on the topic in this [reddit thread](https://www.reddit.com/r/typescript/comments/aynx0o/safe_deep_property_access_in_typescript/).*
+
+**Update 2:** *Many thanks to [Useless-Pickles](https://www.reddit.com/user/Useless-Pickles) who pointed out some issues with the initial version of code in this post. Check out [theirs implementation](https://www.reddit.com/r/typescript/comments/aynx0o/safe_deep_property_access_in_typescript/ei65qw6/?context=3) with improved type safety.*
+
 
 ## Deeply nested properties
 
@@ -77,11 +84,13 @@ Let's write our own version of `get`. In the first iteration `get` will only acc
 
 ```typescript
 function get<
-  T extends object, 
-  P extends keyof T
->(obj: T | undefined, prop: P): T[P] {
+  T, 
+  P extends keyof NonNullable<T>
+>(obj: T | undefined, prop: P): NonNullable<T>[P] | undefined {
   if (obj) {
-    return obj[prop];
+    return (obj as NonNullable<T>)[prop];
+  } else {
+    return undefined;
   }
 }
 ```
@@ -90,11 +99,13 @@ The function body is pretty straightforward. What's interesting here is the type
 
 The first one (`T`) is the type of object from which we want to read the property.
 
-The second one (`P`) is a type that is assignable from `keyof T`. What is `keyof T`? It returns a type that is a union of literal types corresponding to all property names of `T`.
+The second one (`P`) is a type that is assignable from `keyof NonNullable<T>`. What is `keyof NonNullable<T>`? It returns a type that is a union of literal types corresponding to all property names of `NonNullable<T>`.
 
-For example, `keyof Customer` is equal to `"name" | "company"`. 
+For example, `keyof Customer` is equal to `"name" | "company"`.
 
 Literal type is a type that only has a single possible value. In this instance, `prop` would have to be a string that is equal to either `"name"` or `"company"`.
+
+Finally, why do we use `NonNullable<T>` instead of `T`? `T` can be any type, including one that accepts `null` and `undefined` values. We want to access a property of `T`, so first we need to make sure that it is not `null` nor `undefined`. Hence, we wrap it with `NonNullable`.
 
 Thanks to this type signature, the compiler will make sure that we use a correct string when passing the `prop` argument. Indeed, the following code returns a type error.
 
@@ -114,27 +125,30 @@ Fear not, the hope is not lost yet! We can cheat a little. In practice, how many
 
 ```typescript
 function get<
-  T extends object, 
-  P1 extends keyof T
->(obj: T, prop1: P1): T[P1];
+  T, 
+  P1 extends keyof NonNullable<T>
+>(obj: T, prop1: P1): NonNullable<T>[P1] | undefined;
 
 function get<
-  T extends object, 
-  P1 extends keyof T,
-  P2 extends keyof T[P1]
->(obj: T, prop1: P1, prop2: P2): T[P1][P2];
+  T, 
+  P1 extends keyof NonNullable<T>,
+  P2 extends keyof NonNullable<NonNullable<T>[P1]>
+>(obj: T, prop1: P1, prop2: P2): NonNullable<NonNullable<T>[P1]>[P2] | undefined;
 
 function get<
-  T extends object, 
-  P1 extends keyof T,
-  P2 extends keyof T[P1],
-  P3 extends keyof T[P1][P2],
->(obj: T, prop1: P1, prop2: P2, prop3: P3): T[P1][P2][P3];
+  T, 
+  P1 extends keyof NonNullable<T>,
+  P2 extends keyof NonNullable<NonNullable<T>[P1]>,
+  P3 extends keyof NonNullable<NonNullable<NonNullable<T>[P1]>[P2]>
+>(obj: T, prop1: P1, prop2: P2, prop3: P3): NonNullable<NonNullable<NonNullable<T>[P1]>[P2]>[P3] | undefined;
 
 // ...and so on...
 
-function get(obj: any, ...props): any {
-  return obj && props.reduce((result, prop) => result && result[prop], obj);
+function get(obj: any, ...props: string[]): any {
+  return obj && props.reduce(
+    (result, prop) => result == null ? undefined : result[prop],
+    obj
+  );
 }
 ```
 
@@ -148,6 +162,8 @@ get(c, 'company', 'address', 'city')
 
 In fact, this technique is widely used in libraries and frameworks. [Here](https://github.com/ReactiveX/rxjs/blob/master/src/internal/util/pipe.ts), you can observe it being used in RxJS.
 
+BTW, this type signature sometimes gives false negatives. If all properties and the source object itself are not nullable, then the result type should not include `undefined`. Check out [this implementation](https://www.reddit.com/user/Useless-Pickles) for more details.
+
 ## Summary
 
 In this article, you've seen how to solve a common problem of safely accessing deeply nested properties. On the way, you have learned about index types (the `keyof` operator), literal types and the generic technique of typing functions that accept multiple arguments whose types depend on each other.
@@ -155,7 +171,3 @@ In this article, you've seen how to solve a common problem of safely accessing d
 Please leave a comment if you enjoyed this article!
 
 Cover photo [source](https://pixabay.com/pl/photos/przestrzeń-deep-space-galaktyka-2638126/).
-
-**UPDATE**
-
-People on this [reddit thread](https://www.reddit.com/r/typescript/comments/aynx0o/safe_deep_property_access_in_typescript/) suggested some examples of libraries that implement safe deep property access. Take a look at their source code.
