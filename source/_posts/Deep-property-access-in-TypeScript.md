@@ -162,7 +162,7 @@ get(c, 'company', 'address', 'city')
 
 In fact, this technique is widely used in libraries and frameworks. [Here](https://github.com/ReactiveX/rxjs/blob/master/src/internal/util/pipe.ts), you can observe it being used in RxJS.
 
-BTW, this type signature sometimes gives false negatives. If all properties and the source object itself are not nullable, then the result type should not include `undefined`. Check out [this implementation](https://www.reddit.com/user/Useless-Pickles) for more details.
+BTW, this type signature sometimes gives false negatives. If all properties and the source object itself are not nullable, then the result type should not include `undefined`. Check out [this implementation](https://www.reddit.com/r/typescript/comments/aynx0o/safe_deep_property_access_in_typescript/ei65qw6/?context=3) for more details.
 
 ## Summary
 
