@@ -22,12 +22,24 @@ The list is based on what I could find in `es5.d.ts` on [github](https://github.
 
 `Partial` works on a single level - it doesn't affect nested objects.
 
-This type is useful in many situations. One that comes to my mind is when you need to type a function that lets you override default values of properties of some object.
+A common use case for `Partial` is when you need to type a function that lets you override default values of properties of some object.
 
 ```typescript
 const defaultSettings: Settings = { /* ... */ };
 
-function getSettings(custom: Partial<Settings>) {
+function getSettings(custom: Partial<Settings>): Settings {
+  return { ...defaultSettings, ...custom };
+}
+```
+
+**Update:**
+
+However, this technique is not 100% type-safe. As pointed out by [AngularBeginner](https://www.reddit.com/r/typescript/comments/b2xftx/comprehensive_list_of_builtin_utility_types_in/eiw15mm?utm_source=share&utm_medium=web2x), if `custom` has a property that has been explicitly set to `undefined`, the result will end up having this property undefined as well. Therefore, its type (`Settings`) will be a lie.
+
+A more type-safe version of `getSettings` would look like this:
+
+```typescript
+function getSettings(custom: Partial<Settings>): Partial<Settings> {
   return { ...defaultSettings, ...custom };
 }
 ```
