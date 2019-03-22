@@ -170,4 +170,6 @@ In this article, you've seen how to solve a common problem of safely accessing d
 
 Please leave a comment if you enjoyed this article!
 
-Cover photo [source](https://pixabay.com/pl/photos/przestrzeń-deep-space-galaktyka-2638126/).
+---
+
+Cover photo: [source](https://pixabay.com/pl/photos/przestrzeń-deep-space-galaktyka-2638126/).

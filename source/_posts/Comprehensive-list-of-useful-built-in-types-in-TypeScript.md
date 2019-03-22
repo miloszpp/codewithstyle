@@ -233,3 +233,7 @@ type CInstance = InstanceType<typeof C>;  // C
 ```
 
 [See implementation](https://github.com/Microsoft/TypeScript/blob/4ff71ecb98ccbd882feb1738b0c6f1cc93c2ea66/src/lib/es5.d.ts#L1469).
+
+---
+
+Cover photo: <a href="https://pixabay.com/pl/users/TeroVesalainen-809550/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2077020"> TeroVesalainen</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2077020"> Pixabay</a>.
