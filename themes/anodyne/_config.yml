@@ -20,7 +20,7 @@ archive_date_format: MMM YYYY
 archive_font_awesome_icon_css: fas fa-folder-open
 
 # About Widget
-about_widget_avatar_url: /images/2017/02/miloszpiechocki.jpeg
+about_widget_avatar_url: /images/speaker-avatar-2.png
 about_widget_text: "Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about functional programming and in particular how it’s applied in modern web technologies."
 
 
