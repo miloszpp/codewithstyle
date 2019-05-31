@@ -3,7 +3,8 @@ title: 'Strict function types in TypeScript: covariance, contravariance and biva
 date: 2019-05-30 21:45:55
 tags:
    - typescript
-   - strict
+   - 'strict mode'
+image: /images/posts/strictFunctionTypes.jpg
 ---
 
 Let's talk about one of the less well known strict type checking options - `strictFunctionTypes`. It helps you avoid another class of bugs, and it's also an excellent opportunity to learn about some fundamental computer science concepts: **covariance**, **contravariance**, and **bivariance**.
