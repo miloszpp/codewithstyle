@@ -201,7 +201,7 @@ We'll now add some operations to make `Maybe` type more useful. You know the `ma
         if (this.value === null) {
             return Maybe.none<R>();
         } else {
-            return Maybe.some(f(this.value));
+            return Maybe.fromValue(f(this.value));
         }
     }
 ```
