@@ -176,7 +176,7 @@ A good starting point is [the official TypeScript roadmap](https://github.com/Mi
 
 **Stay up to date with new language features and make the work for you.**
 
-## Summarry
+## Summary
 
 I hope you find the list useful. Like anything in life, these commandments shouldn't be followed blindly. However, I firmly believe those rules will make you a better TypeScript programmer.
 
