@@ -81,3 +81,9 @@ deploy:
   type: git
   repo: https://github.com/miloszpp/codewithstyle
   branch: gh-pages
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: false
+  order_by: -date

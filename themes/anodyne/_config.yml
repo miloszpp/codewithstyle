@@ -45,7 +45,7 @@ social_platforms:
     fa_icon: fab fa-youtube
   - url: mailto:milosz@miloszpiechocki.com
     fa_icon: fas fa-envelope
-  - url: /#
+  - url: /atom.xml
     fa_icon: fas fa-rss
 
 # Footer about
