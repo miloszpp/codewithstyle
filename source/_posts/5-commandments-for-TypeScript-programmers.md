@@ -11,6 +11,8 @@ More and more projects and teams are adopting TypeScript. However, there is a ma
 
 I present to you this list of high-level TypeScript best practices that will help you take advantage of TypeScript to the fullest possible extent.
 
+**This article is also available in Russian: [5 заповедей TypeScript-разработчика](https://habr.com/ru/post/461565)** (by [Vadim Belorussov](https://dev.to/bevalorous)).
+
 ## Do not lie
 
 **Types are a contract.** What does it mean? When you implement a function, its type is a promise to other developers (or to your future self!) that when they call it, it will return a specific kind of value.
