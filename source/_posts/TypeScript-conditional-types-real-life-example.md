@@ -5,6 +5,7 @@ icon: fas fa-code
 tags:
   - typescript
   - advanced types
+  - react
 ---
 
 I love the [Advanced Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html) section of TypeScript docs. There are some amazing features out there. However, the first time I saw some of them, I didn't immediately see what could they be used for. In this article, I'd like to show you a real-world example of using **conditional types**.
