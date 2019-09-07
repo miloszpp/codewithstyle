@@ -1,41 +1,49 @@
 <!-- Banner -->
 <div class="w-100 bg-1 text-light">
-    
-    <div class="w-100">
-        <nav class="db flex-l pv3 mw8 center items-center-l">
-            <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="<%- config.root %>" title="<%- config.title %>">
-                <img src="<%- theme.logo_image_source %>" class="dib h3" alt="<%- config.title %>">
-            </a>
-            <div class="db v-mid w-100 w-75-l tc tr-l">
-                <% for (var i in theme.menu) { %>
-                    <a class="link dim f6 f5-l dib mr3 mr4-l white" 
-                        href="<%- url_for(theme.menu[i]) %>" 
-                        title="<%= i %>">
-                        <%= i %>
-                    </a>
-                <% } %>
-            </div>
-        </nav>
-    </div>
-
-    <!-- Title -->
-    <div class="w-100 vh-40 dt" 
-         <% if (imageUrl) { %>
-         style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%- imageUrl %>'); background-size: cover; background-position: center"
-         <% } %>>
-        <div class="v-mid white center mw8">
-            <h1 class="f1-l f2-m tc tc-m tl-ns"><%- mainText %></h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns"><%- secondaryText %></p>
-        </div>
-    </div>
-
-    <div class="w-100 bt">
-      <section class="pa2 mw8 center white">
-        <a class="link white dim" href="https://typescriptmasterclass.com">
-          🔥 Download FREE PDF: 
-          <em>10 TypeScript tips to catch more bugs</em> 🔥
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a
+        class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white"
+        href="<%- config.root %>"
+        title="<%- config.title %>"
+      >
+        <img
+          src="<%- theme.logo_image_source %>"
+          class="dib h3"
+          alt="<%- config.title %>"
+        />
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        <% for (var i in theme.menu) { %>
+        <a
+          class="link dim f6 f5-l dib mr3 mr4-l white"
+          href="<%- url_for(theme.menu[i]) %>"
+          title="<%= i %>"
+        >
+          <%= i %>
         </a>
-      </section>
-    </div>
+        <% } %>
+      </div>
+    </nav>
+  </div>
 
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" <% if (imageUrl) { %>
+    style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('<%- imageUrl %>'); background-size: cover; background-position: center"
+    <% } %>>
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns"><%- mainText %></h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns"><%- secondaryText %></p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥 xxx
+      </a>
+    </section>
+  </div>
 </div>
