@@ -24,7 +24,6 @@ archive_font_awesome_icon_css: fas fa-folder-open
 about_widget_avatar_url: /images/speaker-avatar-2.png
 about_widget_text: "Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development."
 
-
 # Comments.
 comments:
   # Disqus comments
@@ -49,4 +48,4 @@ social_platforms:
     fa_icon: fas fa-rss
 
 # Footer about
-footer_about: "@Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class=\"link dim white\" href=\"http://www.codeblocq.com/\">Jonathan Klughertz</a>"
+footer_about: '@Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>'
