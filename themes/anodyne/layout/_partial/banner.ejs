@@ -28,10 +28,10 @@
   </div>
 
   <!-- Title -->
-  <div class="w-100 vh-40 dt" <% if (imageUrl) { %>
+  <div class="w-100 vh-40 dt"
     style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('<%- imageUrl %>'); background-size: cover; background-position: center"
-    <% } %>>
+    url('<%- imageUrl || "images/homepage.png" %>'); background-size: cover; background-position: center"
+    >
     <div class="v-mid white center mw8">
       <h1 class="f1-l f2-m tc tc-m tl-ns"><%- mainText %></h1>
       <p class="f4 fw3 pab-100px tc tc-m tl-ns"><%- secondaryText %></p>
@@ -42,7 +42,7 @@
     <section class="pa2 mw8 center white">
       <a class="link white dim" href="https://typescriptmasterclass.com">
         🔥 Download FREE PDF:
-        <em>10 TypeScript tips to catch more bugs</em> 🔥 xxx
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
       </a>
     </section>
   </div>
