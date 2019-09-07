@@ -1,4 +1,4 @@
 git add .
 git commit -m "Update"
 git push
-hexo deploy --generate
+npm run deploy
