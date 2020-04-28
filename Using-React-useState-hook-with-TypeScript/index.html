@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="React hooks are a recent addition to React that make function components have almost the same capabilities as class components. Most of the time, usin">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Using React useState hook with TypeScript">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta property="og:image" content="https://codewithstyle.info/images/posts/fishing.jpg">
+  <meta property="twitter:image" content="https://codewithstyle.info/images/posts/fishing.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+   
+
+  <!-- Title -->
+  
+  <title>Using React useState hook with TypeScript - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/Using-React-useState-hook-with-TypeScript//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/posts/fishing.jpg'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Using React useState hook with TypeScript</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-08-21</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/react/">#react</a> <a class="fw3 ph1 dib" href="/tags/generics/">#generics</a> <a class="fw3 ph1 dib" href="/tags/hooks/">#hooks</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>React hooks are a recent addition to React that make function components have almost the same capabilities as class components. Most of the time, using React hooks in TypeScript is straightforward. </p>
+<p>However, there are some situations when deeper understanding of hooks’ types might prove very useful. In this article, we’re going to focus on the <code>useState</code> hook.</p>
+<p>I’m going to assume that you have a basic understanding of this hook. If this is not the case, please read <a href="https://reactjs.org/docs/hooks-state.html" target="_blank" rel="noopener">this</a> first.</p>
+<h2 id="Reading-the-types"><a href="#Reading-the-types" class="headerlink" title="Reading the types"></a>Reading the types</h2><p>First of all, let’s take a look at the type signature of <code>useState</code>. You’ll see how much information you can extract solely from types, without looking at the docs (or the implementation).</p>
+<p>If you’re only interested in practical examples, skip to the <a href="#Usage-examples">next section</a>.</p>
+<h3 id="Overloads"><a href="#Overloads" class="headerlink" title="Overloads"></a>Overloads</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useState</span>&lt;<span class="title">S</span> = <span class="title">undefined</span>&gt;(<span class="params"></span>): [<span class="title">S</span> | <span class="title">undefined</span>, <span class="title">Dispatch</span>&lt;<span class="title">SetStateAction</span>&lt;<span class="title">S</span> | <span class="title">undefined</span>&gt;&gt;]</span>;</span><br><span class="line">function useState&lt;S&gt;(initialState: S | (() =&gt; S)): [S, Dispatch&lt;SetStateAction&lt;S&gt;&gt;];</span><br></pre></td></tr></table></figure>
+<p>As you can see, there are two <em>versions</em> of <code>useState</code> function. TypeScript lets you define multiple type signatures for a function as it is often the case in JavaScript that a function supports different types of parameters. Multiple type signatures for a single function are called <strong>overloads</strong>.</p>
+<p>Both overloads are generic functions. The type parameter <code>S</code> represents the type of the piece of state stored by the hook. The type argument in the second overload can be inferred from <code>initialState</code>. However, in the first overload, it defaults to <code>undefined</code> unless the type argument is explicitly provided. <strong>If you don’t pass initial state to <code>useState</code>, you should provide the type argument explicitly.</strong></p>
+<h3 id="useState-parameters"><a href="#useState-parameters" class="headerlink" title="useState parameters"></a><code>useState</code> parameters</h3><p>The first overload doesn’t take any parameters - it’s used when you call <code>useState</code> without providing any initial state.</p>
+<p>The second overload accepts <code>initialState</code> as parameter. It’s type is a union of <code>S</code> and <code>() =&gt; S</code>. Why would you pass a function that returns initial state instead of passing the initial state directly? Computing initial state can be expensive. It’s only needed during when the component is mounted. However, in a function component, it would be calculated on every render. <strong>Therefore, you have an option to pass a function that calculates initial state - expensive computation will only be executed once, not on every render.</strong></p>
+<h3 id="useState-return-type"><a href="#useState-return-type" class="headerlink" title="useState return type"></a><code>useState</code> return type</h3><p>Let’s move to the return type. It’s a <strong>tuple</strong> in both cases. Tuple is like an array that has a specific length and contains elements with specific types.</p>
+<p>For the second overload, the return type is <code>[S, Dispatch&lt;SetStateAction&lt;S&gt;&gt;]</code>. The first element of the tuple has type <code>S</code> - the type of the piece of state. It will contain the value retrieved from the component’s state.</p>
+<p>The second element’s type is <code>Dispatch&lt;SetStateAction&lt;S&gt;&gt;</code>. <code>Dispatch&lt;A&gt;</code> is simply defined as <code>(value: A) =&gt; void</code> - a function that takes a value and doesn’t return anything. <code>SetStateAction&lt;S&gt;</code> is defined as <code>S | ((prevState: S) =&gt; S)</code>. Therefore, the type of <code>Dispatch&lt;SetStateAction&lt;S&gt;&gt;</code> is actually <code>(value: S | ((prevState: S) =&gt; S)) =&gt; void</code>. It is a function that takes either an updated version of the piece of state OR a function that produces the updated version based on the previous version. In both cases, we can deduce that the second element of the tuple returned by <code>setState</code> is a function that we can call to update the component’s state.</p>
+<p>The return type of the first overload is the same, but here instead of <code>S</code>, <code>S | undefined</code> is used anywhere. If we don’t provide initial state it will store <code>undefined</code> initially. It means that <code>undefined</code> has to be included in the type of the piece of state stored by the hook.</p>
+<h2 id="Usage-examples"><a href="#Usage-examples" class="headerlink" title="Usage examples"></a>Usage examples</h2><p>Most of the time you don’t need to bother with providing type arguments to <code>useState</code> - the compiler will infer the correct type for you. However, in some situations type inference might not be enough.</p>
+<h3 id="Empty-initial-state"><a href="#Empty-initial-state" class="headerlink" title="Empty initial state"></a>Empty initial state</h3><p>The first type of situation is when you don’t want to provide initial state to <code>useState</code>. </p>
+<p>As we saw in the type definition, the type argument <code>S</code> for the parameterless defaults to <code>undefined</code>. Therefore, the type of <code>pill</code> should be inferred to <code>undefined</code>. However, due to a <a href="https://github.com/microsoft/TypeScript/issues/32003" target="_blank" rel="noopener">design limitation in TypeScript</a>, it’s actually inferred to <code>any</code>. </p>
+<p>Similarly, <code>setPill</code>‘s type is inferred to <code>React.Dispatch&lt;any&gt;</code>. It’s really bad, as nothing would stop us from calling it with invalid argument: <code>setPill({ hello: 5 })</code>.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PillSelector: React.FunctionComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [pill, setPill] = useState();</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> setPill(<span class="string">'red'</span>)&#125;&gt;Red pill&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;() =&gt; setPill('blue')&#125;&gt;Blue pill&lt;/</span>button&gt;</span><br><span class="line">            &lt;span&gt;You chose &#123;pill&#125; pill!&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In order to fix this issue, we need to pass a type argument to <code>setState</code>. We treat <code>pill</code> as text in JSX, so our fist bet could be <code>string</code>. However, let’s be more precise and limit the type to only allow values that we expect.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [pill, setPill] = useState&lt;<span class="string">'red'</span> | <span class="string">'blue'</span>&gt;();</span><br></pre></td></tr></table></figure>
+<p>Note that the inferred type of <code>pill</code> is now <code>&quot;red&quot; | &quot;blue&quot; | undefined</code> (because this piece of state is initially empty). With <code>strictNullChecks</code> enabled TypeScript wouldn’t let us call anything on <code>pill</code>:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 🛑 Object is possibly 'undefined'.ts(2532)</span></span><br><span class="line">&lt;span&gt;You chose &#123;pill.toUpperCase()&#125; pill!&lt;<span class="regexp">/span&gt;</span></span><br></pre></td></tr></table></figure>
+<p>…unless we check the value first:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ No errors!</span></span><br><span class="line">&#123;pill &amp;&amp; &lt;span&gt;You chose &#123;pill.toUpperCase()&#125; pill!&lt;<span class="regexp">/span&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Clearable-state"><a href="#Clearable-state" class="headerlink" title="Clearable state"></a>Clearable state</h3><p>Another kind of situation when you would provide a type argument to <code>useState</code> is when initial state is defined, but you want to be able to <strong>clear</strong> the state later.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PillSelector: React.FunctionComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [pill, setPill] = useState(<span class="string">'blue'</span>);</span><br><span class="line">    <span class="keyword">return</span> (&lt;div&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> setPill(<span class="string">'red'</span>)&#125;&gt;Red pill&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick=&#123;() =&gt; setPill('blue')&#125;&gt;Blue pill&lt;/</span>button&gt;</span><br><span class="line">        <span class="comment">// 🛑 Argument of type 'undefined' is not assignable </span></span><br><span class="line">        <span class="comment">// to parameter of type 'SetStateAction&lt;string&gt;'.</span></span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> setPill(<span class="literal">undefined</span>)&#125;&gt;Reset&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &#123;pill &amp;&amp; &lt;span&gt;You chose &#123;pill.toUpperCase()&#125; pill!&lt;/</span>span&gt;&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;);</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Since initial state is passed to <code>useState</code>, the type of <code>pill</code> gets inferred to <code>string</code>. Therefore, when you try to pass <code>undefined</code> to it, TypeScript will error.</p>
+<p>You can fix the problem by providing the type argument.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [pill, setPill] = useState&lt;<span class="string">'blue'</span> | <span class="string">'red'</span> | <span class="literal">undefined</span>&gt;(<span class="string">'blue'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Wrapping up, we’ve analysed the type definitions of <code>useState</code> function thoroughly. Based on this information, we saw when providing the type argument to <code>useState</code> might be necessary and when the inferred type is sufficient.</p>
+<p>I like how hooks are great example of how much information can be read from type definitions. They really show off the power of static typing!</p>
+
+
+                    
+<hr>
+<p class="f5 bg-dark-gray br3 pa3 white">
+    Did you like this TypeScript article? I bet you'll also like this <strong>free PDF</strong>!<br>
+    <a href="https://typescriptmasterclass.com">
+      🐛 10 TypeScript tips to catch more bugs 🐛
+    </a>
+</p>
+
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Using React useState hook with TypeScript by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/react/">#react</a> <a class="fw3 ph1 dib" href="/tags/generics/">#generics</a> <a class="fw3 ph1 dib" href="/tags/hooks/">#hooks</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

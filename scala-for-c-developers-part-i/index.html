@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Recently, after three years of focusing mainly on the .NET platform, I’ve changed jobs. My current company uses Scala for server-side programming in t">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Scala for C# developers - part I">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>Scala for C# developers - part I - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/scala-for-c-developers-part-i//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Scala for C# developers - part I</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2015-10-24</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/csharp/">#csharp</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Recently, after three years of focusing mainly on the .NET platform, I’ve changed jobs. My current company uses Scala for server-side programming in their projects. I was very happy for this transition. Both Scala and C# can be considered hybrid functional and object-oriented programming languages. However, Scala seemed to feel more functional than C# - more built-in functional constructs, tighter syntax, default immutability, etc. While this is true, I was surprised how many similarities these languages. I concluded that as long as you have already seen the more functional side of C#, it is really easy to transition to Scala. This post series will discuss some of the similarities and differences between Scala and C#.</p>
+<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><p>The syntax in Scala is indeed quite different from C# syntax. Let’s have a look at this <code>HelloWorld</code> program in Scala.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      println(<span class="string">"Hello, world!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>First of all, the <code>object</code> keyword seems unfamiliar. In Scala, singleton objects are part of the language. It is like declaring a class and saying that there can be only one instance of this class - and this instance is like a global variable, accessible by name of the class. The concept is not very similiar to <strong>static classes</strong> in C#. Another difference is method declaration. As you can see, in Scala the type (of method or variable) comes <strong>after</strong> the name, not before. The <code>def</code> keyword marks a method declaration. The <code>Unit</code> type is a bit like <code>void</code> in C# - it is the return type of a method which does not return any sensible value. One more thing - the <code>println</code> call is not preceeded with any class/object name. In Scala, <code>objects</code> can behave like <code>namespaces</code> in C#. It is possible to import all methods from an object. The <a href="https://roslyn.codeplex.com/wikipage?title=Language%20Feature%20Status&amp;referringTitle=Documentation" target="_blank" rel="noopener">using static members</a> feature in C# 6.0 gives you the same behaviour. It is possible to write the above piece in a more compact way:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) = println(<span class="string">"Hello, world!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you can see, the braces can be omited for single-line methods. Also, the <code>Unit</code> type disappeared - now it is inferred by the compiler (similarly to how the <code>var</code> keyword works in C#). Again, C# 6.0 brings us something similiar - the <strong>expression-bodied members</strong>.</p>
+<h2 id="Classes-and-objects"><a href="#Classes-and-objects" class="headerlink" title="Classes and objects"></a>Classes and objects</h2><p>I have already introduced the <code>object</code> keyword. Let’s now have a look at regular classes.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Ship(name: String, x: Double, y: Double) &#123;</span><br><span class="line">    val positionX = x</span><br><span class="line">    val positionY = y</span><br><span class="line">    <span class="function">def <span class="title">distanceFrom</span>(<span class="params">ship: Ship</span>): Double </span>= Math.sqrt(</span><br><span class="line">            Math.pow(ship.positionX - positionX, <span class="number">2</span>) + </span><br><span class="line">            Math.pow(ship.positionY - positionY, <span class="number">2</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      println(<span class="string">"Hello, world!"</span>)</span><br><span class="line">      println(<span class="keyword">new</span> <span class="type">Ship</span>(<span class="string">"Endevour"</span>, <span class="number">3</span>, <span class="number">4</span>).distanceFrom(<span class="keyword">new</span> <span class="type">Ship</span> (<span class="string">"Falcon Millenium"</span>, <span class="number">0</span>, <span class="number">0</span>)))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Again, let’s look at the differences, case by case. There is no such thing as class constructor here, as we know it from C#. The constructor arguments are writen next to the class name. The initialization code lies directly in the class body. You could conclued that the class can only have one construcor in Scala. This is not true - additional constructors can be provided as <strong>secondary constructors</strong>. In the following lines there are two field declarations. Fields are public by default. The keyword used here is <code>val</code> which means that <code>x</code> and <code>y</code> are <strong>immutable</strong>. Immutability is at the heart of functional programming. Immutable values are values that cannot be modified. It may seem counterintuitive at first but in fact immutable values can help you eliminate whole classes of errors form your programs. I will discuss immutability in more detail in one of the future posts. For now, I recommend <a href="http://fsharpforfunandprofit.com/posts/correctness-immutability/" target="_blank" rel="noopener">this article</a>. Member fields do not have to have type declarations - the compilers infers the correct types. The <code>distanceFrom</code> method declaration is pretty straightforward. You may notice that there is not <code>return</code> statement here. This is because in Scala the method always, by default, returns the last expression in its body. In our case, there is only one expression. Class instantiation is very C#-like - we use the <code>new</code> keyword and provide constructor arguments.</p>
+<h3 id="Case-classes"><a href="#Case-classes" class="headerlink" title="Case classes"></a>Case classes</h3><p>Scala introduces a very useful concept called <strong>case class</strong>. Let’s see how we could rewrite the above code in a more succinct way.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Ship</span>(<span class="params">name: <span class="type">String</span>, positionX: <span class="type">Double</span>, positionY: <span class="type">Double</span></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">distanceFrom</span></span>(ship: <span class="type">Ship</span>): <span class="type">Double</span> = <span class="type">Math</span>.sqrt(</span><br><span class="line">            <span class="type">Math</span>.pow(ship.positionX - positionX, <span class="number">2</span>) + </span><br><span class="line">            <span class="type">Math</span>.pow(ship.positionY - positionY, <span class="number">2</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      println(<span class="type">Ship</span>(<span class="string">"Endevour"</span>, <span class="number">3</span>, <span class="number">4</span>).distanceFrom(<span class="type">Ship</span>(<span class="string">"Falcon Millenium"</span>, <span class="number">0</span>, <span class="number">0</span>)))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>With case classes, all constructor parameters automatically become members, hence no need for member initialization. Also, the <code>new</code> keyword is no longer needed for creating new instances. Although very helpful, this is only one aspect of case classes. More importantly, case classes automatically provide value-base <code>equals</code>, <code>hashCode</code> and <code>toString</code> implementations. Additionally, they are sealed. In other words, case classes are perfect for creating immutable data types. Let’s now compare the C# and Scala implementations of a class representing a two dimensional point so that you can see for yourself how nicer it is to write in Scala.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Point2d</span>(<span class="params">x: <span class="type">Double</span>, y: <span class="type">Double</span></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">move</span></span>(dx: <span class="type">Double</span>, dy: <span class="type">Double</span>) = <span class="type">Point2d</span>(x + dx, y + dy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Points</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">      <span class="keyword">val</span> a = <span class="type">Point2d</span>(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">      <span class="keyword">val</span> b = <span class="type">Point2d</span>(<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line">      println(a.move(<span class="number">2</span>, <span class="number">1</span>) == b)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>And now C#:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Point2d</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> y;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point2d</span>(<span class="params"><span class="keyword">double</span> x, <span class="keyword">double</span> y</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Point2d <span class="title">move</span>(<span class="params"><span class="keyword">double</span> dx, <span class="keyword">double</span> dy</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Point2d(x + dx, y + dy);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params"><span class="keyword">object</span> obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Point2d p = obj <span class="keyword">as</span> Point2d;</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">object</span>)p == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (x == p.x) &amp;&amp; (y == p.y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"Hello, World!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you may now, <a href="https://msdn.microsoft.com/en-US/library/ms173147(v=vs.80" target="_blank" rel="noopener">implementing equals is not trivial</a>.aspx). Not to mention that we would need to implement <code>GetHashCode</code>. In Scala we get the default implementation for free.</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Scala for C# developers - part I by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="12.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/scala/">#scala</a> <a class="fw3 ph1 dib" href="/tags/csharp/">#csharp</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

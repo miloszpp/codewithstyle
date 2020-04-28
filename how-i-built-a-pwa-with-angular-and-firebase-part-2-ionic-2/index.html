@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="This post is part of a series in which I will describe how I built my first PWA, Friendtainer. It will touch on many topics such as Angular 2, Ionic 2">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="How I built a PWA with Angular and Firebase Part 2: Ionic and app manifest">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>How I built a PWA with Angular and Firebase Part 2: Ionic and app manifest - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/how-i-built-a-pwa-with-angular-and-firebase-part-2-ionic-2//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">How I built a PWA with Angular and Firebase Part 2: Ionic and app manifest</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-05-09</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/angular/">#angular</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/pwa/">#pwa</a> <a class="fw3 ph1 dib" href="/tags/ionic/">#ionic</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>This post is part of a series in which I will describe how I built my first PWA, <a href="http://friendtainer.com" target="_blank" rel="noopener">Friendtainer</a>. It will touch on many topics such as Angular 2, Ionic 2, Firebase, service workers, push notifications, serverless architectures. I hope you find it useful when building your own PWAs. In this part of the series, we’ll look at how to create a PWA app using the Ionic 2 framework. Additionally, I will talk about the app manifest and how to use it to allow adding the app icon to the device’s home screen.</p>
+<ul>
+<li><a href="https://codewithstyle.info/how-i-built-a-progressive-web-app-with-angular-and-firebase-part-1/">Part 1: Explaining PWA and introduction</a></li>
+<li><a href="https://codewithstyle.info/how-i-built-a-pwa-with-angular-and-firebase-part-2-ionic-2/">Part 2: Ionic and app manifest</a></li>
+<li><a href="https://codewithstyle.info/push-notifications-with-fcm/">Part 3: Push notifications with Firebase Cloud Messaging</a></li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>As I mentioned in the <a href="http://codewithstyle.info/how-i-built-a-progressive-web-app-with-angular-and-firebase-part-1/">previous post</a>, there are a couple of requirements that a web app has to comply with in order to be called a PWA. In this post we’ll focus on the items in bold.</p>
+<ul>
+<li><strong>Looks like a native app on mobile devices</strong></li>
+<li>Loads fast and supports offline mode</li>
+<li><strong>Can be launched from the phone’s home screen</strong></li>
+<li><strong>Runs full-screen</strong></li>
+<li>May support push notifications (so the phone will display notifications even if the browser is not running)</li>
+</ul>
+<h2 id="Ionic"><a href="#Ionic" class="headerlink" title="Ionic"></a>Ionic</h2><p>Ionic is a web/mobile application framework based on Angular. It’s primary goal is to facilitate building hybrid mobile applications. Hybrid mobile apps are apps consisting of two parts - a native wrapper and a web app. The wrapper acts as a bridge between the web app and the device, providing an API to native functionalities. Although we are not going to build a hybrid app but a PWA, we can still benefit from Ionic. It contains a rich library of UI components which help us build a web app that looks like a native app. What’s more, Ionic detects the platform it’s running on and the components look different on iOS, Android and Windows Phone. </p>
+<p><img src="/images/2017/05/Zrzut-ekranu-2017-05-09-o-20.25.18.png" alt=""><br><strong>Friendtainer on Android</strong></p>
+<p><img src="/images/2017/05/Zrzut-ekranu-2017-05-09-o-20.24.38.png" alt=""><br><strong>Friendtainer on iPhone</strong></p>
+<p>Ionic comes with it’s own command line tool which you can use to generate the project skeleton as well as particular pages.</p>
+<h2 id="Getting-started-with-Ionic"><a href="#Getting-started-with-Ionic" class="headerlink" title="Getting started with Ionic"></a>Getting started with Ionic</h2><p>In order to get started with Ionic you need to download it first:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g ionic</span><br></pre></td></tr></table></figure>
+<p>Now you can use the ionic  command line tool. Run this command to generate the project skeleton:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ionic start myApp sidemenu</span><br></pre></td></tr></table></figure>
+<p>Now you can start adding Ionic pages like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ionic generate page Contacts</span><br></pre></td></tr></table></figure>
+<p>Ionic page is basically an Angular component with some added functionality. Every Ionic app has a root component called AppComponent  which hosts the navigation and the current page. Pages form a stack where the topmost page is the one that’s currently visible to the user. It’s super-easy to create pages using the rich component library provided in Ionic. The <a href="https://ionicframework.com/docs/components/#overview" target="_blank" rel="noopener">documentation</a> is great, providing live examples which demonstrate the look and feel on all supported platforms. Ionic make it very convenient to develop and test your app. Just run the following command to run it locally in development mode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ionic serve</span><br></pre></td></tr></table></figure>
+<h2 id="Building-production-package"><a href="#Building-production-package" class="headerlink" title="Building production package"></a>Building production package</h2><p>Once your app is ready you need to deploy it. You need to build a package that contains optimized versions of all the JavaScript files and static assets. Ionic’s build process is geared towards supporting different target platforms such as iOS or Android. This only applies to hybrid apps. In our case, we want to produce a package that has no dependency on the bridging API. For that we need to specify browser  as the target platform when building the package. Before deploying your app to production, it’s highly recommended to optimize it. Optimization involves bundling and minifying the JavaScript source code, running Angular AOT (Ahead Of Time) compilation and setting the app in prod mode. As a result, the optimized package is much smaller and has much better performance. In order to build the app with the optimizations, use the prod  flag:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ionic build --prod browser</span><br></pre></td></tr></table></figure>
+<p>The build process can take some time. Once it’s done, you can find your package inside the platforms/browser  directory. It’s just a bunch of static files so you can just drop it on a HTTP server. Or, use Firebase hosting as I did.</p>
+<h2 id="App-manifest"><a href="#App-manifest" class="headerlink" title="App manifest"></a>App manifest</h2><p>So far, Ionic helped us deal with providing native-like experience inside the app. How about some elements external to the app? Specifically, I mean home screen integration and the full-screen mode. The web app manifest specification allows us to control those aspects of the user experience. Manifest file is basically a JSON file containing some metadata about your application. We can use this file to specify the name of the app, the icon to be used on the home screen and whether it should run full screen or not. Once we provide all this information, some modern browsers (including Chrome) will display a prompt suggesting the user visiting your app to add an icon for it to the home screen. </p>
+<p><img src="/images/2017/04/Zrzut-ekranu-2017-04-14-o-12.00.43.png" alt=""><br><strong>Chrome home screen prompt</strong></p>
+<p>Ionic apps created using the CLI tool already include a manifest file so you just need to modify it. You can find it under the following path: src/manifest.json Below you can find the manifest file for Friendtainer. As you can see, it contains the app title, references to the icon image in several sizes and some info about colors.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Friendtainer&quot;,</span><br><span class="line">  &quot;short_name&quot;: &quot;Friendtainer&quot;,</span><br><span class="line">  &quot;start_url&quot;: &quot;index.html&quot;,</span><br><span class="line">  &quot;display&quot;: &quot;standalone&quot;,</span><br><span class="line">  &quot;icons&quot;: [&#123;</span><br><span class="line">    &quot;src&quot;: &quot;assets/images/logo-500.png&quot;,</span><br><span class="line">    &quot;sizes&quot;: &quot;500x500&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;image/png&quot;</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">    &quot;src&quot;: &quot;assets/images/logo-256.png&quot;,</span><br><span class="line">    &quot;sizes&quot;: &quot;256x256&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;image/png&quot;</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">    &quot;src&quot;: &quot;assets/images/logo-128.png&quot;,</span><br><span class="line">    &quot;sizes&quot;: &quot;128x128&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;image/png&quot;</span><br><span class="line">  &#125;],</span><br><span class="line">  &quot;background_color&quot;: &quot;#FFFFFF&quot;,</span><br><span class="line">  &quot;theme_color&quot;: &quot;#68A9FF&quot;,</span><br><span class="line">  &quot;gcm\_sender\_id&quot;: &quot;103953800507&quot;,</span><br><span class="line">  &quot;gcm\_user\_visible_only&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Full-screen mode is achieved by setting the display  option to standalone. Android phones will also provide a splash screen for your app based on the settings found in the manifest file. The splash screen is composed of the app title and the app image. Background and theme colors are also used when showing the splash screen.</p>
+<p><img src="/images/2017/05/Zrzut-ekranu-2017-05-09-o-20.34.18.png" alt=""><br><strong>Splashscreen based on the above manifest</strong> </p>
+<p>The remaining two settings starting with the gcm  prefix are related to Google Cloud Messaging. I will describe them in more detail once we discuss push notifications. <strong>To be continued…</strong></p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=How I built a PWA with Angular and Firebase Part 2: Ionic and app manifest by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="250.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/angular/">#angular</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/pwa/">#pwa</a> <a class="fw3 ph1 dib" href="/tags/ionic/">#ionic</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Modern JavaScript is considered hardHave you noticed the abundance of tutorials, introductions and guides devoted to post-ES6 JavaScript? All these co">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="New-old ideas in JavaScript">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>New-old ideas in JavaScript - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/honest-advice-javascript-developers//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">New-old ideas in JavaScript</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-08-31</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/thoughts/">#thoughts</a> <a class="fw3 ph1 dib" href="/tags/fundamentals/">#fundamentals</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <h3 id="Modern-JavaScript-is-considered-hard"><a href="#Modern-JavaScript-is-considered-hard" class="headerlink" title="Modern JavaScript is considered hard"></a>Modern JavaScript is considered hard</h3><p>Have you noticed the abundance of tutorials, introductions and guides devoted to post-ES6 JavaScript? All these conferences, workshops, bootcamps where you get a chance to learn about <em>async/await</em> or <em>Redux</em>? The books and on-line courses? I think it shows how many people are struggling to grasp all these new JavaScript topics. </p>
+<p>The point I’d like to make is that <strong>all of these new ideas in JavaScript are not new in terms of Computer Science</strong>. Therefore, you can really get ahead of others and future-proof your career by investing time into learning about existing, (superficially) less sexy, programming languages and frameworks.</p>
+<p><img src="/images/2017/08/rxjs-1024x683.jpg" alt=""><br><strong>Source: <a href="https://imgflip.com/i/1ar013" target="_blank" rel="noopener">https://imgflip.com/i/1ar013</a></strong></p>
+<h3 id="Revolution-in-JavaScript"><a href="#Revolution-in-JavaScript" class="headerlink" title="Revolution in JavaScript"></a>Revolution in JavaScript</h3><p>If you’ve been writing JavaScript for some time you must have noticed the revolution that is happening for some time. The dawn of ES6 (a.k.a. ECMAScript 2015) made JavaScript a much more complex language. Just look at the list of new language features at <a href="http://es6-features.org/" target="_blank" rel="noopener">es6-features.org</a> - it’s quite impressive given that you’re looking at a new version of existing language and not a completely new language. What’s more, you have to make more and more effort just to keep up with the language - <a href="https://thenewstack.io/whats-new-es2016/" target="_blank" rel="noopener">ECMAScript standard will now be updated every year</a>. </p>
+<p>Although the 2016’s and 2017’s versions have not been as revolutionary as the 2015’s, the concepts introduced in them are definitely non-trivial. The explosion of new JavaScript frameworks doesn’t help. You can find all the new concepts introduced in Redux or RxJS intimidating even if you are a seasoned JavaScript developer.  </p>
+<h3 id="The-new-old-ideas-in-JavaScript"><a href="#The-new-old-ideas-in-JavaScript" class="headerlink" title="The new-old ideas in JavaScript"></a>The new-old ideas in JavaScript</h3><p>There are far too many seemingly innovative concepts in JavaScript to mention all of them here. Instead, let me focus on a few examples just to give you the general idea.</p>
+<h4 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h4><p>Promises in JavaScript were introduced as a cure to the so-called callback hell. Asynchrony in JavaScript is unavoidable. Before promises the only way to handle asynchronous operations was to pass callbacks as arguments to asynchronous functions (such as loading some data from the backend). Multiple asynchronous operations often mean that you must have multiple levels of nesting of callbacks which makes the code less readable and difficult to maintain. </p>
+<p>Promises provide abstraction over a computation that might not have finished yet. Having such an abstraction lets you elegantly chain and compose async operations. This <a href="https://async-await.xyz/" target="_blank" rel="noopener">amazing animation</a> illustrates the concept (along with async/await): </p>
+<p><img src="/images/2017/08/js-callbacks-promises-asyncawait-300x225.gif" alt=""> </p>
+<p>The idea of promises is not new at all. In fact, a very similar concept (Tasks) has been present in C# since .NET Framework 4.0 (year 2010). Java had Futures long before that but they weren’t composable.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task</span><br><span class="line">  .ContinueWith(t =&gt; GetMoreData()).Unwrap()</span><br><span class="line">  .ContinueWith(t =&gt; GetMoreData2(t.Result)).Unwrap()</span><br><span class="line">  .ContinueWith(t =&gt; t.Result.ToLower());</span><br></pre></td></tr></table></figure>
+<p>Above you can see some C# code which uses Tasks (the equivalent of Promises). You have to admit that there are similarities with the JavaScript version. Rest assured that having understood the idea behind Tasks, wrapping your head around Promises is trivial.</p>
+<h4 id="Reactive-programming"><a href="#Reactive-programming" class="headerlink" title="Reactive programming"></a>Reactive programming</h4><p>Reactive programming has been introduced into JavaScript in the form of the <a href="http://reactivex.io/" target="_blank" rel="noopener">RxJS</a> library. It became quite popular, even <a href="https://medium.com/google-developer-experts/angular-introduction-to-reactive-extensions-rxjs-a86a7430a61f" target="_blank" rel="noopener">making its way into the Angular framework</a>. </p>
+<p><img src="/images/2017/08/reactive-stream-example-1024x482.png" alt=""><br><strong>Illustration of event stream processing. Source: <a href="http://reactivex.io/documentation/observable.html" target="_blank" rel="noopener">http://reactivex.io/documentation/observable.html</a></strong></p>
+<p>RxJS introduces the concept of Observables. It’s another way to handle asynchrony. Instead of setting up callbacks that should fire when some event happens you deal with a <strong>stream of events</strong>. It’s very powerful because you can perform different operations on that stream of events - for example filter out some events or join two event streams. En example of event is someone clicking something in your application. Reactive programming builds on the Observable pattern which has been with us since the dawn of Object Oriented Programming. I could find <a href="http://www.hanselman.com/blog/HanselminutesPodcast198ReactiveExtensionsForNETRxWithErikMeijer.aspx" target="_blank" rel="noopener">references to Rx.NET</a> (reactive extensions library for .NET) as early as from 2010. </p>
+<p>Besides, reactive operators (such as map, filter or reduce) are derived directly from functional programming and languages as old as Haskel (1985). Below you can find a comparison between reactive code in JavaScript and .NET. Again, there are some minor differences but the concept is identical.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">observable.Select(n =&gt; n * n)</span><br><span class="line">          .Where(n =&gt; n % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">          .Zip(observable.Skip(<span class="number">1</span>), (x, y) =&gt; x * y);</span><br><span class="line"></span><br><span class="line">observable</span><br><span class="line">    .map(n =&gt; n * n)</span><br><span class="line">    .filter(n =&gt; n % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">        .zip(observable.skip(<span class="number">1</span>), (x, y) =&gt; x * y);</span><br></pre></td></tr></table></figure>
+<h4 id="Async-await-and-generators"><a href="#Async-await-and-generators" class="headerlink" title="Async/await and generators"></a>Async/await and generators</h4><p>The async/await syntax is one more way to deal with asynchrony. It lets you write asynchronous code which looks as if it was synchronous! Here is an example from the Mozilla docs:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getProcessedData</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> v;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    v = <span class="keyword">await</span> downloadData(url); </span><br><span class="line">  &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">    v = <span class="keyword">await</span> downloadFallbackData(url);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> processDataInWorker(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Async/await became part of JavaScript only recently - as part of the ES2017 standard. It has been present in C# since version 5 of the language (year 2012). Besides, async/await is strongly related to the concept of generators (another JavaScript novelty introduced in ES6). Generators were present in Python since version 2.2 (year 2001).</p>
+<h4 id="Event-sourcing"><a href="#Event-sourcing" class="headerlink" title="Event sourcing"></a>Event sourcing</h4><p>Finally, an example not related to asynchronous programming. Redux is a library for managing complex state. Instead of representing your state as a mutable object(s) which changes whenever the user interacts or some data comes from the backend, you can look at it as a stream of immutable objects. Each consecutive object represents the new version of the state. New versions are produced by a <strong>reducer function</strong> which takes the previous version and an <strong>event</strong> and computes how the event affects the new shape of the state. </p>
+<p>This idea borrows heavily from architectural patterns such as event sourcing and CQRS (as <a href="http://redux.js.org/docs/introduction/Motivation.html" target="_blank" rel="noopener">admitted</a> by Redux creators). This <a href="https://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" rel="noopener">article from 2005</a> explains event sourcing in detail. I can’t point to any particular language here but chances are that if you have done any backend programming you might have heard about event sourcing long before it made its way into the JavaScript world.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>These are just a few examples of seemingly new ideas in JavaScript which have actually been around for some time. I make a lot of references to .NET and C# because it is the language I know best but in fact C# is pretty progressive in terms of introducing new language features. I hope you feel convinced that spending some time to broaden your horizons and learn some backend language is totally worth it. If not, let me know your thoughts in the comments section! If you liked the article please consider sharing it.</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=New-old ideas in JavaScript by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="422.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/thoughts/">#thoughts</a> <a class="fw3 ph1 dib" href="/tags/fundamentals/">#fundamentals</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

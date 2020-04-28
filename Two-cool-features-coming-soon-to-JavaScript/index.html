@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Recently two TC39 proposals have advanced to Stage 3.
+WE JUST MOVED OPTIONAL CHAINING IN JS TO STAGE 3 🎉🎉🎉🎉🎉🎉🎉&amp;mdash; Daniel Rosenwasser (@dros">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Two cool features coming soon to JavaScript">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta property="og:image" content="https://codewithstyle.info/images/posts/chain.jpg">
+  <meta property="twitter:image" content="https://codewithstyle.info/images/posts/chain.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+   
+
+  <!-- Title -->
+  
+  <title>Two cool features coming soon to JavaScript - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/Two-cool-features-coming-soon-to-JavaScript//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/posts/chain.jpg'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Two cool features coming soon to JavaScript</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-09-08</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/es-next/">#es-next</a> <a class="fw3 ph1 dib" href="/tags/tc39/">#tc39</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Recently two TC39 proposals have advanced to Stage 3.</p>
+<p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">WE JUST MOVED OPTIONAL CHAINING IN JS TO STAGE 3 🎉🎉🎉🎉🎉🎉🎉</p>&mdash; Daniel Rosenwasser (@drosenwasser) <a href="https://twitter.com/drosenwasser/status/1154456633642119168?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">July 25, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today I got to present nullish coalescing at TC39 and it progressed to stage 3! The cherry on top? <a href="https://twitter.com/rkirsling?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">@rkirsling</a> already has a patch out for it in JavaScriptCore! <a href="https://t.co/o3jHs2Ieo9" target="_blank" rel="noopener">https://t.co/o3jHs2Ieo9</a></p>&mdash; Daniel Rosenwasser (@drosenwasser) <a href="https://twitter.com/drosenwasser/status/1153906097431777280?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">July 24, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>What it means to us, developers, is that two new exciting language features will soon become part of the ECMAScript standard.</p>
+<p>Let’s have a quick look at these additions and see how to take advantage of them.</p>
+<h2 id="What’s-the-deal-with-TC39-proposals"><a href="#What’s-the-deal-with-TC39-proposals" class="headerlink" title="What’s the deal with TC39 proposals?"></a>What’s the deal with TC39 proposals?</h2><p><a href="https://tc39.es" target="_blank" rel="noopener">TC39</a> is a group of people that drives the development of the ECMAScript (the standard of which JavaScript language is an implementation). They meet regularly to discuss proposals of new language features. Every proposal goes through a number of stages. Once it reaches Stage 4, it is ready to be included in the next version of the ECMAScript standard.</p>
+<p>When a proposal reaches Stage 3, it is already quite mature. The specification has been approved and is unlikely to change. There might already be some browsers implementing the new feature. While Stage 3 proposal is not guaranteed to become part of the standard, it’s very likely to.</p>
+<p>The two proposals we’re looking at are:</p>
+<ul>
+<li><a href="https://github.com/tc39/proposal-optional-chaining" target="_blank" rel="noopener">Optional Chaining for JavaScript</a></li>
+<li><a href="https://github.com/tc39/proposal-nullish-coalescing" target="_blank" rel="noopener">Nullish Coalescing for JavaScript</a></li>
+</ul>
+<h2 id="Optional-chaining"><a href="#Optional-chaining" class="headerlink" title="Optional chaining"></a>Optional chaining</h2><p>Optional chaining aims to provide nice and short syntax for a very common pattern: accessing a nested property of an object in a safe way.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> customers = [</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">"John"</span>,</span><br><span class="line">    company: &#123;</span><br><span class="line">      name: <span class="string">"Acme"</span>,</span><br><span class="line">      address: <span class="string">"London"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">"Jane"</span>,</span><br><span class="line">    company: &#123;</span><br><span class="line">      address: <span class="string">"New York"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    name: <span class="string">"Judith"</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>This array contains objects representing customers. They all follow a similar structure, but some of the properties are optional. Let’s say we’d like to iterate over the array and print the company name in upper case for each customer.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> customer <span class="keyword">of</span> customers) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(customer.company.name.toUpperCase());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you might have guessed, the above code is not safe. It will result in runtime errors for the second and the third array elements. We can fix it by using the following popular pattern.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">  customer &amp;&amp;</span><br><span class="line">    customer.company &amp;&amp;</span><br><span class="line">    customer.company.name &amp;&amp;</span><br><span class="line">    customer.company.name.toUpperCase()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Logical <em>and</em> operator (<code>&amp;&amp;</code>) in JavaScript behaves differently from most programming languages. It works on any value type, not only booleans. <code>a &amp;&amp; b</code> translates to: if <code>a</code> is <em>falsy</em> (can be converted to <code>false</code>), return <code>a</code>. Otherwise, return <code>b</code>.</p>
+<p>Unfortunately, this solution is rather verbose. There is a lot of repetition and it gets worse the deeper the objects are nested. What’s more, it checks for a value to be <em>falsy</em>, not <code>null</code> or <code>undefined</code>. Therefore, it would return <code>0</code> for the following object, while it might be preferable to return <code>undefined</code> instead.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">  company: &#123;</span><br><span class="line">    name: <span class="number">0</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Optional chaining comes to the rescue! With this new feature, we can shorten the above piece to a single line.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customer?.company?.name?.toUpperCase();</span><br></pre></td></tr></table></figure>
+<p>The <code>customer?.company</code> expression will check whether <code>customer</code> is <code>null</code> or <code>undefined</code>. If this is the case, it will evaluate to <code>undefined</code>. Otherwise, it will return <code>company</code>. In other words, <code>customer?.company</code> is equivalent to <code>customer != null ? customer : undefined</code>. The new <code>?.</code> operator is particularly useful when chained, hence the name (optional <em>chaining</em>).</p>
+<p>Be careful when replacing existing <code>&amp;&amp;</code> chains with <code>?.</code> operator! Bear in mind the subtle difference it treatment of falsy values.</p>
+<h2 id="Nullish-coalescing"><a href="#Nullish-coalescing" class="headerlink" title="Nullish coalescing"></a>Nullish coalescing</h2><p>The second proposal introduces <code>??</code> operator which you can use to provide a default value when accessing a property/variable that you expect can be <code>null</code> or <code>undefined</code>.</p>
+<p>But hey, why not simply use <code>||</code> for this? Similarly to <code>&amp;&amp;</code>, logical _or_ can operator on non-boolean values as well. <code>a || b</code> returns <code>a</code> if it’s truthy, or <code>b</code> otherwise.</p>
+<p>However, it comes with the same problem as <code>&amp;&amp;</code> - it checks for a <em>truthy</em> value. For example, an empty string (<code>&#39;&#39;</code>) will not be treated as a valid value and the default value would be returned instead.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> customer = &#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">  company: &#123;</span><br><span class="line">    name: <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">customer.company.name || <span class="string">"no company"</span>; <span class="comment">// === 'no company'</span></span><br></pre></td></tr></table></figure>
+<p>Nullish coalescing operator can be nicely combined with optional chaining.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(customer?.company?.name ?? <span class="string">"no company"</span>).toUpperCase();</span><br></pre></td></tr></table></figure>
+<p>While the benefit of optional chaining is clear (less verbose code), nullish coalescing is a little bit more subtle. We’ve all been using <code>||</code> for providing a default value for a long time. However, this pattern can potentially be a source of nasty bugs, when a falsy value is skipped in favour of the default value. In most cases, the semantics of <code>??</code> is what you’re actually looking for.</p>
+<h2 id="How-can-I-use-it"><a href="#How-can-I-use-it" class="headerlink" title="How can I use it?"></a>How can I use it?</h2><p>Since those proposals have not reached Stage 4 yet, you need transpile the code that uses them (for example with Babel). You can play with <a href="https://babeljs.io/repl" target="_blank" rel="noopener">Babel’s on-line REPL</a> to see what do they get compiled to.</p>
+<p>At the moment of writing, optional chaining is <a href="https://www.chromestatus.com/feature/5748330720133120" target="_blank" rel="noopener">available in Chrome behind a feature flag</a>.</p>
+<p>Optional chaining will also be available in the upcoming <a href="https://github.com/microsoft/TypeScript/issues/16#issuecomment-515160784" target="_blank" rel="noopener">TypeScript 3.7 release</a>!</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Recent ECMAScript versions didn’t bring many syntactical additions to the language. It’s likely to change with the next edition. Some people say that JavaScript is getting bloated. I personally think that these two pieces of syntactic sugar are long overdue, as they’ve been available in many modern programming languages and they address real-life, common development scenarios.</p>
+<p>What do you think? 😉</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Two cool features coming soon to JavaScript by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/es-next/">#es-next</a> <a class="fw3 ph1 dib" href="/tags/tc39/">#tc39</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

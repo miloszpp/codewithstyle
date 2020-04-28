@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="In this post, we’re going to look into an interesting feature of the TypeScript language. It’s called discriminated unions and is also known as algebr">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="TypeScript: Precise domain modeling with discriminated unions">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>TypeScript: Precise domain modeling with discriminated unions - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/typescript-discriminated-union-types//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">TypeScript: Precise domain modeling with discriminated unions</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-01-08</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/algebraic-data-types/">#algebraic data types</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>In this post, we’re going to look into an interesting feature of the TypeScript language. It’s called <strong>discriminated unions</strong> and is also known as <strong>algebraic data types</strong>. The latter name comes from Functional Programming paradigm where such types are used very heavily.</p>
+<h2 id="Issues-with-enum-types"><a href="#Issues-with-enum-types" class="headerlink" title="Issues with enum types"></a>Issues with enum types</h2><p>Let me start by showing you an example of a problem that can be solved with discriminated unions. You’re working on an application which deals with the management of customers. There are two kinds of customers: individual and institutional. For each customer kind, you store different details: individual customers have a first and last name and a social security number. Companies have a company name and a tax identifier. You could model the above situation with the following types:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> CustomerType &#123;</span><br><span class="line">    Individual,</span><br><span class="line">    Institution</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Customer &#123;</span><br><span class="line">    acquisitionDate: <span class="built_in">Date</span>;</span><br><span class="line">    <span class="keyword">type</span>: CustomerType;</span><br><span class="line">    firstName?: <span class="built_in">string</span>;</span><br><span class="line">    lastName?: <span class="built_in">string</span>;</span><br><span class="line">    socialSecurityNumber?: <span class="built_in">string</span>;</span><br><span class="line">    companyName?: <span class="built_in">string</span>;</span><br><span class="line">    companyTaxId?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Unfortunately, you have to make most of the fields optional. If you didn’t, you would have to fill in all of the fields when creating an instance of <code>Customer</code>. However, you don’t want to fill <code>companyTaxId</code> when creating an <code>Individual</code> customer. The problem with this solution is that it’s now possible to create instances that don’t make any sense in terms of business domain. For example, you can create an object with too little info:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> customer1: Customer = &#123; </span><br><span class="line">    acquisitionDate: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    <span class="keyword">type</span>: CustomerType.Individual</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>…or one that has too much data provided:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> customer2: Customer = &#123; </span><br><span class="line">    acquisitionDate: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    <span class="keyword">type</span>: CustomerType.Individual,</span><br><span class="line">    firstName: <span class="string">"John"</span>,</span><br><span class="line">    lastName: <span class="string">"Green"</span>,</span><br><span class="line">    companyName: <span class="string">"Acme"</span>,</span><br><span class="line">    companyTaxId: <span class="number">9243546</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Wouldn’t it be nice if the type system could help us prevent such situations? Actually, this is what TypeScript is supposed to do, right?</p>
+<h2 id="Discriminated-unions-to-the-rescue"><a href="#Discriminated-unions-to-the-rescue" class="headerlink" title="Discriminated unions to the rescue"></a>Discriminated unions to the rescue</h2><p>With discriminated unions, you can model your domain with more precision. They are kind of like enum types but can hold additional data as well. Therefore, you can enforce that a specific customer type must have an exact set of fields. Let’s see it in action.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IndividualCustomerType &#123;</span><br><span class="line">    kind: <span class="string">"individual"</span>;</span><br><span class="line">    firstName: <span class="built_in">string</span>;</span><br><span class="line">    lastName: <span class="built_in">string</span>;</span><br><span class="line">    socialSecurityNumber: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> InstitutionCustomerType &#123;</span><br><span class="line">    kind: <span class="string">"institutional"</span>;</span><br><span class="line">    companyName: <span class="built_in">string</span>;</span><br><span class="line">    companyTaxId: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CustomerType = IndividualCustomerType | InstitutionCustomerType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Customer &#123;</span><br><span class="line">    acquisitionDate: <span class="built_in">Date</span>;</span><br><span class="line">    <span class="keyword">type</span>: CustomerType;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We’ve defined two interfaces. Both of them have a <code>kind</code> property which is a <strong>literal type</strong>. Variable of literal type can only hold a single, specific value. Each interface contains only fields that are relevant to the given type of customer. Finally, we’ve defined <code>CustomerType</code> as a union of these two interfaces. Because they both have the <code>kind</code> field TypeScript recognizes them as discriminated union types and makes working with them easier. The biggest gain is that it’s now impossible to create <em>illegal</em> instances of <code>Customer</code>. For example, both of the following objects are fine:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> customer1: Customer = &#123; </span><br><span class="line">    acquisitionDate: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    <span class="keyword">type</span>: &#123;</span><br><span class="line">        kind: <span class="string">"individual"</span>,</span><br><span class="line">        firstName: <span class="string">"John"</span>,</span><br><span class="line">        lastName: <span class="string">"Green"</span>,</span><br><span class="line">        socialSecurityNumber: <span class="number">423435</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> customer2: Customer = &#123; </span><br><span class="line">    acquisitionDate: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    <span class="keyword">type</span>: &#123;</span><br><span class="line">        kind: <span class="string">"institutional"</span>,</span><br><span class="line">        companyName: <span class="string">"Acme"</span>,</span><br><span class="line">        companyTaxId: <span class="number">124345454</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>…but TypeScript would fail to compile this one:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fails to compile</span></span><br><span class="line"><span class="keyword">const</span> customer3: Customer = &#123; </span><br><span class="line">    acquisitionDate: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    <span class="keyword">type</span>: &#123;</span><br><span class="line">        kind: <span class="string">"institutional"</span>,</span><br><span class="line">        companyName: <span class="string">"Acme"</span>,</span><br><span class="line">        companyTaxId: <span class="number">124345454</span>,</span><br><span class="line">        firstName: <span class="string">"John"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Working-with-discriminated-unions"><a href="#Working-with-discriminated-unions" class="headerlink" title="Working with discriminated unions"></a>Working with discriminated unions</h2><p>Let’s now see how to implement a function that takes a <code>Customer</code> object and prints the customer’s name based on their type.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printName</span>(<span class="params">customer: Customer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (customer.type.kind) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"individual"</span>: <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;customer.type.firstName&#125;</span> <span class="subst">$&#123;customer.type.lastName&#125;</span>`</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"institutional"</span>: <span class="keyword">return</span> customer.type.companyName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As we can see, TypeScript is clever enough to know that inside <code>case &quot;individual&quot;</code> branch of the <code>switch</code> statement <code>customer.type</code> is actually an instance of <code>IndividualCustomerType</code>. For example, trying to access <code>companyName</code> field inside this branch would result in a compilation error. We would get the same behaviour inside an <code>if</code> statement branch. There is one more interesting mechanism called exhaustiveness checking. TypeScript is able to figure out that we have not covered all of the possible customer types! Of course, it would seem much more useful if we had tens of them and not just two.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fails to compile</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printName</span>(<span class="params">customer: Customer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (customer.type.kind) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"individual"</span>: <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;customer.type.firstName&#125;</span> <span class="subst">$&#123;customer.type.lastName&#125;</span>`</span>;</span><br><span class="line">        <span class="comment">// case "institutional": return customer.type.companyName;</span></span><br><span class="line">        <span class="keyword">default</span>: <span class="keyword">const</span> exhaustiveCheck: never = customer.type;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This solution makes use of the <code>never</code> type. Since <code>case &quot;institutional&quot;</code> is not defined, control falls through to the <code>default</code> branch in which <code>customer.type</code> is inferred to be of type <code>InstitutionCustomerType</code> while being assigned to <code>never</code> type which of course results in an error.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Discriminated union types are pretty cool. As I mentioned, the whole point of TypeScript is to help us catch mistakes that we would make without having type checking. Discriminated unions help us model the domain in more detail, therefore making <em>illegal</em> instances impossible to create.</p>
+<h2 id="Disclaimer"><a href="#Disclaimer" class="headerlink" title="Disclaimer"></a>Disclaimer</h2><p>One could argue that the same thing could be achieved with inheritance (or interface extension in this case). And that’s true. Solving this with inheritance would be an Object Oriented Programming approach while discriminated unions are specific to Functional Programming. I think this approach makes more sense in the context of web applications where we often fetch data from some REST API which doesn’t support object inheritance. What’s more, exhaustiveness checking is not possible to achieve with object inheritance. It’s an example of the classical <em>composition versus inheritance</em> dilemma.</p>
+
+
+                    
+<hr>
+<p class="f5 bg-dark-gray br3 pa3 white">
+    Did you like this TypeScript article? I bet you'll also like this <strong>free PDF</strong>!<br>
+    <a href="https://typescriptmasterclass.com">
+      🐛 10 TypeScript tips to catch more bugs 🐛
+    </a>
+</p>
+
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=TypeScript: Precise domain modeling with discriminated unions by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="578.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/algebraic-data-types/">#algebraic data types</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="This post has been originally published on SumoLogic company blog. 
+It’s common for a modern single-page application (SPA) to fetch data from the serv">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Strategies for Managing Long-running API Calls with RxJS">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>Strategies for Managing Long-running API Calls with RxJS - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/strategies-managing-long-running-api-calls-rxjs//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Strategies for Managing Long-running API Calls with RxJS</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-12-02</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/rxjs/">#rxjs</a> <a class="fw3 ph1 dib" href="/tags/reactive-programming/">#reactive programming</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p><strong>This post has been originally published on <a href="https://www.sumologic.com/blog/devops/long-running-api-queries/" target="_blank" rel="noopener">SumoLogic company blog</a></strong>. </p>
+<p>It’s common for a modern single-page application (SPA) to fetch data from the server via a REST API call. The vast majority of web applications do this. There are, though, many challenges related to this approach, one of which is handling long-running queries. In order to ensure a great user experience, we can’t have the user wait four or five minutes to see the results of an action. </p>
+<p>This is often the case here at Sumo Logic, where, for instance, the user interface (UI) sends complex search queries to the backend. Depending on the query, processing might take a few minutes. In this article we will discuss different approaches for dealing with this issue. We’ll rely on the RxJS library to help us with this task because it’s perfect for dealing with complex, asynchronous flows.</p>
+<h2 id="Strategies-for-Dealing-with-Long-running-Calls"><a href="#Strategies-for-Dealing-with-Long-running-Calls" class="headerlink" title="Strategies for Dealing with Long-running Calls"></a>Strategies for Dealing with Long-running Calls</h2><p>There are multiple approaches that can be taken and in this article I’ll discuss three of them. The list is here mostly for inspiration, as the solution for your specific problem will very likely depend on your use case and the design of your API. Here’s a quick summary of the different approaches I will discuss throughout this post:</p>
+<ul>
+<li>Displaying a loading indicator – indicates to the user that a long-running query is currently being processed.</li>
+<li>Showing partial results – splits the large query into smaller queries and combines the results on the fly.</li>
+<li>Showing the best result within given time period – makes several parallel calls aiming for varying accuracy of the result and shows the best result we could achieve within a given timeframe.</li>
+</ul>
+<p>Code examples below are simplified; in reality you also need to take care of error handling and unsubscribing.</p>
+<h2 id="Approach-1-Display-a-Loading-Indicator"><a href="#Approach-1-Display-a-Loading-Indicator" class="headerlink" title="Approach #1: Display a Loading Indicator"></a>Approach #1: Display a Loading Indicator</h2><p>This is the most basic approach because we don’t really fix the problem, but rather simply improve user experience by indicating to the user that the query is being processed (or whatever long-running action is happening in your system). Let’s assume our task is to fetch a list of customers. Unfortunately, this API call is rather slow. In order to make sure that the user is aware of the fact that a query is being processed, we’ll show a loading spinner. Let’s say we already have the following function, which can fetch the list of customers from the backend. It returns an observable, which will emit once, when the server replies. If you’re using the fetch API, you can easily convert a promise to an observable using the from function.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchCustomers</span>(<span class="params"></span>): <span class="title">Observable</span>&lt;<span class="title">Customer</span>[]&gt; </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>Fetching the list is very likely initiated by a user action such as clicking a button. Let’s create a <code>click$</code> stream, which emits button clicks and then use <code>switchMap</code> to transform it into <code>customers$</code> stream, which will emit lists of customers retrieved from the server.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> click$ = fromEvent(buttonEl, <span class="string">'click'</span>);</span><br><span class="line"><span class="keyword">const</span> customers$ = click$.pipe(switchMap(<span class="function"><span class="params">()</span> =&gt;</span> fetchCustomers()), share());</span><br></pre></td></tr></table></figure>
+<p>As a next step, we’ll create a new stream that emits true whenever the loading spinner should be shown and false when it shouldn’t. We’ll do this by merging <code>click$</code> and <code>customer$</code> streams:</p>
+<ul>
+<li>Event emitted by <code>click$</code> means that we should show the spinner so we’ll map it to true</li>
+<li>Event emitted by <code>customer$</code> means that we should hide the spinner so we’ll map it to false</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isLoading$ = merge( </span><br><span class="line">  click$.pipe(mapTo(<span class="literal">true</span>)), </span><br><span class="line">  customers$.pipe(mapTo(<span class="literal">false</span>)), </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Now, all that’s left is to subscribe to the stream and update the loading indicators visibility.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">isLoading$.subscribe(<span class="function"><span class="params">isLoading</span> =&gt;</span> </span><br><span class="line">  loadingIndicatorEl.style.visibility = </span><br><span class="line">    isLoading ? <span class="string">'visible'</span> : <span class="string">'hidden'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Approach-2-Show-Partial-Results"><a href="#Approach-2-Show-Partial-Results" class="headerlink" title="Approach #2: Show Partial Results"></a>Approach #2: Show Partial Results</h2><p>The goal of this second approach is to improve the user experience by not making the user wait for the whole query to be processed, but rather to show something whenever some results are available. We’ll achieve this by splitting the long-running query into smaller queries. Of course this approach is based on some assumptions about our API:</p>
+<ul>
+<li>It is possible to split a query into smaller queries.</li>
+<li>Smaller queries will actually execute faster than large queries.</li>
+</ul>
+<p>What do I mean by splitting the query into smaller ones? For example, instead of fetching the full list of customers at once, we might decide to fetch small portions of the list and combine them in the UI. Let’s see the code, and assume that we’re now working with the following function that can be parameterized by some offset. This offset can be used to decide which part of the list to fetch. Let’s also assume that the function will always fetch a fixed number of matching customers (e.g. 100).</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">searchCustomersPaged</span>(<span class="params">query: <span class="built_in">string</span>, offset: <span class="built_in">number</span></span>) </span></span><br><span class="line"><span class="function">  </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>We can start by creating an array of offsets and map it into queries. The first query will fetch customers from 0 to 99, the second will fetch customers from 100 to 199, and so on.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> offsets = [<span class="number">0</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]; </span><br><span class="line"><span class="keyword">const</span> queries = offsets.map(<span class="function"><span class="params">offset</span> =&gt;</span> </span><br><span class="line">  searchCustomersPaged(<span class="string">'some query'</span>, offset).pipe(startWith(<span class="literal">null</span>)));</span><br></pre></td></tr></table></figure>
+<p>Each stream will emit a null followed by the actual result. As a next step, we’ll combine those streams into a single stream which emits concatenated, non-empty results.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result$ = combineLatestFun(queries).pipe( </span><br><span class="line">  map(<span class="function">(<span class="params">results</span>) =&gt;</span> &#123; </span><br><span class="line">    <span class="keyword">const</span> nonNullResults = results.filter(<span class="function"><span class="params">r</span> =&gt;</span> r !== <span class="literal">null</span>); </span><br><span class="line">    <span class="keyword">return</span> nonNullResults.reduce(<span class="function">(<span class="params">acc, r</span>) =&gt;</span> [ ...acc, ...r ], []); </span><br><span class="line">  &#125;) </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>We ended up with a single stream that will emit a growing list of customers, which we can show to the user in real time. This is a much nicer user experience then having to wait for the whole list to be fetched. Note: it’s important to keep in mind that browsers put limitations on the number of concurrent queries made to the same domain. It doesn’t make any sense to exceed this number.</p>
+<h2 id="Approach-3-Show-the-Best-Result"><a href="#Approach-3-Show-the-Best-Result" class="headerlink" title="Approach #3: Show the Best Result"></a>Approach #3: Show the Best Result</h2><p>Finally, in this approach we’re going to fire parallel queries aiming for different accuracy of the result. We’ll then wait and, after some fixed amount of time, return the best (most accurate) result of those received so far. Quick shout out goes to one of my colleagues, <strong>Omid Mortazavi</strong>, who came up with the idea for this third approach. How does this translate to the customer search scenario? Let’s say that the API includes a parameter for specifying the level (precision) of search accuracy. A customer search with a lower accuracy will be faster but not as exhaustive as a search with a higher accuracy. We want to present the user with the best result yet we don’t want them to wait too long. We’ll therefore trigger several searches, of varying precision, and only wait a fixed amount of time. Similar to the previous approach, let’s start by creating an array of different accuracy levels and mapping them into queries.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> accuracyLevels = [<span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>]; </span><br><span class="line"><span class="keyword">const</span> queries = accuracyLevels.map(<span class="function"><span class="params">level</span> =&gt;</span> </span><br><span class="line">  searchCustomers(<span class="string">'some query'</span>, level).pipe(startWith(<span class="literal">null</span>)) </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Next, let’s create a stream that will emit true after a fixed period of time elapses.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> timeoutElapsed$ = timer(<span class="number">10000</span>).pipe(</span><br><span class="line">  mapTo(<span class="literal">true</span>),</span><br><span class="line">  startWith(<span class="literal">false</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Finally, we’ll combine all of the streams in queries with the <code>timeoutElapsed$</code> stream. The combined stream will emit whenever any of the source streams emit. The second parameter of <code>combineLatest</code> is a function in which we decide what to do when it happens. The logic is as follows:</p>
+<ul>
+<li>Timeout not elapsed yet<ul>
+<li>All queries finished so return the most accurate result</li>
+<li>Some queries not finished yet so return null as we still hope for a better result</li>
+</ul>
+</li>
+<li>Timeout elapsed<ul>
+<li>Return the most accurate result</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result$ = timeoutElapsed$.pipe(</span><br><span class="line">  combineLatest(queries, <span class="function">(<span class="params">isTimeoutElapsed, ...results</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isTimeoutElapsed) &#123;</span><br><span class="line">      <span class="keyword">const</span> notReadyResult = results.find(<span class="function"><span class="params">result</span> =&gt;</span> result === <span class="literal">null</span>); </span><br><span class="line">      <span class="keyword">return</span> notReadyResult ? notReadyResult : results[<span class="number">0</span>]; </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> results.find(<span class="function"><span class="params">result</span> =&gt;</span> result !== <span class="literal">null</span>) || <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;), </span><br><span class="line">  filter(<span class="function"><span class="params">result</span> =&gt;</span> result !== <span class="literal">null</span>), </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Below you can find marble diagrams demonstrating this approach based on two concurrent queries. </p>
+<p><img src="/images/2018/11/Example-1_-1.png" alt=""></p>
+<p>Example 1: one query finishes before timeout elapses</p>
+<p><img src="/images/2018/11/Example_2.png" alt=""></p>
+<p>Example 2: both queries finish before timer elapses</p>
+<p><img src="/images/2018/11/Example_3.png" alt=""></p>
+<p>Example 3: neither query finishes before timeout elapses</p>
+<p>One final thought: if the API provides such an option, cancel any pending searches once we’ve presented the result to the user to avoid unnecessary backend work or network traffic. In scenarios demonstrated by the diagrams above there is no cancellation at all. Therefore, the <code>result$</code> stream emits multiple times, which might not be desirable.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We’ve discussed three different approaches to improving user experience when dealing with long running API calls. While this list is by no means exhaustive and these techniques might need some adjustments based on your specific situation, I hope you’ve seen some of the power of functional-reactive programming with RxJS and can see other areas of your applications which can benefit from the possibilities it enables.</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Strategies for Managing Long-running API Calls with RxJS by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="862.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/rxjs/">#rxjs</a> <a class="fw3 ph1 dib" href="/tags/reactive-programming/">#reactive programming</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

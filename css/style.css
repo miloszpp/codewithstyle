@@ -1,0 +1,338 @@
+body {
+  -webkit-backface-visibility: hidden;
+  font-family: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.vh-40 {
+  height: 40vh;
+}
+.bg-1 {
+  background: #1b1d41;
+  background: -moz-linear-gradient(left, #1b1d41 0%, #1b1d41 100%);
+  background: -webkit-linear-gradient(left, #1b1d41 0%, #1b1d41 100%);
+  background: linear-gradient(to right, #1b1d41 0%, #1b1d41 100%);
+}
+.pab-100px {
+  padding-bottom: 100px;
+}
+.w8 {
+  width: 64rem;
+}
+.tj {
+  text-align: justify;
+}
+.header-icon {
+  font-size: 30vh;
+  opacity: 0.4;
+  position: absolute;
+  bottom: -2rem;
+  right: 6rem;
+}
+.text-main-color {
+  color: #a9a9fa;
+}
+.border-color {
+  border-color: #fff;
+}
+.hover-border-main-color {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.hover-border-main-color:hover {
+  border-color: #a9a9fa;
+}
+.hover-text-main-color {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.hover-text-main-color:hover {
+  color: #a9a9fa;
+}
+.cursor-default {
+  cursor: default;
+}
+.post-content img {
+  margin: 1em auto;
+}
+.content {
+  font-size: 16px;
+}
+
+.post-content>*:first-child {
+    margin-top: 0;
+}
+.content a,
+.content .fake-link {
+  text-decoration: none;
+  transition: color 0.15s ease-in;
+  color: #a9a9fa;
+}
+.content a:hover,
+.content .fake-link:hover {
+  opacity: 0.5;
+  transition: all 0.15s ease-in;
+}
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  margin-top: 24px 0 16px 0;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.content h1 {
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #eee;
+}
+.content h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #eee;
+}
+.content h3 {
+  font-size: 1.25em;
+}
+.content h4 {
+  font-size: 1em;
+}
+.content h5 {
+  font-size: 0.875em;
+}
+.content h6 {
+  font-size: 0.85em;
+  color: #777;
+}
+.content hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0));
+}
+.content blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 2em 10px;
+  padding: 1em 15px;
+}
+.content blockquote p {
+  display: inline;
+}
+.content blockquote footer {
+  text-align: right;
+  padding: 20px 10px 10px 10px;
+  font-family: $fontTitle;
+  overflow: auto;
+}
+.content blockquote footer strong:before {
+  content: "-";
+  padding-right: 10px;
+}
+.content blockquote footer cite {
+  padding: 10px;
+}
+.content .pullquote {
+  float: right;
+  border: none;
+  padding: 0;
+  margin: 1em 0 1em 1.5em;
+  text-align: left;
+  width: 45%;
+  background: none;
+  font-size: 2em;
+  font-style: italic;
+}
+.content .pullquote.left {
+  float: left;
+  margin: 1em 1.5em 1em 0;
+}
+.content dl dt {
+  font-weight: bold;
+}
+.content ul li {
+  list-style-type: square;
+}
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.content table th {
+  font-weight: normal;
+  text-align: left;
+  background-color: #f7f7f7;
+  padding: 0.4em;
+}
+.content table td {
+  padding: 0.4em;
+}
+.content table tr:not(:last-child) td {
+  border-bottom: 1px solid #eee;
+}
+.content b {
+  font-weight: 600;
+}
+.post-content img {
+  display: block;
+}
+.post-content .video-container {
+  position: relative;
+  padding-top: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.post-content .video-container iframe,
+.post-content .video-container object,
+.post-content .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+}
+.tags-container-vertical {
+  display: none;
+}
+@media screen and (min-width: 1400px) {
+  .tags-container-vertical {
+    display: block;
+    position: relative;
+    height: 0;
+    margin-left: -10vw;
+  }
+  .tags-container-vertical .tags-sub-container {
+    position: absolute;
+    text-align: right;
+    transform-origin: left;
+    transform: rotate(-90deg) translateX(-100%);
+  }
+}
+.tags-container-bottom {
+  display: block;
+}
+@media screen and (min-width: 1400px) {
+  .tags-container-bottom {
+    display: none;
+  }
+}
+.content figure.highlight {
+  margin-left: 0;
+  margin-right: 0;
+}
+.content figure.highlight figcaption {
+  padding-top: 10px;
+  font-size: 85%;
+  opacity: 0.75;
+}
+.content figure.highlight figcaption:before {
+  content: "\f016";
+  font-family: FontAwesome;
+  margin: 0 10px 0 20px;
+}
+.content figure.highlight figcaption a {
+  margin-left: 10px;
+}
+.content figure.highlight .gutter {
+  display: none;
+}
+.content figure.highlight .code {
+  padding-left: 15px;
+}
+.content code,
+.content pre,
+.content figure.highlight {
+  background-color: #f7f7f7;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+}
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .doctype,
+pre .pi,
+pre .lisp .string,
+pre .javadoc,
+pre .meta {
+  color: #8e908c;
+}
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo,
+pre .lisp .body,
+pre .smalltalk .number,
+pre .constant,
+pre .class .title,
+pre .parent,
+pre .haskell .type {
+  color: #c82829;
+}
+pre .number,
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant,
+pre .preprocessor .keyword,
+pre .shebang,
+pre .symbol,
+pre .symbol .string,
+pre .diff .change,
+pre .special,
+pre .attr_selector,
+pre .important,
+pre .subst,
+pre .cdata,
+pre .clojure .title,
+pre .command,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula,
+pre .regexp {
+  color: #fb6d19;
+}
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
+  color: #718c00;
+}
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+  color: #718c00;
+}
+pre .hexcolor {
+  color: #3e999f;
+}
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+  color: #4271ae;
+}
+pre .keyword,
+pre .javascript .function,
+pre .winutils,
+pre .method,
+pre .addition,
+pre .css .tag,
+pre .request,
+pre .status,
+pre .nginx .title {
+  color: #8959a8;
+}

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Welcome to the second post in the series. In the first one, you had a chance to build your first monad in TypeScript. In this post, you’ll see how to ">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Advanced functional programming in TypeScript: monads and generators">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>Advanced functional programming in TypeScript: monads and generators - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/advanced-functional-programming-typescript-monads-generators//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Advanced functional programming in TypeScript: monads and generators</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2018-03-19</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/functional-programming/">#functional programming</a> <a class="fw3 ph1 dib" href="/tags/monads/">#monads</a> <a class="fw3 ph1 dib" href="/tags/generators/">#generators</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Welcome to the second post in the series. <a href="https://codewithstyle.info/advanced-functional-programming-in-typescript-maybe-monad">In the first one</a>, you had a chance to build your first monad in TypeScript. In this post, you’ll see how to take advantage of <strong>generators</strong> to make the monadic code more readable.</p>
+<p><strong>You can find all the code from the series in <a href="https://github.com/miloszpp/typescript-monads" target="_blank" rel="noopener">this repository</a>. Check out different branches for code relevant to the specific part of the series.</strong></p>
+<h2 id="Generator-functions"><a href="#Generator-functions" class="headerlink" title="Generator functions"></a>Generator functions</h2><p>Generator functions have been introduced to JavaScript <a href="http://es6-features.org/#GeneratorControlFlow" target="_blank" rel="noopener">as part of the ES6 standard</a>. They are a special case of functions where it’s possible to pause execution in the middle of the function body. This might sound counter-intuitive, especially if you consider the fact that JavaScript is single-threaded and follows the <em>Run-to-completion</em> approach. However, with generators, the code is still executing synchronously. <strong>Pausing execution</strong> means giving the control back to the caller of the function. The caller can then resume execution at any point. Let’s see a simple example:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">numbers</span>(<span class="params"></span>): <span class="title">IterableIterator</span>&lt;<span class="title">number</span>&gt; </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Inside numbers; start'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Inside numbers; after the first yield'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Inside numbers; end'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>There are two pieces of new syntax here. Firstly, there is a <code>*</code> following the <code>function</code> keyword. It indicates that <code>numbers</code> is not a regular function but a <strong>generator function</strong>. Another new thing is the <code>yield</code> keyword. It’s a bit like <code>return</code> but it can be used multiple times inside the function’s body. By yielding a value, the generator returns a value to the caller. However, unlike <code>return</code>, the caller may decide to resume execution and give control back to the function. When it happens, the execution continues from the latest <code>yield</code>. First, we need to invoke <code>numbers</code> to get a generator instance.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbersGenerator = numbers();</span><br></pre></td></tr></table></figure>
+<p>At this point, not a single line of the <code>numbers</code> function has been executed. For this to happen, we need to call <code>next</code>. It will start executing the function until it encounters the first <code>yield</code>. At this point, the control will be given back to the caller.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'Outside of numbers'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(numbersGenerator.next());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Outside of numbers; after the first next'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(numbersGenerator.next());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Outside of numbers; after the second next'</span>);</span><br></pre></td></tr></table></figure>
+<p>When we run these lines, we will get the following output:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Outside of numbers</span><br><span class="line">Inside numbers; start</span><br><span class="line">&#123;value: 1, done: false&#125;</span><br><span class="line">Outside of numbers; after first next</span><br><span class="line">Inside numbers; after the first yield</span><br><span class="line">&#123;value: 2, done: false&#125;</span><br><span class="line">Outside of numbers; after the second next</span><br></pre></td></tr></table></figure>
+<p>As you can see, the execution jumps back and forth between <code>numbers</code> and its caller. Each <code>next</code> call returns an instance of <code>IteratorResult</code> which contains the yielded value and a flag <code>done</code> which is set to <code>false</code> as long as there is more code to execute inside <code>numbers</code>. </p>
+<p><img src="/images/2018/02/Generators.png" alt=""> </p>
+<p>Generators are a very powerful mechanism. One of their uses is building lazy, infinite sequences. Another one is co-routines - a concurrency model where two pieces of code can <em>communicate</em> with each other. </p>
+<h2 id="Maybe-implemented-with-generators"><a href="#Maybe-implemented-with-generators" class="headerlink" title="Maybe implemented with generators"></a>Maybe implemented with generators</h2><p>As a reminder, we implemented the <code>getSupervisorName</code> function in the following way:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSupervisorName</span>(<span class="params">maybeEnteredId: Maybe&lt;<span class="built_in">string</span>&gt;</span>): <span class="title">Maybe</span>&lt;<span class="title">string</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> maybeEnteredId</span><br><span class="line">        .flatMap(<span class="function"><span class="params">employeeIdString</span> =&gt;</span> Maybe.fromValue(<span class="built_in">parseInt</span>(employeeIdString)))</span><br><span class="line">        .flatMap(<span class="function"><span class="params">employeeId</span> =&gt;</span> repository.findById(employeeId))</span><br><span class="line">        .flatMap(<span class="function"><span class="params">employee</span> =&gt;</span> employee.supervisorId)</span><br><span class="line">        .flatMap(<span class="function"><span class="params">supervisorId</span> =&gt;</span> repository.findById(supervisorId))</span><br><span class="line">        .map(<span class="function"><span class="params">supervisor</span> =&gt;</span> supervisor.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Obviously, the code is more readable than the original version which involved three levels of nesting. However, it looks very different from regular, imperative code. Can we make it look more like imperative code? As we know, generators allow us to pause execution of a function so that it can be later resumed. This means that we can <em>inject</em> some code to be executed between <code>yield</code> statements of given function. We could try to write a function that takes a <strong>generator function</strong> (a function with some <code>yield</code> statements) and injects the logic of handling empty results. Let’s start by writing an implementation of <code>getSupervisorName</code> that will use <code>yield</code> statements to handle empty results.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> enteredIdStr = <span class="keyword">yield</span> maybeEnteredId;</span><br><span class="line">    <span class="keyword">const</span> enteredId = <span class="built_in">parseInt</span>(enteredIdStr);</span><br><span class="line">    <span class="keyword">const</span> employee = <span class="keyword">yield</span> repository.findById(enteredId);</span><br><span class="line">    <span class="keyword">const</span> supervisorId = <span class="keyword">yield</span> employee.supervisorId;</span><br><span class="line">    <span class="keyword">const</span> supervisor = <span class="keyword">yield</span> repository.findById(supervisorId);</span><br><span class="line">    <span class="keyword">return</span> Maybe.some(supervisor.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Let’s assume that <code>maybeEnteredId</code> is defined in the function’s clojure and that it’s type is <code>Maybe&lt;string&gt;</code>. Now, the semantics of <code>const enteredIdStr = yield maybeEnteredId</code> is:</p>
+<ul>
+<li>if <code>maybeEnteredId</code> contains a value then assign this value to <code>enteredIdStr</code></li>
+<li>otherwise, the whole function should return <code>None</code></li>
+</ul>
+<p>In other words, <code>yield</code> works exactly like <code>flatMap</code>, but the syntax is very different. It’s much more familiar to an imperative programmer.</p>
+<h2 id="Implementing-run"><a href="#Implementing-run" class="headerlink" title="Implementing run"></a>Implementing <code>run</code></h2><p>This is not over yet. We still need a function that will be able to consume this generator function. In other words, we need something that will give meaning to all these <code>yield</code> statements. We’ll call this function <code>run</code>. It will take a generator function and produce <code>Maybe</code> instance containing the result of the computation. Let’s start with an imperative implementation of <code>run</code>:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> run&lt;R&gt;(gen: IterableIterator&lt;Maybe&lt;R&gt;&gt;): Maybe&lt;R&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> lastValue;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> result: IteratorResult&lt;Maybe&lt;R&gt;&gt; = gen.next(lastValue);</span><br><span class="line">        <span class="keyword">if</span> (result.done || result.value.value === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result.value;</span><br><span class="line">        &#125;</span><br><span class="line">        lastValue = result.value.value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>The <code>run</code> function accepts a generator function <code>gen</code>. This function describes our computation.</li>
+<li>We enter an infinite loop and call <code>gen.next(lastValue)</code>. This call will cause control flow to enter <code>gen</code> and execute until the first <code>yield</code> (ignore <code>lastValue</code> for now).</li>
+<li>Once this happens, the control flow returns to <code>run</code>. The value passed to <code>yield</code> is wrapped inside <code>IteratorResult</code> and returned as a value of <code>gen.next</code>,</li>
+<li><code>result</code> has a <code>done</code> flag. It indicates whether control flow inside <code>gen</code> has reached the end of its body (i.e. whether there’s more code to execute).</li>
+<li><code>result.value</code> holds the value returned by <code>yield</code>. It’s an instance of <code>Maybe</code>. Therefore, we check if it’s an empty result (a <code>None</code>). If this is the case, we <code>return</code> a <code>None</code> from the whole computation.</li>
+<li>Otherwise, we <em>unwrap</em> our <code>Maybe</code> and assign the inner value to <code>lastValue</code>.</li>
+<li>The loop repeats. However, this time <code>lastValue</code> is not empty. It will be passed to <code>gen</code> as a result of calling <code>yield</code>.</li>
+</ol>
+<p>There’s quite a lot going on here. A good way to understand this is to think about two pieces of code communicating with each other.</p>
+<ul>
+<li><code>gen</code> <em>sends</em> a <code>Maybe&lt;T&gt;</code> instance to <code>run</code> by calling <code>yield m</code></li>
+<li><code>run</code> <em>replies</em> with an instance of <code>T</code> by calling <code>gen.next(lastValue)</code></li>
+</ul>
+<p>The whole point of this is that we can hide the logic of empty result handling inside <code>run</code>. From the caller’s perspective, it will look like this:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSupervisorName</span>(<span class="params">maybeEnteredId: Maybe&lt;<span class="built_in">string</span>&gt;</span>): <span class="title">Maybe</span>&lt;<span class="title">string</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Maybe.run(<span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> enteredIdStr = <span class="keyword">yield</span> maybeEnteredId;</span><br><span class="line">        <span class="keyword">const</span> enteredId = <span class="built_in">parseInt</span>(enteredIdStr);</span><br><span class="line">        <span class="keyword">const</span> employee = <span class="keyword">yield</span> repository.findById(enteredId);</span><br><span class="line">        <span class="keyword">const</span> supervisorId = <span class="keyword">yield</span> employee.supervisorId;</span><br><span class="line">        <span class="keyword">const</span> supervisor = <span class="keyword">yield</span> repository.findById(supervisorId);</span><br><span class="line">        <span class="keyword">return</span> Maybe.some(supervisor.name);</span><br><span class="line">    &#125;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>What we’ve achieved is a clean and elegant implementation of <code>getSupervisorName</code> with all the boilerplate hidden in <code>run</code>. However, contrary to the <code>flatMap</code> solution, this code looks more intuitive to an imperative programmer.</p>
+<h2 id="Back-to-monads"><a href="#Back-to-monads" class="headerlink" title="Back to monads"></a>Back to monads</h2><p>That’s nice, you might say, but what does it have to do with monads? We’re not taking advantage of the fact that <code>Maybe</code> is a monad. Let’s fix that. You might’ve noticed some similarity between <code>run</code> implementation and <code>flatMap</code>. Both implementations have to deal with empty results and apply a similar logic: if a <code>Maybe</code> instance is empty then return early with a <code>None</code>. Otherwise, continue the computation with the unwrapped value. It turns out that we can implement <code>run</code> using <code>flatMap</code>!</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> run&lt;R&gt;(gen: IterableIterator&lt;Maybe&lt;R&gt;&gt;): Maybe&lt;R&gt; &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">value?</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> result = gen.next(value);</span><br><span class="line">        <span class="keyword">if</span> (result.done) &#123;</span><br><span class="line">            <span class="keyword">return</span> result.value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result.value.flatMap(step);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> step();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This recursive implementation is much more in the spirit of functional programming.</p>
+<ol>
+<li>We define <code>step</code> function which takes an optional <code>value</code> and passes it to <code>gen.next</code>. As we know, this will cause execution to resume inside <code>gen</code>, up to the nearest <code>yield</code>.</li>
+<li>We investigate <code>result.done</code>. If it’s false (there is still some code to execute), we simply call <code>flatMap</code> on <code>result.value</code> and recursively pass <code>step</code> as <em>continuation</em> function. <code>flatMap</code> will take care of an empty result.</li>
+<li>As long as we’re not dealing with a <code>None</code>, the recursive call to <code>step</code> will run <code>gen</code> up until the next <code>yield</code>. And so one, and so one.</li>
+</ol>
+<p>The client code looks exactly the same.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this post, we’ve looked at how generators can be leveraged to improve the experience of using monads. They make monadic code even cleaner and, what’s important when working in teams, easier to understand to programmers with imperative background (i.e. the vast majority). The idea of using generators in such a way is the basis of the <code>async/await</code> mechanism. As you’ll learn in the future posts, <code>Promise</code> is also a monad and <code>async/await</code> is nothing more than a specialized variant of <code>function*/yield</code>. But let’s not jump ourselves ahead :) Did you find this approach interesting? What is a more readable way to write monadic expressions - with or without generators? <strong>Share your thoughts in comments below!</strong></p>
+
+
+                    
+<hr>
+<p class="f5 bg-dark-gray br3 pa3 white">
+    Did you like this TypeScript article? I bet you'll also like this <strong>free PDF</strong>!<br>
+    <a href="https://typescriptmasterclass.com">
+      🐛 10 TypeScript tips to catch more bugs 🐛
+    </a>
+</p>
+
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Advanced functional programming in TypeScript: monads and generators by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="638.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/functional-programming/">#functional programming</a> <a class="fw3 ph1 dib" href="/tags/monads/">#monads</a> <a class="fw3 ph1 dib" href="/tags/generators/">#generators</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Recently I’ve been playing a lot with my pet project Tradux. It is a simple trading platform simulator which I built as an exercise in Redux, event so">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Building serverless web application with Angular 2, Webtask and Firebase">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>Building serverless web application with Angular 2, Webtask and Firebase - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/building-serverless-web-application-angular-2-webtask-firebase//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Building serverless web application with Angular 2, Webtask and Firebase</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2016-12-27</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/angular/">#angular</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/serverless/">#serverless</a> <a class="fw3 ph1 dib" href="/tags/webtask/">#webtask</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Recently I’ve been playing a lot with my pet project <a href="http://codewithstyle.info/tradux/">Tradux</a>. It is a simple trading platform simulator which I built as an exercise in Redux, event sourcing and serverless architectures. I’ve decided to share some of the knowledge I learned in the form of this tutorial. </p>
+<p>We’re going to build (guess what?) a TODO app. The client (in Angular 2) will be calling a Webtask whenever an event occurs (task created or task marked as done). The Webtask will update the data in the Firebase Database which will be then synchronized to the client. Webtask is function-as-a-service offering which allows you to run pieces of code on demand, without having to worry about infrastructure, servers, etc. - i.e. serverless. </p>
+<p><img src="/images/2016/12/Architecture.png" alt="Architecture" title="Architecture"> </p>
+<p>The full source code is available on <a href="https://github.com/miloszpp/serverless-todo" target="_blank" rel="noopener">Github</a>. </p>
+<p><strong>UPDATE:</strong> recently I gave a talk on this topic during <a href="https://www.meetup.com/AngularJS-Warsaw/events/237216962/" target="_blank" rel="noopener">#11 AngularJS Warsaw meetup</a>. During the talk I built a silghtly different demo application which additionally performs spell checking in the webtask. Check out the <a href="https://github.com/miloszpp/angularjs-warsaw-serverless" target="_blank" rel="noopener">Github repo</a> for the source code.</p>
+<h3 id="Project-skeleton"><a href="#Project-skeleton" class="headerlink" title="Project skeleton"></a>Project skeleton</h3><p>Let’s start with a very simple client in Angular 2. We will use Angular CLI to scaffold most of the code.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g angular-cli</span><br><span class="line">ng new serverless-todo</span><br></pre></td></tr></table></figure>
+<p>It takes a while for this command to run and it will install much more stuff than we need, but it’s still the quickest and most convenient way to go. Let’s create a single component.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd serverless-todo</span><br><span class="line">ng generate component tasks</span><br></pre></td></tr></table></figure>
+<p>Now, let’s create the following directory structure. We’d like to share some code between the client and the webtask so we will put it in common directory.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">|--app // the Angular 2 application</span><br><span class="line">|--common // stuff shared between the client and webtasks</span><br><span class="line">|  |--config.ts // Firebase and Webtask connection details</span><br><span class="line">|  |--config-secret.ts // secret parts of our config - careful not to share this</span><br><span class="line">|  `--model.ts // common interface definitions</span><br><span class="line">`--webtasks // source code for webtasks</span><br><span class="line">   |--add-task.ts // there will be only one webtask - it will be used for adding items to our list</span><br></pre></td></tr></table></figure>
+<p>Let’s start with defining the following interfaces inside model.ts. The first one is a command that will be sent from the client to the webtask. The second one is the entity representing an item on the list that will be stored in the database.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> AddTaskCommand &#123;</span><br><span class="line">    content: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> Task &#123;</span><br><span class="line">    content: <span class="built_in">string</span>;</span><br><span class="line">    created: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, remember to add the Tasks component to app.component.html :</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-tasks</span>&gt;</span><span class="tag">&lt;/<span class="name">app-tasks</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Adding-Firebase-to-the-Client"><a href="#Adding-Firebase-to-the-Client" class="headerlink" title="Adding Firebase to the Client"></a>Adding Firebase to the Client</h3><p>Before we proceed, you need to create a <a href="https://firebase.google.com/" target="_blank" rel="noopener">Firebase</a> account. Firebase is a cloud platform which provides useful services for developing and deploying web and mobile applications. We will focus on one particular aspect of Firebase - the Realtime Database. The Realtime Database is a No-SQL storage mechanism which supports automatic synchronization of clients. In other words, when one of the clients modifies a record in the database, all other clients will see the changes (almost in real-time). Once you created the account, let’s modify the database access rules. By default, the database only allows authenticated users. We will change it to allow anonymous reads. You can find the Rules tab once you click on the Database menu item.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;rules&quot;: &#123;</span><br><span class="line">    &quot;.read&quot;: true,</span><br><span class="line">    &quot;.write&quot;: &quot;auth != null&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Firebase provides a generous limit in the free Spark subscription. Create an account and define a new application. Once you are done, put the following definition in config.ts :</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">    addTaskUrl: <span class="string">""</span>,</span><br><span class="line">    firebase: &#123;</span><br><span class="line">        apiKey: <span class="string">"&lt;&lt;YOUR API KEY&gt;&gt;"</span>,</span><br><span class="line">        authDomain: <span class="string">"&lt;&lt;YOUR FIREBASE PROJECT ID&gt;&gt;.firebaseapp.com"</span>,</span><br><span class="line">        databaseURL: <span class="string">"https://&lt;&lt;YOUR FIREBASE PROJECT ID&gt;&gt;.firebaseio.com/"</span>,</span><br><span class="line">        storageBucket: <span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>If you cannot find your settings, here is a helper for you. If you are really lazy, you can use the following settings, although I cannot guarantee any availability. <img src="/images/2016/12/firebase2.png" alt="firebase2"> Let’s now add Firebase to our client. There is an excellent library called AngularFire2 which we are going to use. Run the following commands:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save firebase</span><br><span class="line">npm install --save angularfire2</span><br></pre></td></tr></table></figure>
+<p>Modify the imports section of AppModule  inside app.module.ts  so that it looks like this (you can import AngularFireModule  from angularfire2  module):</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">imports: [</span><br><span class="line">    BrowserModule,</span><br><span class="line">    FormsModule,</span><br><span class="line">    HttpModule,</span><br><span class="line">    AngularFireModule.initializeApp(config.firebase)</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure>
+<p>Now you can inject AngularFire object to Tasks component (tasks.compontent.ts ):</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> tasks: FirebaseListObservable&lt;Task[]&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> http: Http, angularFire: AngularFire</span>) &#123;</span><br><span class="line">  <span class="keyword">this</span>.tasks = angularFire.database.list(<span class="string">'tasks'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You will also need some HTML to display tasks. I will include the form for adding tasks as well (tasks.component.html ):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>TODO list<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"content"</span>&gt;</span>Task<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"content"</span> #<span class="attr">content</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span> (<span class="attr">click</span>)=<span class="string">"addTask(content.value)"</span>&gt;</span>Add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">"let task of tasks | async"</span>&gt;</span></span><br><span class="line">      &#123; &#123; task.content &#125;&#125; <span class="tag">&lt;<span class="name">small</span>&gt;</span>&#123; &#123; task.created | date &#125;&#125;<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Our client is ready to display tasks, however there are no tasks in the database yet. Note how we can bind directly to FirebaseListObservable - Firebase will take care of all the updates for us.</p>
+<h3 id="Creating-the-Webtask"><a href="#Creating-the-Webtask" class="headerlink" title="Creating the Webtask"></a>Creating the Webtask</h3><p>Now we need to create the Webtask responsible for adding tasks to the list. Before we continue, please create an account on <a href="http://webtask.io/" target="_blank" rel="noopener">webtask.io</a>. Again, you can use it for free for the purposes of this tutorial. The website will ask you to run the following commands:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install wt-cli -g</span><br><span class="line">wt init &lt;&lt;YOUR EMAIL&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Creating Webtasks is amazingly easy. You just need to define a function which takes a HTTP context and a callback to execute when the job is done. Paste the following code inside webtasks/add-task.ts :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; config &#125; <span class="keyword">from</span> <span class="string">'../common/config'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; firebaseSecret &#125; <span class="keyword">from</span> <span class="string">'../common/config-secret'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AddTaskCommand, Task &#125; <span class="keyword">from</span> <span class="string">'../common/model'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">context, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> tasksUrl = <span class="string">`<span class="subst">$&#123;config.firebase.databaseURL&#125;</span>/tasks.json?auth=<span class="subst">$&#123;firebaseSecret&#125;</span>`</span>;</span><br><span class="line">    <span class="keyword">const</span> command = <span class="xml"><span class="tag">&lt;<span class="name">AddTaskCommand</span>&gt;</span>context.body;</span></span><br><span class="line"><span class="xml">    console.log(\`Received command: $&#123;JSON.stringify(command)&#125;\`);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    const task: Task = &#123;</span></span><br><span class="line"><span class="xml">        content: command.content,</span></span><br><span class="line"><span class="xml">        created: Date.now()</span></span><br><span class="line"><span class="xml">    &#125;;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    const requestOptions = &#123;</span></span><br><span class="line"><span class="xml">        method: 'POST',</span></span><br><span class="line"><span class="xml">        url: tasksUrl,</span></span><br><span class="line"><span class="xml">        json: task</span></span><br><span class="line"><span class="xml">    &#125;;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    request(requestOptions, () =&gt; callback(null, "Finished"));</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>The above snippet parses the request body (note how it uses the same AddTaskCommand  interface that the client). Later, it creates a Task  object and calls Firebase via the REST API to add the object to the collection. You could use the Firebase Javascript client instead of calling the REST API directly, however I couldn’t get it working in the Webtask environment. Obviously in a production app you would perform validation here. Note that you need to define the firebaseSecret  constant. You can find the private API key here: </p>
+<p><img src="/images/2016/12/Zrzut-ekranu-2016-12-27-o-18.24.37-1024x566.png" alt="zrzut-ekranu-2016-12-27-o-18-24-37"> </p>
+<p>Firebase complains that this is a legacy method but it’s simply the quickest way to do that. Why do we need to pass the secret now? That’s because we defined a database access rule which says that anonymous writes are not permitted. Using the secret key allows us to bypass the rule. Obviously, in a production app you would use some proper authentication. We are ready to deploy the Webtask. A Webtask has to be a single JavaScript file. Ours is TypeScript and it depends on many other modules. Fortunately, Webtask.io provides a bundler which can do the hard work for us. Install it with the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g webtask-bundle</span><br></pre></td></tr></table></figure>
+<p>Now we can compile the TypeScript code to JavaScript, then run the bundler to create a single file and then deploy it using the Webtask CLI:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tsc add-task.ts &amp;&amp; \</span><br><span class="line">wt-bundle --output add-task-bundle.js add-task.js &amp;&amp; \</span><br><span class="line">wt create add-task-bundle.js &amp;&amp; \</span><br><span class="line">wt ls</span><br></pre></td></tr></table></figure>
+<p>Voila, the Webtask is now in the wild. The CLI will tell you its URL. Copy it and paste inside config.ts:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">    addTaskUrl: <span class="string">"&lt;&lt;YOUR WEBTASK URL&gt;&gt;"</span>,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Calling-the-Webtask-from-the-Client"><a href="#Calling-the-Webtask-from-the-Client" class="headerlink" title="Calling the Webtask from the Client"></a>Calling the Webtask from the Client</h3><p>There is just one missing part - we need to call the Webtask from the client. Go to the Tasks component and add the below method:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">addTask(content: <span class="built_in">string</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> command: AddTaskCommand = &#123; content &#125;;</span><br><span class="line">  <span class="built_in">console</span>.log(\<span class="string">`Adding task: <span class="subst">$&#123;JSON.stringify(command)&#125;</span>\`);</span></span><br><span class="line"><span class="string">  this.http.post(config.addTaskUrl, command).subscribe(</span></span><br><span class="line"><span class="string">    () =\&gt; console.log('Success'),</span></span><br><span class="line"><span class="string">    error =&gt; alert(\`Adding task failed with error <span class="subst">$&#123;error&#125;</span>\`)</span></span><br><span class="line"><span class="string">  );</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>This function is already linked to in HTML. Now, run the following command in console and enjoy the result!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng serve</span><br></pre></td></tr></table></figure>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this short tutorial I showed how to quickly build a serverless web application using Webtasks. Honestly, you achieve the same result without the Webtasks and by talking directly to Firebase from the Client. However, having this additional layer allows you to perform complex validation or calculations. See <a href="http://codewithstyle.info/tradux/">Tradux</a> for a nice example of a complex Webtask. You can very easily use Firebase to deploy your app.</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Building serverless web application with Angular 2, Webtask and Firebase by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="121.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/angular/">#angular</a> <a class="fw3 ph1 dib" href="/tags/firebase/">#firebase</a> <a class="fw3 ph1 dib" href="/tags/serverless/">#serverless</a> <a class="fw3 ph1 dib" href="/tags/webtask/">#webtask</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

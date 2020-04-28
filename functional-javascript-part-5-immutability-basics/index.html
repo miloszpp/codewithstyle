@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="In previous posts we’ve discussed how to deal with arrays in a functional way. We’ve learned about an important concept in Functional Programming: hig">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="Functional JavaScript part 5: immutability basics">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta name="twitter:card" content="summary">
+   
+
+  <!-- Title -->
+  
+  <title>Functional JavaScript part 5: immutability basics - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/functional-javascript-part-5-immutability-basics//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('images/homepage.png'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">Functional JavaScript part 5: immutability basics</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2017-08-17</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/immutability/">#immutability</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>In previous posts we’ve discussed how to deal with arrays in a functional way. We’ve learned about an important concept in Functional Programming: higher order functions. Let’s now tackle another very important concept: immutability. </p>
+<p><strong>This post is part of the <a href="https://codewithstyle.info/functional-programming-javascript-plain-words/">Functional Programming in JavaScript series</a>.</strong></p>
+<h3 id="What-is-immutability"><a href="#What-is-immutability" class="headerlink" title="What is immutability?"></a>What is immutability?</h3><p>Immutability is a fancy name for a specific rule for writing code. This rule says: <em>never change a value or reference once it has been assigned</em>. There are many reasons why you might decide to decide to use immutability. Most importantly, it makes your code easier to reason about. When working with traditional code with mutations, every time you call some function and pass an object to it, you have to assume that the function might change some property in the object you’ve passed. Such changes might be surprising, especially when some other developer is working on that function.</p>
+<h4 id="Example-of-issues-with-mutability"><a href="#Example-of-issues-with-mutability" class="headerlink" title="Example of issues with mutability"></a>Example of issues with mutability</h4><p>If you decide to embrace immutability in your code base you can be sure that if you pass an object to a function, none of its properties will be changed. Less surprises and less possibilities of error. Let’s see an example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setShipmentAddress</span>(<span class="params">person, product</span>) </span>&#123;</span><br><span class="line">  product.shipmentAddress = person.address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Assume that we are using this function somewhere in our code. It’s part of a common library and another developer is responsible for it so we don’t bother looking at the source code. One day, the developer is told that the product’s address should always be in upper case. Let’s assume he’s not terribly careful and decides to implement it this way:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setShipmentAddress</span>(<span class="params">product, person</span>) </span>&#123;</span><br><span class="line">  person.address = person.address.toLowerCase();</span><br><span class="line">  product.shipmentAddress = person.address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You don’t bother to look at the source code and start using the function straight away. Initially, it looks good - the function has assigned a lowercase address to product. However, after deployment to production you start receiving bug reports - why is person’s address displayed in lower case? Oh, wait…</p>
+<h4 id="Immutable-solution"><a href="#Immutable-solution" class="headerlink" title="Immutable solution"></a>Immutable solution</h4><p>All this mess could be avoided if you agreed on the immutability rule. In such case the other developer would have to implement setShipmentAddress in such a way that it would not mutate any of the input objects. Instead, it would return a fresh product object with updated address. You could then assume that this function will never change either product  nor person so the above situation would never happen!</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setShipmentAddress</span>(<span class="params">product, person</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name: product.name,</span><br><span class="line">    quantity: product.quantity,</span><br><span class="line">    shipmentAddress: person.address</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can see that with immutability we have a clear separation of function’s inputs and outputs. This is a very simplified example. In reality such <strong>unintentional side effects</strong> can be much more subtle and have much worse consequences. Let’s see how to avoid them at all thanks to immutability.</p>
+<h3 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h3><p>We will start small and have a look at simple variables. Variables in JavaScript are obviously mutable - once you assign an object or value to a given variable, you are free to change it at any point in the future. ES6 introduced a new keyword to the language: const. It is meant to be used in place of the var keyword. Declaring a variable as const  means that you cannot change it in the future!</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line">a = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p>Running the above code results in an error:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Assignment to constant variable.</span><br></pre></td></tr></table></figure>
+<p>You might be wondering why anyone would use one such thing. The main advantage is that it helps you avoid situations in which you accidentally change an existing variable. What’s more, it expresses your intentions better. If you mark a variable as const and then another developer comes and wants to change your code in a way that would require reassignment on that variable, they will realize that wasn’t your intention. They will think twice before making the change.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>Let’s look at a code piece from one of the previous chapters:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> safetyProducts = _.filter(products, p =&gt; p.category === <span class="string">"Safety"</span>);</span><br><span class="line"><span class="keyword">var</span> quantities = _.map(safetyProducts, p =&gt; p.quantity);</span><br><span class="line"><span class="keyword">var</span> bigQuantites = _.filter(quantities, q =&gt; q &gt; <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>Here we declare three variables and each of them is used only once. It will never make sense to re-assign to them. Therefore, it makes sense to change them to const.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> safetyProducts = _.filter(products, p =&gt; p.category === <span class="string">"Safety"</span>);</span><br><span class="line"><span class="keyword">const</span> quantities = _.map(safetyProducts, p =&gt; p.quantity);</span><br><span class="line"><span class="keyword">const</span> bigQuantites = _.filter(quantities, q =&gt; q &gt; <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>Note that this code piece was already written in functional style. Using const  often makes sense when dealing with functional code. One final remark about const is that while it guarantees that the variable cannot be changed, it doesn’t say anything about the object (or array) assigned to that variable. Therefore, this code would be perfectly legal:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> product = &#123;</span><br><span class="line">  name: <span class="string">"U-lock"</span>,</span><br><span class="line">  quantity: <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line">product.quantity = <span class="number">15</span>;</span><br></pre></td></tr></table></figure>
+<p>This is because the variable stores a reference to an object. We only mark the reference as immutable but not the object.</p>
+<p><img src="/images/2017/08/const-and-references-1.png" alt="" title="const and references"></p>
+<h3 id="Freezing-objects"><a href="#Freezing-objects" class="headerlink" title="Freezing objects"></a>Freezing objects</h3><p>How do we implement immutable objects in JavaScript then? We can use the Object.freeze method. It’s job is to mark all properties as read-only and prevent adding new properties.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> john2 = &#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.freeze(john2);</span><br><span class="line">john2.age = <span class="number">33</span>;</span><br><span class="line"><span class="built_in">console</span>.log(john2); <span class="comment">// prints &#123;name: "John", age: 25&#125;</span></span><br></pre></td></tr></table></figure>
+<p>As we can see the age property was <strong>not</strong> changed. If we enabled strict mode this code would throw an error.</p>
+<h3 id="Don’t-mutate-clone"><a href="#Don’t-mutate-clone" class="headerlink" title="Don’t mutate, clone"></a>Don’t mutate, clone</h3><p>Ok, but how can we implement “changes” to frozen object? Instead of mutating it we will simply return a new copy with applied changes. How to implement this, though? One of the ways would be:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buyProduct</span>(<span class="params">product</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name: product.name,</span><br><span class="line">    quantity: product.quantity - <span class="number">1</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>However, imagine having an object with 50 properties. We would need to rewrite them all!</p>
+<h4 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a><code>Object.assign</code></h4><p>Let’s have a look at some more clever ways to do this. The first option is to use the Object.assign  method introduced in ES6. Object.assign takes a target object and a source object(s) and copies all properties from the source object(s) to the target object.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> product = &#123;</span><br><span class="line">  name: <span class="string">"U-lock"</span>,</span><br><span class="line">  quantity: <span class="number">10</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.assign(product, &#123; <span class="attr">category</span>: <span class="string">"Safety"</span> &#125;);</span><br><span class="line"><span class="built_in">console</span>.log(product);</span><br></pre></td></tr></table></figure>
+<p>This code will print the following result to the console:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">name</span>: <span class="string">"U-lock"</span>, <span class="attr">quantity</span>: <span class="number">10</span>, <span class="attr">category</span>: <span class="string">"Safety"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>Wait, but we are mutating the product object here, right? That’s correct. However, we can use a little trick to return a new object instead of mutating the existing one. We can easily specify a new, empty object as the source object:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> categorizedProduct = <span class="built_in">Object</span>.assign(&#123;&#125;, product, &#123; <span class="attr">category</span>: <span class="string">"Safety"</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>Here we are providing two source objects and an empty target object. All of the properties from the source objects will be copied to the target empty object. As a result we get a fresh object with all the properties of product and the new category  property. It’s important to note that Object.assign  performs <strong>shallow</strong> assignment. If we have a nested object in one of the sources than it will <strong>not</strong> be cloned. Is it good or bad? It depends on our use case.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> john = &#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">  age: <span class="number">25</span>,</span><br><span class="line">  address: &#123;</span><br><span class="line">    street: <span class="string">"Wynalazek"</span>,</span><br><span class="line">    city: <span class="string">"Warsaw"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> alice = <span class="built_in">Object</span>.assign(&#123;&#125;, john, &#123; <span class="attr">name</span>: <span class="string">"Alice"</span> &#125;);</span><br><span class="line">alice.address.city = <span class="string">"London"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(john.address.city); <span class="comment">// "London"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Object-spread-operator"><a href="#Object-spread-operator" class="headerlink" title="Object spread operator"></a>Object spread operator</h4><p>This is actually not part of the JavaScript specification (yet). It is part of a <a href="https://github.com/tc39/proposal-object-rest-spread" target="_blank" rel="noopener">proposal</a> and will likely make it to one of the future JavaScript versions. However, it’s already supported in most modern browsers. Object spread operator is an even more convenient way of applying changes to objects without having to mutate them. Let’s see an example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> alice2 = &#123; ...john, <span class="attr">name</span>: <span class="string">"Alice"</span> &#125;;</span><br></pre></td></tr></table></figure>
+<p>This new syntax can be roughly translated into: take all properties from john object, combine them with the new name property and put it all in the new object. The three dots are applied to an object in order to “unwrap” its properties. Since such “unwrapped” properties cannot live on their own, they should always be put within curly braces. But curly braces always create a new object hence we will get a fresh object with copied properties. We don’t need to add any new property. This line would simply clone john :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> johnCopy = &#123; ...john &#125;;</span><br></pre></td></tr></table></figure>
+<p>Just as in the case of Object.assign  we have to pay special attention to nested objects.</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>In this post we’ve discussed four techniques which can help us write immutable code: constants, Object.freeze, Object.assign  and object spread operator. The last two techniques do not enforce immutability but rather make it easier to implement. I hope you agree with me that there are some benefits to using immutability. If you’re still not convinced, bear with me until we talk about Redux which unleashes the full potential of immutability. Before that, we will take a look at Immutable.js - a library which can make writing immutable code feel much more natural. </p>
+<p>If you have any issues understanding anything in this post or if you simply would like to provide feedback, please leave a comment below. I want this course to be as good as possible and I need your help for that! If you found this post helpful, please consider sharing it on Facebook or Twitter.</p>
+
+
+                    
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Functional JavaScript part 5: immutability basics by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="376.html" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/javascript/">#javascript</a> <a class="fw3 ph1 dib" href="/tags/immutability/">#immutability</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

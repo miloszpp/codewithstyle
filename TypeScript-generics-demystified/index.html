@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--Description-->
+  
+  <meta name="description" content="Recently I surveyed the readers of this blog to find out what TypeScript features people find difficult to understand. Generics were mentioned quite o">
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Miłosz Piechocki">
+  
+
+  <!--Open Graph Title-->
+  
+  <meta property="og:title" content="The ultimate explanation of TypeScript generics: functions">
+  
+
+  <!--Open Graph Description-->
+  
+
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="codewithstyle.info">
+
+  <!--Type page-->
+  
+  <meta property="og:type" content="article">
+  
+
+  <!--Page Cover-->
+  
+  <meta property="og:image" content="https://codewithstyle.info/images/posts/gears.jpg">
+  <meta property="twitter:image" content="https://codewithstyle.info/images/posts/gears.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+   
+
+  <!-- Title -->
+  
+  <title>The ultimate explanation of TypeScript generics: functions - codewithstyle.info</title>
+
+  <!-- Tachyons Core CSS -->
+  <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  
+  <link rel="amphtml" href="https://codewithstyle.info/TypeScript-generics-demystified//amp/index.html">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Google Analytics -->
+  
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89535231-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+  <!-- Twitter -->
+  <script>
+    window.twttr = (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    })(document, "script", "twitter-wjs");
+  </script>
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 text-light">
+  <div class="w-100">
+    <nav class="db flex-l pv3 mw8 center items-center-l">
+      <a class="db v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="codewithstyle.info">
+        <img src="/images/2017/07/CODE-WITHSTYLE-1.png" class="dib h3" alt="codewithstyle.info">
+      </a>
+      <div class="db v-mid w-100 w-75-l tc tr-l">
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/toc" title="Table of Contents">
+          Table of Contents
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags/typescript" title="TypeScript">
+          TypeScript
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/functional-programming" title="Functional Programming">
+          Functional Programming
+        </a>
+        
+        <a class="link dim f6 f5-l dib mr3 mr4-l white" href="http://miloszpiechocki.com/" title="Author">
+          Author
+        </a>
+        
+      </div>
+    </nav>
+  </div>
+
+  <!-- Title -->
+  <div class="w-100 vh-40 dt" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/posts/gears.jpg'); background-size: cover; background-position: center">
+    <div class="v-mid white center mw8">
+      <h1 class="f1-l f2-m tc tc-m tl-ns">The ultimate explanation of TypeScript generics: functions</h1>
+      <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-10-15</p>
+    </div>
+  </div>
+
+  <div class="w-100 bt">
+    <section class="pa2 mw8 center white">
+      <a class="link white dim" href="https://typescriptmasterclass.com">
+        🔥 Download FREE PDF:
+        <em>10 TypeScript tips to catch more bugs</em> 🔥
+      </a>
+    </section>
+  </div>
+</div>
+
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/basics/">#basics</a> <a class="fw3 ph1 dib" href="/tags/generics/">#generics</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>Recently I surveyed the readers of this blog to find out what TypeScript features people find difficult to understand. Generics were mentioned quite often. In this article, I’m going to equip you with a mental model that will let you understand <strong>generic functions</strong> properly (I’ll focus on <strong>generic types</strong> in another article).</p>
+<p>The concept of generics is not a very new one - it has been present in different programming languages (such as Java, C# or C++) for a long time. However, for folks without background in a statically typed language, generics might appear complicated. Therefore, I’m not going to make any assumptions and will explain generics completely from scratch.</p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>Let’s say you are adding types to some JavaScript codebase and you encounter this function:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNames</span>(<span class="params">persons</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> results = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> person <span class="keyword">of</span> persons) &#123;</span><br><span class="line">    results.push(person.name);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Typing this function is straightforward. It accepts an array of person objects as a parameter and returns an array of names (strings). For the person object, you can either create a <code>Person</code> interface or use one that you’ve already created.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNames</span>(<span class="params">persons: Person[]</span>): <span class="title">string</span>[] </span>&#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Next, you notice that you don’t actually need this function. Instead, you can use the built-in <code>Array.map</code> method.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> persons: Person[] = [</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> names = persons.map(<span class="function"><span class="params">person</span> =&gt;</span> person.name);</span><br></pre></td></tr></table></figure>
+<p>Hmm, but what about types? You check the type of <code>names</code> and realize that it has been correctly inferred to <code>string[]</code>! How does TypeScript achieve such an effect?</p>
+<p>To properly understand this, let’s try to type the following implementation of <code>map</code> function.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params">items, mappingFunction</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> results = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> items) &#123;</span><br><span class="line">    results.push(mappingFunction(item));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> names = map(persons, person =&gt; person.name);</span><br></pre></td></tr></table></figure>
+<p>The main issue with typing <code>map</code> is that you don’t know anything about the type of the elements of the array it will be called with. What makes <code>map</code> so cool is that it works with <em>any</em> kind of array!</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Works with array of Persons</span></span><br><span class="line"><span class="keyword">const</span> names = map(persons, person =&gt; person.name);</span><br><span class="line"><span class="comment">// Works with array of names too</span></span><br><span class="line"><span class="keyword">const</span> uppercaseNames = map(names, name =&gt; name.toUpperCase());</span><br><span class="line"><span class="comment">// Works even with an array of numbers!</span></span><br><span class="line"><span class="keyword">const</span> evenNumbers = map([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], n =&gt; n * <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Let’s-use-any"><a href="#Let’s-use-any" class="headerlink" title="Let’s use any!"></a>Let’s use <code>any</code>!</h2><p>As a first step, let’s try using <code>any</code> type to <code>map</code> this function.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function map(items: any[], mappingFunction: (item: any) =&gt; any): any[] &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Let’s break this down. <code>map</code> has two parameters. The type of the first one (<code>items</code>) is <code>any[]</code>. We tell the type system that we want <code>items</code> to be an array, but we don’t care about the type of those items. The type of the second parameter (<code>mappingFunction</code>) is a function that takes <code>any</code> and returns <code>any</code>. Finally, the return type is again <code>any[]</code> - an array of <em>anything</em>.</p>
+<p>Did we gain anything by doing this? Sure! TypeScript now won’t allow us to call <code>map</code> with some nonsensical arguments:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 🔴 Error: 'hello' is not an array</span></span><br><span class="line">map(<span class="string">"hello"</span>, <span class="function">(<span class="params">person: Person</span>) =&gt;</span> person.name);</span><br><span class="line"><span class="comment">// 🔴 Error: 1000 is not a function</span></span><br><span class="line">map(persons, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>Unfortunately, the types we provided are not precise enough. The purpose of TypeScript is to catch possible runtime errors earlier, at compile-time. However, the following calls won’t give any compile errors.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The second argument is a function that only works on numbers, not on `Person` objects.</span></span><br><span class="line"><span class="comment">// This would result in a runtime error.</span></span><br><span class="line">map(persons, <span class="function"><span class="params">n</span> =&gt;</span> n + <span class="number">5</span>);</span><br><span class="line"><span class="comment">// We tell TypeScript that `numbers` is an array of strings while in fact it will be an array of numbers.</span></span><br><span class="line"><span class="comment">// The second line results in a runtime error.</span></span><br><span class="line"><span class="keyword">const</span> names: <span class="built_in">string</span>[] = map(persons, <span class="function"><span class="params">person</span> =&gt;</span> person.age);</span><br><span class="line">names[<span class="number">0</span>].toLowerCase();</span><br></pre></td></tr></table></figure>
+<p>How can we improve the typing of <code>map</code> so that above examples would result in a compile-time error? Enter generics.</p>
+<h2 id="Generic-functions"><a href="#Generic-functions" class="headerlink" title="Generic functions"></a>Generic functions</h2><p>Generic function is (in this case) a way of saying “this function works with any kind of array” and maintaining type safety at the same time.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>&lt;<span class="title">TElement</span>, <span class="title">TResult</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  items: TElement[],</span></span></span><br><span class="line">  mappingFunction: (item: TElement) =&gt; TResult</span><br><span class="line">): TResult[] &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We replaced <code>any</code> with <code>TElement</code> and <code>TResult</code> type parameters. Type parameters are like <em>named <code>any</code>s</em>. Typing <code>items</code> as <code>TElement[]</code> still means that it is an array of anything. However, because it’s <em>named</em>, it lets us establish relationships between types of function parameters and the return type.</p>
+<p>Here, we’ve just expressed the following relationships:</p>
+<ul>
+<li><code>mappingFunction</code> takes anything as a parameter, but it must be <em>the same type of “anything”</em> as the type of elements of <code>items</code> array</li>
+<li><code>mappingFunction</code> can return anything, but whatever type it returns, it will be used as the type of elements of the array returned by <code>map</code> function</li>
+</ul>
+<p>The picture below demonstrates these relationships. Shapes of the same color have to be of the same type.</p>
+<p><img src="/images/posts/generic-functions.png" alt="Generic `map`"></p>
+<p>You might have noticed the <code>&lt;TElement, TResult&gt;</code> thing that we added next to <code>map</code>. Type parameters have to be declared explicitly using this notation. Otherwise, TypeScript wouldn’t know if <code>TElement</code> is a type argument or an actual type.</p>
+<p>BTW, for some reason, it is a common convention to use single-character names for type parameters (with a strong preference for <code>T</code>). I’d strongly recommend using full names, especially when you are not that experienced with generics. On the other hand, it’s a good idea to prefix type arguments with <code>T</code>, so that they’re easily distinguishable from regular types.</p>
+<h2 id="Calling-generic-functions"><a href="#Calling-generic-functions" class="headerlink" title="Calling generic functions"></a>Calling generic functions</h2><p>How to call a generic function? As we saw, generic functions have type parameters. These parameters are replaced with actual types “when” the function is called (technically, it’s all happening at compile-time). You can provide the actual types using angle brackets notation.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;Person, <span class="built_in">string</span>&gt;(persons, <span class="function"><span class="params">person</span> =&gt;</span> person.name);</span><br></pre></td></tr></table></figure>
+<p>Imagine that by providing type arguments <code>TElement</code> and <code>TResult</code> become replaced with <code>Person</code> and <code>string</code>.</p>
+<p><img src="/images/posts/generic-functions-2.png" alt="Generic `map`"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>&lt;<span class="title">TElement</span>, <span class="title">TResult</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  items: TElement[],</span></span></span><br><span class="line">  mappingFunction: (item: TElement) =&gt; TResult</span><br><span class="line">): TResult[] &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...becomes...</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  items: Person[],</span></span></span><br><span class="line">  mappingFunction: (item: Person) =&gt; string</span><br><span class="line">): <span class="built_in">string</span>[] &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Having to provide type arguments, when calling generic functions would be cumbersome. Fortunately, TypeScript can infer them by looking at the types of the arguments passed to the function. Therefore, we end up with the following code.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> names = map(persons, <span class="function"><span class="params">person</span> =&gt;</span> person.name);</span><br></pre></td></tr></table></figure>
+<p>Whoohoo! It looks exactly as the JavaScript version, except it’s type-safe! Contrary to the first version of <code>map</code>, the type of <code>names</code> is <code>string[]</code> instead of <code>any[]</code>. What’s more, TypeScript is now capable of throwing a compile error for the following call.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 🔴 Error! Operator '+' cannot be applied to Person and 5.</span></span><br><span class="line">map(persons, <span class="function"><span class="params">n</span> =&gt;</span> n + <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>Here is a very simplified sequence of steps that leads the compiler to throw an error.</p>
+<ol>
+<li>Compiler looks at the type of <code>persons</code>. It sees <code>Person[]</code>.</li>
+<li>According to the definition of <code>map</code>, the type of the first parameter is <code>TElement[]</code>. Compiler deduces that <code>TElement</code> is <code>Person</code>.</li>
+<li>Compiler looks at the second parameter. It should be a function from <code>Person</code> to <code>TResult</code>. It doesn’t know what <code>TResult</code> is yet.</li>
+<li>It checks the body of the function provided as the second argument. It infers that the type of <code>n</code> is <code>Person</code>.</li>
+<li>It sees that you’re trying to add <code>5</code> to <code>n</code>, which is of type <code>Person</code>. This doesn’t make sense, so it throws an error.</li>
+</ol>
+<h2 id="When-to-use-generic-functions"><a href="#When-to-use-generic-functions" class="headerlink" title="When to use generic functions?"></a>When to use generic functions?</h2><p>The good news is that, most likely, you will not be creating generic functions very often. It’s much more common to call generic functions then to define them. However, it’s still very useful to know how generic functions work, as it can help you better understand compiler errors.</p>
+<p>As exemplified by <code>map</code>, functions that take arrays as parameters are often generic functions. If you look at the typings for <code>lodash</code> library, you will see that nearly all of them are typed as generic functions. Such functions are only interested in the fact that the argument is an array, they don’t care about the type of its elements.</p>
+<p>In React framework, Higher Order Components are generic functions, as they only care about the argument being a component. The type of the component’s properties is not important.</p>
+<p>In RxJs, most operators are generic functions. They care about the input being and <code>Observable</code>, but they’re not interested in the type of values being emitted by the observable.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Wrapping up:</p>
+<ul>
+<li>generic functions let you achieve type safety for functions that work with many different types of inputs;</li>
+<li>type arguments are very much like <code>any</code> type, except they can be used to express relationships between function parameters and the return type;</li>
+<li>calling a generic function is very straightforward thanks to type inference.</li>
+</ul>
+<p>I hope this article helped you finally understand generic functions. If not, please let me know!</p>
+
+
+                    
+<hr>
+<p class="f5 bg-dark-gray br3 pa3 white">
+    Did you like this TypeScript article? I bet you'll also like this <strong>free PDF</strong>!<br>
+    <a href="https://typescriptmasterclass.com">
+      🐛 10 TypeScript tips to catch more bugs 🐛
+    </a>
+</p>
+
+
+                    <div class="social-sharing pv3">
+                      <h5 class="mv1">Enjoyed it? Let others hear about it too! ❤️</h5>
+                      <div class="flex items-center">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=The ultimate explanation of TypeScript generics: functions by @miloszpp" data-size="large">
+                          Tweet
+                        </a>
+                        <div class="fb-share-button mh1" data-href="" data-layout="button_count" data-size="large">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/typescript/">#typescript</a> <a class="fw3 ph1 dib" href="/tags/basics/">#basics</a> <a class="fw3 ph1 dib" href="/tags/generics/">#generics</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+                    
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                <hr class="dn-l mw4 black-50 mt5">
+                    
+<div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/images/speaker-avatar-2.png" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Miłosz Piechocki">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi! My name is Miłosz Piechocki. I’m a software developer living in Warsaw, Poland. I’m passionate about TypeScript, JavaScript and functional programming in modern web development.
+        </div>
+        <div class="mt3">
+          <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/miloszpp">
+            Follow me on Twitter</a>
+        </div>
+    </article>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+  <h3>Free download</h3>
+  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+</div>
+
+<hr class="dn-l mw4 black-50 mt5">
+
+<div class="mt5 tc tl-l">
+    <h3>Know about new posts first</h3>
+    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
+    <!-- Begin Mailchimp Signup Form -->
+    <div id="mc_embed_signup">
+        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+            <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
+                <div class="clear mt2">
+                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
+            </div>
+        </form>
+    </div>
+
+    <!--End mc_embed_signup-->
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+    <div class="mv8">
+        <div class="center tc">
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://twitter.com/miloszpp/" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="http://facebook.com/codewithstyle.info/" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://github.com/miloszpp" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="https://www.youtube.com/channel/UC_DEBDpgRyBZAT85tJ1QZBw" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="mailto:milosz@miloszpiechocki.com" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            
+                <div class="dib mh3">
+                    <a class="f3 f2-ns white dim" href="/atom.xml" target="_blank">
+                        <i class="fas fa-rss"></i>
+                    </a>
+                </div>
+            
+        </div>
+        <div class="f6 f5-ns center tc white pt5 fw3">
+            @Copyright Miłosz Piechocki. All right reserved | Design & Hexo based on Anodyne by <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+        </div>
+    </div>
+</div>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'codewithstyle';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
