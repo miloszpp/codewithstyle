@@ -862,11 +862,11 @@
     
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
     
-      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
-    
       <category term="video" scheme="https://codewithstyle.info/tags/video/"/>
     
       <category term="talk" scheme="https://codewithstyle.info/tags/talk/"/>
+    
+      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
   </entry>
   
@@ -1857,9 +1857,9 @@
       <category term="Thoughts" scheme="https://codewithstyle.info/categories/NET/Articles/Other-topics/Thoughts/"/>
     
     
-      <category term="book" scheme="https://codewithstyle.info/tags/book/"/>
-    
       <category term="csharp" scheme="https://codewithstyle.info/tags/csharp/"/>
+    
+      <category term="book" scheme="https://codewithstyle.info/tags/book/"/>
     
   </entry>
   
