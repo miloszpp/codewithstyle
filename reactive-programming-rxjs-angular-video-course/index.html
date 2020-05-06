@@ -81,7 +81,7 @@ Below you can find the list of available episodes.
 
   <!-- Twitter -->
   <script>
-    window.twttr = (function(d, s, id) {
+    window.twttr = (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -92,13 +92,42 @@ Below you can find the list of available episodes.
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
-      t.ready = function(f) {
+      t.ready = function (f) {
         t._e.push(f);
       };
 
       return t;
     })(document, "script", "twitter-wjs");
   </script>
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function (m, a, i, l, e, r) {
+      m["MailerLiteObject"] = e;
+      function f() {
+        var c = { a: arguments, q: [] };
+        var r = this.push(c);
+        return "number" != typeof r ? r : f.bind(c.q);
+      }
+      f.q = f.q || [];
+      m[e] = m[e] || f.bind(f.q);
+      m[e].q = m[e].q || f.q;
+      r = a.createElement(i);
+      var _ = a.getElementsByTagName(i)[0];
+      r.async = 1;
+      r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+      _.parentNode.insertBefore(r, _);
+    })(
+      window,
+      document,
+      "script",
+      "https://static.mailerlite.com/js/universal.js",
+      "ml"
+    );
+
+    var ml_account = ml("accounts", "1785990", "w8k8t0a5z1", "load");
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 
 
@@ -183,7 +212,7 @@ Below you can find the list of available episodes.
                       </div>
                       <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
                         <hr class="dn-l mw4 black-50 mt5">
-                    
+
 <div class="mt5 mt0-l">
     <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
         <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
@@ -203,37 +232,11 @@ Below you can find the list of available episodes.
 
 <div class="mt5 tc tl-l">
   <h3>Free download</h3>
-  <a href="https://typescriptmasterclass.com"><img src="/images/10tips.png"></a>
+  <a href="/10tips"><img src="/images/10tips.png"></a>
 </div>
 
 <hr class="dn-l mw4 black-50 mt5">
 
-<div class="mt5 tc tl-l">
-    <h3>Know about new posts first</h3>
-    <p class="tj f6 lh-copy">Subscribe to receive updates about new posts. No spam.</p>
-    <!-- Begin Mailchimp Signup Form -->
-    <div id="mc_embed_signup">
-        <form action="https://codewithstyle.us15.list-manage.com/subscribe/post?u=9387aca2477532e2e033cee17&amp;id=7c51853ca5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
-            <div id="mc_embed_signup_scroll">
-
-                <div class="mc-field-group">
-
-                    <input class="pa2 input-reset ba bg-transparent w-100" type="email" value="" name="EMAIL" id="mce-EMAIL">
-                </div>
-                <div id="mce-responses" class="clear">
-                    <div class="response" id="mce-error-response" style="display:none"></div>
-                    <div class="response" id="mce-success-response" style="display:none"></div>
-                </div>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9387aca2477532e2e033cee17_7c51853ca5" tabindex="-1" value=""></div>
-                <div class="clear mt2">
-                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"></div>
-            </div>
-        </form>
-    </div>
-
-    <!--End mc_embed_signup-->
-</div>
                       </div>
                     </div>
                 

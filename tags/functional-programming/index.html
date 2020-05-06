@@ -75,7 +75,7 @@
 
   <!-- Twitter -->
   <script>
-    window.twttr = (function(d, s, id) {
+    window.twttr = (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -86,13 +86,42 @@
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
-      t.ready = function(f) {
+      t.ready = function (f) {
         t._e.push(f);
       };
 
       return t;
     })(document, "script", "twitter-wjs");
   </script>
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function (m, a, i, l, e, r) {
+      m["MailerLiteObject"] = e;
+      function f() {
+        var c = { a: arguments, q: [] };
+        var r = this.push(c);
+        return "number" != typeof r ? r : f.bind(c.q);
+      }
+      f.q = f.q || [];
+      m[e] = m[e] || f.bind(f.q);
+      m[e].q = m[e].q || f.q;
+      r = a.createElement(i);
+      var _ = a.getElementsByTagName(i)[0];
+      r.async = 1;
+      r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+      _.parentNode.insertBefore(r, _);
+    })(
+      window,
+      document,
+      "script",
+      "https://static.mailerlite.com/js/universal.js",
+      "ml"
+    );
+
+    var ml_account = ml("accounts", "1785990", "w8k8t0a5z1", "load");
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 
 
@@ -193,19 +222,6 @@
     </div>
 </a>
             
-                <a href="/advanced-functional-programming-in-typescript-maybe-monad/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Feb 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: Maybe monad<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/advanced-functional-programming-typescript-monads-generators/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -215,6 +231,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: monads and generators<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/advanced-functional-programming-in-typescript-maybe-monad/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Feb 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: Maybe monad<span>
         </span></span></div>
     </div>
 </a>
@@ -245,19 +274,6 @@
     </div>
 </a>
             
-                <a href="/functional-javascript-app-scratch/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Aug 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JavaScript app from scratch<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/functional-javascript-part-1-introduction/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -267,6 +283,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Functional JavaScript part 1: introduction<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/functional-javascript-app-scratch/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Aug 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Functional JavaScript app from scratch<span>
         </span></span></div>
     </div>
 </a>
@@ -323,6 +352,19 @@
     </div>
 </a>
             
+                <a href="/functional-javascript-part-8-functional-reactive-programming-rxjs/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Sep 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Functional JavaScript part 8: functional-reactive programming with RxJS<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/functional-javascript-part-7-redux/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -345,19 +387,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Functional JS application from scratch - part 2 - virtual DOM<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/functional-javascript-part-8-functional-reactive-programming-rxjs/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Sep 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JavaScript part 8: functional-reactive programming with RxJS<span>
         </span></span></div>
     </div>
 </a>

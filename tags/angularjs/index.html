@@ -75,7 +75,7 @@
 
   <!-- Twitter -->
   <script>
-    window.twttr = (function(d, s, id) {
+    window.twttr = (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -86,13 +86,42 @@
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
-      t.ready = function(f) {
+      t.ready = function (f) {
         t._e.push(f);
       };
 
       return t;
     })(document, "script", "twitter-wjs");
   </script>
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function (m, a, i, l, e, r) {
+      m["MailerLiteObject"] = e;
+      function f() {
+        var c = { a: arguments, q: [] };
+        var r = this.push(c);
+        return "number" != typeof r ? r : f.bind(c.q);
+      }
+      f.q = f.q || [];
+      m[e] = m[e] || f.bind(f.q);
+      m[e].q = m[e].q || f.q;
+      r = a.createElement(i);
+      var _ = a.getElementsByTagName(i)[0];
+      r.async = 1;
+      r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+      _.parentNode.insertBefore(r, _);
+    })(
+      window,
+      document,
+      "script",
+      "https://static.mailerlite.com/js/universal.js",
+      "ml"
+    );
+
+    var ml_account = ml("accounts", "1785990", "w8k8t0a5z1", "load");
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 
 
@@ -154,19 +183,6 @@
     <div class="content">
         <div class="mw8 center">
             
-                <a href="/change-detection-angular-versus-angularjs/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Nov 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Change detection in Angular versus AngularJS<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/editable-cells-in-angular-ui-grid-not-working/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -176,6 +192,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Editable cells in Angular UI Grid not working<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/change-detection-angular-versus-angularjs/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Nov 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Change detection in Angular versus AngularJS<span>
         </span></span></div>
     </div>
 </a>

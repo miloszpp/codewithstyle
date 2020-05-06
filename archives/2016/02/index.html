@@ -75,7 +75,7 @@
 
   <!-- Twitter -->
   <script>
-    window.twttr = (function(d, s, id) {
+    window.twttr = (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -86,13 +86,42 @@
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
-      t.ready = function(f) {
+      t.ready = function (f) {
         t._e.push(f);
       };
 
       return t;
     })(document, "script", "twitter-wjs");
   </script>
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function (m, a, i, l, e, r) {
+      m["MailerLiteObject"] = e;
+      function f() {
+        var c = { a: arguments, q: [] };
+        var r = this.push(c);
+        return "number" != typeof r ? r : f.bind(c.q);
+      }
+      f.q = f.q || [];
+      m[e] = m[e] || f.bind(f.q);
+      m[e].q = m[e].q || f.q;
+      r = a.createElement(i);
+      var _ = a.getElementsByTagName(i)[0];
+      r.async = 1;
+      r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+      _.parentNode.insertBefore(r, _);
+    })(
+      window,
+      document,
+      "script",
+      "https://static.mailerlite.com/js/universal.js",
+      "ml"
+    );
+
+    var ml_account = ml("accounts", "1785990", "w8k8t0a5z1", "load");
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 
 
@@ -154,32 +183,6 @@
     <div class="content">
         <div class="mw8 center">
             
-                <a href="/30-months-blogging-summary/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jul 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">30 months of blogging - a summary<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/5-commandments-for-TypeScript-programmers/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jul 2019</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">5 Commandments for TypeScript programmers<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/Better-RxJS-code-with-pointfree-style/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -193,15 +196,15 @@
     </div>
 </a>
             
-                <a href="/Moving-to-Hexo/">
+                <a href="/5-commandments-for-TypeScript-programmers/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Dec 2018</span> 
+                <span class="f4 fw3 lh-copy">Jul 2019</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Moving to Hexo<span>
+            <span class="f4 fw3 lh-copy">5 Commandments for TypeScript programmers<span>
         </span></span></div>
     </div>
 </a>
@@ -232,6 +235,32 @@
     </div>
 </a>
             
+                <a href="/30-months-blogging-summary/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Jul 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">30 months of blogging - a summary<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/Moving-to-Hexo/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Dec 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Moving to Hexo<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/Strict-function-types-in-TypeScript-covariance-contravariance-and-bivariance/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -241,19 +270,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Strict function types in TypeScript: covariance, contravariance and bivariance<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/The-meaning-of-union-and-intersection-types/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 2019</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">The meaning of union and intersection types<span>
         </span></span></div>
     </div>
 </a>
@@ -271,15 +287,15 @@
     </div>
 </a>
             
-                <a href="/TypeScript-3-4-hidden-gem-propagated-generic-type-arguments/">
+                <a href="/The-meaning-of-union-and-intersection-types/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Mar 2019</span> 
+                <span class="f4 fw3 lh-copy">Jun 2019</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">TypeScript 3.4 hidden gem: propagated generic type arguments<span>
+            <span class="f4 fw3 lh-copy">The meaning of union and intersection types<span>
         </span></span></div>
     </div>
 </a>
@@ -297,15 +313,15 @@
     </div>
 </a>
             
-                <a href="/Typing-Higher-Order-Components-in-React/">
+                <a href="/TypeScript-3-4-hidden-gem-propagated-generic-type-arguments/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Aug 2019</span> 
+                <span class="f4 fw3 lh-copy">Mar 2019</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Typing Higher Order Components in React<span>
+            <span class="f4 fw3 lh-copy">TypeScript 3.4 hidden gem: propagated generic type arguments<span>
         </span></span></div>
     </div>
 </a>
@@ -319,19 +335,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">The ultimate explanation of TypeScript generics: functions<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/accessing-request-parameters-from-inside-a-future-in-scalatra/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jan 2016</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Accessing request parameters from inside a Future in Scalatra<span>
         </span></span></div>
     </div>
 </a>
@@ -362,6 +365,32 @@
     </div>
 </a>
             
+                <a href="/Typing-Higher-Order-Components-in-React/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Aug 2019</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Typing Higher Order Components in React<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/accessing-request-parameters-from-inside-a-future-in-scalatra/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Jan 2016</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Accessing request parameters from inside a Future in Scalatra<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/Using-React-useState-hook-with-TypeScript/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -371,32 +400,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Using React useState hook with TypeScript<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/ahead-of-time-compilation-angular/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Oct 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Ahead Of Time compilation in Angular<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/advanced-functional-programming-in-typescript-maybe-monad/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Feb 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: Maybe monad<span>
         </span></span></div>
     </div>
 </a>
@@ -414,6 +417,19 @@
     </div>
 </a>
             
+                <a href="/advanced-functional-programming-in-typescript-maybe-monad/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Feb 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: Maybe monad<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/advanced-functional-programming-typescript-functional-exceptions/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -423,6 +439,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Advanced functional programming in TypeScript: functional exceptions<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/ahead-of-time-compilation-angular/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Oct 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Ahead Of Time compilation in Angular<span>
         </span></span></div>
     </div>
 </a>
@@ -453,19 +482,6 @@
     </div>
 </a>
             
-                <a href="/book-review-scalability-rules-50-principles-scaling-web-sites/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Oct 2016</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">"Scalability Rules: 50 Principles for Scaling Web Sites" review<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/building-an-interpreter-with-discriminated-unions/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -475,6 +491,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">TypeScript: Building an interpreter with discriminated unions<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/book-review-scalability-rules-50-principles-scaling-web-sites/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Oct 2016</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">"Scalability Rules: 50 Principles for Scaling Web Sites" review<span>
         </span></span></div>
     </div>
 </a>
@@ -505,19 +534,6 @@
     </div>
 </a>
             
-                <a href="/change-detection-angular-versus-angularjs/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Nov 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Change detection in Angular versus AngularJS<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/combining-two-objects-in-lodash/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -544,19 +560,6 @@
     </div>
 </a>
             
-                <a href="/deep-dive-pipe-function-rxjs/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jul 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Deep dive into pipe function in RxJS<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/creating-angular-npm-packages-with-ng-packagr/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -570,15 +573,15 @@
     </div>
 </a>
             
-                <a href="/free-video-course-on-reactive-programming-in-angular/">
+                <a href="/deep-dive-pipe-function-rxjs/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Mar 2018</span> 
+                <span class="f4 fw3 lh-copy">Jul 2018</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Free Video Course on Reactive Programming in Angular<span>
+            <span class="f4 fw3 lh-copy">Deep dive into pipe function in RxJS<span>
         </span></span></div>
     </div>
 </a>
@@ -596,15 +599,15 @@
     </div>
 </a>
             
-                <a href="/free-ticket-js-poland-2018-results/">
+                <a href="/change-detection-angular-versus-angularjs/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Oct 2018</span> 
+                <span class="f4 fw3 lh-copy">Nov 2017</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Free ticket to JS Poland 2018 - results<span>
+            <span class="f4 fw3 lh-copy">Change detection in Angular versus AngularJS<span>
         </span></span></div>
     </div>
 </a>
@@ -622,15 +625,15 @@
     </div>
 </a>
             
-                <a href="/functional-javascript-app-scratch/">
+                <a href="/free-ticket-js-poland-2018-results/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Aug 2018</span> 
+                <span class="f4 fw3 lh-copy">Oct 2018</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JavaScript app from scratch<span>
+            <span class="f4 fw3 lh-copy">Free ticket to JS Poland 2018 - results<span>
         </span></span></div>
     </div>
 </a>
@@ -648,6 +651,19 @@
     </div>
 </a>
             
+                <a href="/functional-javascript-app-scratch/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Aug 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Functional JavaScript app from scratch<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/functional-javascript-part-2-array-operations/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -657,6 +673,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Functional JavaScript part 2: array operations<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/free-video-course-on-reactive-programming-in-angular/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Mar 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Free Video Course on Reactive Programming in Angular<span>
         </span></span></div>
     </div>
 </a>
@@ -687,19 +716,6 @@
     </div>
 </a>
             
-                <a href="/functional-javascript-part-6-immutable-js/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Aug 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JavaScript part 6: immutable.js<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/functional-javascript-part-5-immutability-basics/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -713,20 +729,7 @@
     </div>
 </a>
             
-                <a href="/functional-javascript-part-7-redux/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Sep 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JavaScript part 7: Redux<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/honest-advice-javascript-developers/">
+                <a href="/functional-javascript-part-6-immutable-js/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
@@ -734,20 +737,7 @@
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">New-old ideas in JavaScript<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/functional-js-application-scratch-part-2-virtual-dom/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Sep 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Functional JS application from scratch - part 2 - virtual DOM<span>
+            <span class="f4 fw3 lh-copy">Functional JavaScript part 6: immutable.js<span>
         </span></span></div>
     </div>
 </a>
@@ -765,6 +755,45 @@
     </div>
 </a>
             
+                <a href="/honest-advice-javascript-developers/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Aug 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">New-old ideas in JavaScript<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/functional-javascript-part-7-redux/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Sep 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Functional JavaScript part 7: Redux<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/functional-js-application-scratch-part-2-virtual-dom/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Sep 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Functional JS application from scratch - part 2 - virtual DOM<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/how-i-built-a-pwa-with-angular-and-firebase-part-2-ionic-2/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -774,19 +803,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">How I built a PWA with Angular and Firebase Part 2: Ionic and app manifest<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/how-i-built-a-progressive-web-app-with-angular-and-firebase-part-1/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Apr 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">How I built a PWA with Angular and Firebase Part 1: Introduction<span>
         </span></span></div>
     </div>
 </a>
@@ -817,15 +833,15 @@
     </div>
 </a>
             
-                <a href="/is-array-of-dogs-an-array-of-animals-covariance-contravariance-and-invariance-explained-part-2/">
+                <a href="/how-i-built-a-progressive-web-app-with-angular-and-firebase-part-1/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Oct 2015</span> 
+                <span class="f4 fw3 lh-copy">Apr 2017</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Is array of Dogs an array of Animals? Covariance, contravariance and invariance explained - part 2<span>
+            <span class="f4 fw3 lh-copy">How I built a PWA with Angular and Firebase Part 1: Introduction<span>
         </span></span></div>
     </div>
 </a>
@@ -843,15 +859,15 @@
     </div>
 </a>
             
-                <a href="/issues-asynchronous-programming/">
+                <a href="/is-array-of-dogs-an-array-of-animals-covariance-contravariance-and-invariance-explained-part-2/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">May 2016</span> 
+                <span class="f4 fw3 lh-copy">Oct 2015</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Issues with asynchronous IO in web applications<span>
+            <span class="f4 fw3 lh-copy">Is array of Dogs an array of Animals? Covariance, contravariance and invariance explained - part 2<span>
         </span></span></div>
     </div>
 </a>
@@ -869,6 +885,19 @@
     </div>
 </a>
             
+                <a href="/issues-asynchronous-programming/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">May 2016</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Issues with asynchronous IO in web applications<span>
+        </span></span></div>
+    </div>
+</a>
+            
                 <a href="/lossless-backpressure-reactive-programming-angular/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -878,19 +907,6 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Lossless Backpressure - Reactive Programming in Angular<span>
-        </span></span></div>
-    </div>
-</a>
-            
-                <a href="/lossy-backpressure-reactive-programming-angular/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Lossy Backpressure - Reactive Programming in Angular<span>
         </span></span></div>
     </div>
 </a>
@@ -908,15 +924,15 @@
     </div>
 </a>
             
-                <a href="/ngpoland-angular-conference-2016/">
+                <a href="/lossy-backpressure-reactive-programming-angular/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Nov 2016</span> 
+                <span class="f4 fw3 lh-copy">Jun 2018</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">ngPoland - Angular Conference 2016<span>
+            <span class="f4 fw3 lh-copy">Lossy Backpressure - Reactive Programming in Angular<span>
         </span></span></div>
     </div>
 </a>
@@ -930,6 +946,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">NgPoland 2017 conference summary<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/ngpoland-angular-conference-2016/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Nov 2016</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">ngPoland - Angular Conference 2016<span>
         </span></span></div>
     </div>
 </a>
@@ -999,19 +1028,6 @@
     </div>
 </a>
             
-                <a href="/scala-for-c-developers-part-ii/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Nov 2015</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Scala for C# developers - part II<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/scala-for-c-developers-part-iii/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -1021,6 +1037,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Scala for C# developers - part III<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/scala-for-c-developers-part-ii/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Nov 2015</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Scala for C# developers - part II<span>
         </span></span></div>
     </div>
 </a>
@@ -1051,15 +1080,15 @@
     </div>
 </a>
             
-                <a href="/setting-up-coverage-reports-on-vsts-with-opencover/">
+                <a href="/scan-redux-pattern-state-management-reactive-programming-angular/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Mar 2017</span> 
+                <span class="f4 fw3 lh-copy">Jul 2018</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Setting up coverage reports on TFS with OpenCover<span>
+            <span class="f4 fw3 lh-copy">Scan and Redux pattern state management - Reactive Programming in Angular<span>
         </span></span></div>
     </div>
 </a>
@@ -1077,15 +1106,15 @@
     </div>
 </a>
             
-                <a href="/scan-redux-pattern-state-management-reactive-programming-angular/">
+                <a href="/setting-up-coverage-reports-on-vsts-with-opencover/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
             
-                <span class="f4 fw3 lh-copy">Jul 2018</span> 
+                <span class="f4 fw3 lh-copy">Mar 2017</span> 
             
         </div>
         <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Scan and Redux pattern state management - Reactive Programming in Angular<span>
+            <span class="f4 fw3 lh-copy">Setting up coverage reports on TFS with OpenCover<span>
         </span></span></div>
     </div>
 </a>
@@ -1103,19 +1132,6 @@
     </div>
 </a>
             
-                <a href="/talk-code-europe-2017-afterthoughts-qa-session/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">May 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">My talk at Code Europe 2017: afterthoughts and the Q&A session<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/strategies-managing-long-running-api-calls-rxjs/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -1125,6 +1141,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Strategies for Managing Long-running API Calls with RxJS<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/talk-code-europe-2017-afterthoughts-qa-session/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">May 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">My talk at Code Europe 2017: afterthoughts and the Q&A session<span>
         </span></span></div>
     </div>
 </a>
@@ -1155,19 +1184,6 @@
     </div>
 </a>
             
-                <a href="/using-rxjs-angular-part-1/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Oct 2017</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Using RxJS with Angular: part 1<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/understand-monads-linq/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -1177,6 +1193,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Understand monads with LINQ<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/using-rxjs-angular-part-1/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Oct 2017</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Using RxJS with Angular: part 1<span>
         </span></span></div>
     </div>
 </a>
@@ -1194,19 +1223,6 @@
     </div>
 </a>
             
-                <a href="/win-free-ticket-js-poland-2018/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Oct 2018</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Win free ticket to JS Poland 2018!<span>
-        </span></span></div>
-    </div>
-</a>
-            
                 <a href="/why-i-like-c-feature-wise-comparison-with-java/">
     <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
         <div class="dtc v-mid w-20 black-50">
@@ -1216,6 +1232,19 @@
         </div>
         <div class="dtc v-mid w-80 black-70">
             <span class="f4 fw3 lh-copy">Why I like C#: feature-wise comparison with Java<span>
+        </span></span></div>
+    </div>
+</a>
+            
+                <a href="/win-free-ticket-js-poland-2018/">
+    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
+        <div class="dtc v-mid w-20 black-50">
+            
+                <span class="f4 fw3 lh-copy">Oct 2018</span> 
+            
+        </div>
+        <div class="dtc v-mid w-80 black-70">
+            <span class="f4 fw3 lh-copy">Win free ticket to JS Poland 2018!<span>
         </span></span></div>
     </div>
 </a>

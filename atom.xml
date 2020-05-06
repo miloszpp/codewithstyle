@@ -146,9 +146,9 @@
     </summary>
     
     
-      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
-    
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
     
       <category term="react" scheme="https://codewithstyle.info/tags/react/"/>
     
@@ -250,11 +250,11 @@
     </summary>
     
     
-      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
-    
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
     
       <category term="pointfree style" scheme="https://codewithstyle.info/tags/pointfree-style/"/>
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
     
   </entry>
   
@@ -829,9 +829,9 @@
       <category term="TypeScript" scheme="https://codewithstyle.info/categories/JavaScript/TypeScript/"/>
     
     
-      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
-    
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
     
       <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
@@ -862,11 +862,11 @@
     
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
     
+      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
+    
       <category term="video" scheme="https://codewithstyle.info/tags/video/"/>
     
       <category term="talk" scheme="https://codewithstyle.info/tags/talk/"/>
-    
-      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
   </entry>
   
@@ -893,9 +893,9 @@
       <category term="TypeScript" scheme="https://codewithstyle.info/categories/JavaScript/TypeScript/"/>
     
     
-      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
-    
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
     
       <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
@@ -957,9 +957,9 @@
       <category term="TypeScript" scheme="https://codewithstyle.info/categories/JavaScript/TypeScript/"/>
     
     
-      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
-    
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
     
       <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
