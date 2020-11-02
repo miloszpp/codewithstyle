@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://codewithstyle.info/"/>
-  <updated>2019-12-02T21:26:20.062Z</updated>
+  <updated>2020-11-02T21:17:41.930Z</updated>
   <id>https://codewithstyle.info/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TypeScript - Engineering Manager&#39;s perspective</title>
+    <link href="https://codewithstyle.info/TypeScript-Engineering-Manager-s-perspective/"/>
+    <id>https://codewithstyle.info/TypeScript-Engineering-Manager-s-perspective/</id>
+    <published>2020-11-02T14:13:34.000Z</published>
+    <updated>2020-11-02T21:17:41.930Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>As a Software Engineer I used to put a lot of focus on making sure that my TypeScript code is typed correctly. Actually, I deemed it to be the key code quality metric. I trusted static typing a lot, believing that the effort invested in figuring out the types pays off many times over. Now that I’m an Engineering Manager, has my perspective changed? Do I still find static typing so important?</strong></p><p>It’s been a long time since I wrote on this blog. One of the reasons is my transition to an Engineering Manager role which happened about half a year ago. It’s been an interesting time, which certainly changed a lot in how I approach software development. In this article, I’d like to focus on how my approach to TypeScript changed during that time.</p><p>Being an Engineering Manager at the company I work in encompasses multiple responsibilities such as planning, coordinating with Product Manager and User Experience folks, taking major technical decisions, helping a Team member grow, etc. It’s a breadth-first role, as opposed to Software Engineer, which is a depth-first role. The natural consequence of this is that I have less time to focus on the technical aspects, such as static typing.</p><p>What’s more, as an EM I have to constantly balance how much effort is spent on the product backlog versus technical debt. I realized that even in a company with a strong engineering culture, prioritizing the tech debt is tricky. There is always a lot of things to fix: increasing test coverage, fixing performance, refactoring the code after bad design choices. Improving static typing competes with a lot of other items and sometimes compromises have to be made. As a result, I’m now definitely more cautious when evaluating when it’s worth spending a lot of time on improving typing in an area of code.</p><p>On the other hand, as an EM I get more visibility into how static typing affects the Team’s performance. And I can confirm that the majority of my SWE-era hypothesis about static typing was correct. My Team works with different parts of the product and we have to deal with noticeably more bugs in the areas that are poorly typed. What’s more, poorly typed code is far less readable and more error-prone. I get regular complaints from the Team when they have to deal with such code. Also, onboarding new Team members is far easier when the code is typed correctly.</p><p>One immensely helpful thing is building a Team culture that values static typing. Folks on my Team put a lot of focus on this when reviewing the code, always asking why someone typed some variable as <code>any</code> (and they better had a really good reason) and suggesting more precise types whenever possible. This allows the team to minimize the tech debt created around static typing so that there’s less to clean up later.</p><p>Wrapping up, my perspective on static typing has certainly changed. I became more pragmatic about it, always evaluating the effort vs the benefit of complex type refactorings. However, fundamentally, I still believe in the importance of static typing and I would never encourage poor typing. Being an Engineering Manager allowed me to see the benefits of static typing at scale.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;As a Software Engineer I used to put a lot of focus on making sure that my TypeScript code is typed correctly. Actually, I deemed
+      
+    
+    </summary>
+    
+    
+      <category term="typescript" scheme="https://codewithstyle.info/tags/typescript/"/>
+    
+      <category term="leadership" scheme="https://codewithstyle.info/tags/leadership/"/>
+    
+  </entry>
   
   <entry>
     <title>The ultimate explanation of TypeScript generics: functions</title>
@@ -862,11 +887,11 @@
     
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
     
+      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
+    
       <category term="video" scheme="https://codewithstyle.info/tags/video/"/>
     
       <category term="talk" scheme="https://codewithstyle.info/tags/talk/"/>
-    
-      <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
     
   </entry>
   
@@ -2218,9 +2243,9 @@
     
       <category term="functional programming" scheme="https://codewithstyle.info/tags/functional-programming/"/>
     
-      <category term="scala" scheme="https://codewithstyle.info/tags/scala/"/>
-    
       <category term="monads" scheme="https://codewithstyle.info/tags/monads/"/>
+    
+      <category term="scala" scheme="https://codewithstyle.info/tags/scala/"/>
     
   </entry>
   
